@@ -24,7 +24,8 @@ namespace Neighbors.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Thanks for your visit!";
+            ViewData["Text"] = "Please feel free to contact us with any feedback or question.";
 
             return View();
         }

@@ -17,5 +17,8 @@ namespace Neighbors.Models
         public DbSet<Neighbors.Models.User> User { get; set; }
 
         public DbSet<Neighbors.Models.Product> Product { get; set; }
+
+        public DbSet<Neighbors.Models.Borrow> Borrows { get; set; }
+
     }
-}
+ }
