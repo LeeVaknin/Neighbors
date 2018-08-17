@@ -30,9 +30,6 @@ namespace Neighbors
             services.AddDbContext<NeighborsContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("NeighborsDb")));
 
-			services.AddDbContext<UsersContext>(options =>
-				   options.UseSqlServer(Configuration.GetConnectionString("UsersDb")));
-
 			ConfigureAuthentication(services);
         }
 
@@ -44,7 +41,7 @@ namespace Neighbors
 		private void ConfigureAuthentication(IServiceCollection services)
 		{
 			services.AddIdentity<User, Role>()
-				.AddEntityFrameworkStores<UsersContext>()
+				.AddEntityFrameworkStores<NeighborsContext>()
 				.AddDefaultTokenProviders();
 
 			services.AddAuthentication().AddGoogle(googleOptions =>
