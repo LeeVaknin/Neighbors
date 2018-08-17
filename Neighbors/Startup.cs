@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Neighbors.Models;
+using Microsoft.AspNetCore.Identity;
+using Neighbors.Data;
 
 namespace Neighbors
 {
@@ -25,12 +27,35 @@ namespace Neighbors
         {
             services.AddMvc();
 
-            services.AddDbContext<DatabaseContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DatabaseContext")));
+            services.AddDbContext<NeighborsContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("NeighborsDb")));
+
+			services.AddDbContext<UsersContext>(options =>
+				   options.UseSqlServer(Configuration.GetConnectionString("UsersDb")));
+
+			ConfigureAuthentication(services);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		/// <summary>
+		/// Added google authentication method and identity to the project.
+		/// Identity will allow us to manage users by our selves, if we want.
+		/// </summary>
+		/// <param name="services"></param>
+		private void ConfigureAuthentication(IServiceCollection services)
+		{
+			services.AddIdentity<User, Role>()
+				.AddEntityFrameworkStores<UsersContext>()
+				.AddDefaultTokenProviders();
+
+			services.AddAuthentication().AddGoogle(googleOptions =>
+			{
+				googleOptions.ClientId = Configuration.GetSection("Authentication").GetSection("Google")["ClientId"];
+				googleOptions.ClientSecret = Configuration.GetSection("Authentication").GetSection("Google")["ClientSecret"];
+			});
+		}
+
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -43,6 +68,8 @@ namespace Neighbors
             }
 
             app.UseStaticFiles();
+
+			app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
