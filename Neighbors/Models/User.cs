@@ -1,26 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Neighbors.Models
 {
-    public class User
+    public class User: IdentityUser<int>
     {
-        public int Id { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 
         [Required]
         public string LastName { get; set; }
-
-        [Required,Phone]
-        public int PhoneNumber { get; set; }
-
-        [Required,EmailAddress]
-        public string EmailAddress { get; set; }
 
         [Required]
         public string Address { get; set; }
@@ -29,16 +23,16 @@ namespace Neighbors.Models
         [Required]
         public string City { get; set; }
 
-        // Add ROLE
-
         // Collection of all the products that people borrowed from me
+		[NotMapped]
         public ICollection<Borrow> BorrowedProduct { get; set; }
 
-        public ICollection<Product> MyProducts { get; set; }
+		[NotMapped]
+		public ICollection<Product> MyProducts { get; set; }
 
-        // Collection of all the products that I borrowed from others
-        public ICollection<Borrow> MyBorrowed { get; set; }
-
+		[NotMapped]
+		// Collection of all the products that I borrowed from others
+		public ICollection<Borrow> MyBorrowed { get; set; }
 
     }
 }
