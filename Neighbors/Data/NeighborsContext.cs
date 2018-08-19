@@ -18,5 +18,7 @@ namespace Neighbors.Data
 
         public DbSet<Borrow> Borrows { get; set; }
 
+        //public DbSet<Neighbors.Models.Category> Categories { get; set; }
+
     }
  }
