@@ -15,10 +15,10 @@ namespace Neighbors.Models
         public string Name { get; set; }
 
         [Required]
-        public Category Category { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
-        public User Owner { get; set; }
+        public int OwnerId { get; set; }
 
         public int BorrowsDays { get; set; }
 
