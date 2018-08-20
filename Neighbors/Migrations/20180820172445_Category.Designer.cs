@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Neighbors.Data;
 
 namespace Neighbors.Migrations
 {
     [DbContext(typeof(NeighborsContext))]
-    partial class NeighborsContextModelSnapshot : ModelSnapshot
+    [Migration("20180820172445_Category")]
+    partial class Category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,6 +143,8 @@ namespace Neighbors.Migrations
                     b.Property<double>("Price");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Product");
                 });
@@ -284,6 +288,14 @@ namespace Neighbors.Migrations
                     b.HasOne("Neighbors.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Neighbors.Models.Product", b =>
+                {
+                    b.HasOne("Neighbors.Models.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

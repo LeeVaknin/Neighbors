@@ -20,8 +20,14 @@ namespace Neighbors.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
         {
+            if(!String.IsNullOrEmpty(SearchString))
+            {
+
+               var products = _context.Product.Where(m => m.Name.Contains(SearchString));
+                return View(await products.ToListAsync());
+            }
             return View(await _context.Product.ToListAsync());
         }
 
@@ -54,7 +60,7 @@ namespace Neighbors.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Category,BorrowsDays,Price")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,OwnerId,BorrowsDays,Price")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +92,7 @@ namespace Neighbors.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Category,BorrowsDays,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryId,OwnerId,BorrowsDays,Price")] Product product)
         {
             if (id != product.Id)
             {
