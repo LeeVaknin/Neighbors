@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Neighbors.Models;
 using Microsoft.AspNetCore.Identity;
 using Neighbors.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Neighbors.Services;
 
 namespace Neighbors
 {
@@ -49,6 +52,24 @@ namespace Neighbors
 				googleOptions.ClientId = Configuration.GetSection("Authentication").GetSection("Google")["ClientId"];
 				googleOptions.ClientSecret = Configuration.GetSection("Authentication").GetSection("Google")["ClientSecret"];
 			});
+
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+				.AddRazorPagesOptions(options =>
+				{
+					options.AllowAreas = true;
+					options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+					options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+				});
+
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.LoginPath = $"/Identity/Account/Login";
+				options.LogoutPath = $"/Identity/Account/Logout";
+				options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+			});
+
+			// using Microsoft.AspNetCore.Identity.UI.Services;
+			// services.AddSingleton<IEmailSender, EmailSender>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
