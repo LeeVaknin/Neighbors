@@ -8,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace Neighbors.Models
 {
-    public class User: IdentityUser<int>
-    {
-        [Required]
-        public string FirstName { get; set; }
+	public class User: IdentityUser<int>
+	{
+		[Required]
+		public string FirstName { get; set; }
 
-        [Required]
-        public string LastName { get; set; }
+		[Required]
+		public string LastName { get; set; }
 
-        [Required]
-        public string Address { get; set; }
+		[Required]
+		public string Address { get; set; }
 
-        // Cheack if there is relevant attribute
-        [Required]
-        public string City { get; set; }
+		// Check if there is relevant attribute
+		[Required]
+		public string City { get; set; }
 
-        // Collection of all the products that people borrowed from me
+		// Collection of all the products that people borrowed from me
 		[NotMapped]
-        public ICollection<Borrow> BorrowedProduct { get; set; }
+		public ICollection<Borrow> BorrowedProduct { get; set; }
 
 		[NotMapped]
 		public ICollection<Product> MyProducts { get; set; }
@@ -34,5 +34,5 @@ namespace Neighbors.Models
 		// Collection of all the products that I borrowed from others
 		public ICollection<Borrow> MyBorrowed { get; set; }
 
-    }
+	}
 }

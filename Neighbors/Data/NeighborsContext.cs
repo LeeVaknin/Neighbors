@@ -8,7 +8,7 @@ using Neighbors.Models;
 
 namespace Neighbors.Data
 {
-    public class NeighborsContext : IdentityDbContext<User, Role, int>
+	public class NeighborsContext : IdentityDbContext<User, Role, int>
 	{
 		public NeighborsContext(DbContextOptions<NeighborsContext> options)
 			 : base(options)
@@ -16,9 +16,9 @@ namespace Neighbors.Data
 		}
 		public DbSet<Product> Product { get; set; }
 
-        public DbSet<Borrow> Borrows { get; set; }
+		public DbSet<Borrow> Borrows { get; set; }
 
-        //public DbSet<Neighbors.Models.Category> Categories { get; set; }
+		//public DbSet<Neighbors.Models.Category> Categories { get; set; }
 
-    }
+	}
  }
