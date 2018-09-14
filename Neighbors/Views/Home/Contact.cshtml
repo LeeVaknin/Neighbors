@@ -1,18 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "Neighbors - Contact us";
+	ViewData["Title"] = "Neighbors - Contact us";
 }
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
-<p>@ViewData["Text"]</p>
 
-<address>
-    Eli Vizel 1<br />
-    Rishon Lezion, Israel<br />
-    <abbr title="Phone">P:</abbr>
-    03-3333555
-</address>
+<div class="container row well well-lg">
+	<div class="col-xs-6 left-border">
+		<p>@ViewData["Text"] </p>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@neighboers.com">Support@neighboers.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@neighboers.com">Marketing@neighboers.com</a>
-</address>
+		<address>
+			Eli Vizel 1<br />
+			Rishon Lezion, Israel<br />
+			<span>Phone: </span>
+			03-3333555
+		</address>
+	</div>
+	
+	<div class="col-xs-3 left-border">
+		<address>
+			<strong>Support:</strong> <a href="mailto:Support@neighboers.com">Support@neighboers.com</a><br />
+			<strong>Marketing:</strong> <a href="mailto:Marketing@neighboers.com">Marketing@neighboers.com</a>
+		</address>
+	</div>
+</div>

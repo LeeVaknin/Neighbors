@@ -1,68 +1,66 @@
 ﻿@model IEnumerable<Neighbors.Models.Product>
 
 @{
-    ViewData["Title"] = "Products";
+	ViewData["Title"] = "Products";
 }
 
 <h2>Products To Borrow</h2>
 
 <p>
-    <a asp-action="Create">Offer your product</a>
+	<a asp-action="Create">Offer your product</a>
 </p>
-@using (Html.BeginForm())
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
+<form class="form-inline form-group">
+	<input type="text" class="inputText form-control" required />
+	<span class="floating-label">What you want to find?</span>
+	<input class="btn " type="submit" value="Search" />
+</form>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OwnerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BorrowsDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OwnerId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BorrowsDays)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CategoryId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.OwnerId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.BorrowsDays)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Price)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CategoryId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.OwnerId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.BorrowsDays)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

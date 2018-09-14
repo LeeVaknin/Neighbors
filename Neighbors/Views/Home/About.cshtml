@@ -1,16 +1,19 @@
 ﻿@{
-    ViewData["Title"] = "About Neighbors";
+	ViewData["Title"] = "Our Story";
 }
-<h2>@ViewData["Title"]</h2>
-<p>
-    @ViewData["Message1"]
-    <br />
-    @ViewData["Message2"]
-    <br />
-    @ViewData["Message3"]
-    <br />
-    @ViewData["Message4"]
-    <br />
-    @ViewData["Message5"]
-</p>
+
+<div class="jumbotron">
+	<h2>@ViewData["Title"]</h2>
+	<p>
+		@ViewData["Message1"]
+		<br />
+		@ViewData["Message2"]
+		<br />
+		@ViewData["Message3"]
+		<br />
+		@ViewData["Message4"]
+
+	</p>
+	<p class="text-warning">Warning: @ViewData["Message5"]</p>
+</div>
 
