@@ -86,6 +86,17 @@ namespace Neighbors.Services.DAL
 			return _context.Product.Any(e => e.Id == id);
 		}
 
-		#endregion
-	}
+        #endregion
+
+        #region Categories
+
+        public IEnumerable<object> GetAllCategories()
+        {
+            var q = from c in _context.Categories
+                    select new { Value = c.Id, Text = c.Name };
+
+            return q.ToList();
+        }
+        #endregion
+    }
 }

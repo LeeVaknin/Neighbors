@@ -35,8 +35,12 @@ namespace Neighbors.Services.DAL
 
 		bool ProductExists(int id);
 
-		#endregion
+        #endregion
 
+        #region Categories 
 
-	}
+        IEnumerable<object> GetAllCategories();
+
+        #endregion
+    }
 }

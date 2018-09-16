@@ -10,7 +10,10 @@ namespace Neighbors.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide category name")]
+        [Display(Name = "Category name")]
         public string Name{ get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

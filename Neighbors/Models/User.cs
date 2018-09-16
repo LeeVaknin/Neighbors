@@ -8,31 +8,37 @@ using System.Threading.Tasks;
 
 namespace Neighbors.Models
 {
-	public class User: IdentityUser<int>
-	{
-		[Required]
-		public string FirstName { get; set; }
+    public class User: IdentityUser<int>
+    {
 
-		[Required]
-		public string LastName { get; set; }
+        [Required(ErrorMessage = "Please provide first name")]
+        [Display(Name = "First name")]
+        [StringLength(50, MinimumLength = 1)]
+        public string FirstName { get; set; }
 
-		[Required]
-		public string Address { get; set; }
+        [Required(ErrorMessage = "Please provide last name")]
+        [Display(Name = "Last name")]
+        [StringLength(50, MinimumLength = 1)]
+        public string LastName { get; set; }
 
-		// Check if there is relevant attribute
-		[Required]
-		public string City { get; set; }
+        [Required(ErrorMessage = "Please provide address")]
+        public string Address { get; set; }
 
-		// Collection of all the products that people borrowed from me
-		[NotMapped]
-		public ICollection<Borrow> BorrowedProduct { get; set; }
+        // Cheack if there is relevant attribute
+        [Required(ErrorMessage = "Please provide city")]
+        public string City { get; set; }
 
-		[NotMapped]
-		public ICollection<Product> MyProducts { get; set; }
+        //Condiser of having the following properties under model view ???
 
-		[NotMapped]
-		// Collection of all the products that I borrowed from others
-		public ICollection<Borrow> MyBorrowed { get; set; }
+        // Collection of all the products that people borrowed from me
+        [NotMapped]
+        public ICollection<Borrow> BorrowedProduct { get; set; }
+        [NotMapped]
+        public ICollection<Product> MyProducts { get; set; }
+
+        // Collection of all the products that I borrowed from others
+        [NotMapped]
+        public ICollection<Borrow> MyBorrowed { get; set; }
 
 	}
 }

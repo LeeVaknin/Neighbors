@@ -8,22 +8,25 @@ namespace Neighbors.Models
 {
     public class Product
     {
-
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide product name")]
+        [Display(Name = "Product name")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Select category")]
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
-        [Required]
+        [Display(Name = "Owner ID")]
         public int OwnerId { get; set; }
+     //   public User User { get; set; }
 
+        [Display(Name = "Borrows days")]
         public int BorrowsDays { get; set; }
 
         public double Price { get; set; }
-
-
+       
     }
 }

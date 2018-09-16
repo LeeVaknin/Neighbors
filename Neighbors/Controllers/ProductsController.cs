@@ -15,6 +15,7 @@ namespace Neighbors.Controllers
 	{
 		private readonly IProductsRepository _productsRepo;
 
+
 		public ProductsController(IProductsRepository productsRepository)
 		{
 			_productsRepo = productsRepository;
@@ -45,7 +46,10 @@ namespace Neighbors.Controllers
 		// GET: Products/Create
 		public IActionResult Create()
 		{
-			return View();
+            var response = _productsRepo.GetAllCategories();
+
+            ViewBag.CategoryId = new SelectList(response, "Value", "Text");
+            return View();
 		}
 
 		[HttpGet("/Products/Delete/{id}")]

@@ -11,18 +11,29 @@ namespace Neighbors.Models
     {
         public int Id { get; set; }
 
-		[NotMapped]
-		public User Lender { get; set; }
+      //  public int LenderId { get; set; }
+        [NotMapped]
+        public User Lender { get; set; }
 
-		[NotMapped]
-		public User Borrower { get; set; }
+     //   public int BorrowerId { get; set; }
+        [NotMapped]
+        public User Borrower { get; set; }
 
-        [Required]
+        [Display(Name = "Product ID")]
+        public int ProductId { get; set; }
+
+        [Required(ErrorMessage = "Please provide product")]
         public Product Product { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Start date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "End date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
         public double Fine { get; set; }
