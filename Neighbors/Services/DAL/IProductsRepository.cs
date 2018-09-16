@@ -6,20 +6,37 @@ using System.Threading.Tasks;
 
 namespace Neighbors.Services.DAL
 {
-	interface IProductsRepository
+	public interface IProductsRepository
 	{
-		bool AddProduct(Product newProduct);
+		#region Add, Delete update
+		Task AddProduct(Product newProduct);
 
-		bool DeleteProduct(int productId);
+		Task DeleteProduct(int productId);
 
-		bool UpdateProduct(int productId, Product updatedProduct);
+		Task UpdateProduct(int productId, Product product);
 
-		Product GetProductByName(int id);
+		#endregion
 
-		ICollection<Product> GetProductsByName(string name);
+		#region Getters
+
+		Task<Product> GetProductById(int id);
+
+		Task<ICollection<Product>> GetProductsByNameAsync(string name);
 
 		ICollection<Product> GetProductsByCategory(Category category);
 
 		ICollection<Product> GetProductsByCity(string City);
+
+		ICollection<Product> GetAllProducts();
+
+		#endregion
+
+		#region Helpers
+
+		bool ProductExists(int id);
+
+		#endregion
+
+
 	}
 }
