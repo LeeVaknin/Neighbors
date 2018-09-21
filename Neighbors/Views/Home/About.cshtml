@@ -1,7 +1,13 @@
 ﻿@{
 	ViewData["Title"] = "Our Story";
 }
-
+<style>
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 300px; /* The height is 400 pixels */
+        width: 35%; /* The width is the width of the web page */
+    }
+</style>
 <div class="jumbotron">
 	<h2>@ViewData["Title"]</h2>
 	<p>
@@ -15,5 +21,49 @@
 
 	</p>
 	<p class="text-warning">Warning: @ViewData["Message5"]</p>
+
 </div>
+<div>
+    <center><div id="map"></div></center>
+    <script>
+        function geocodeAddressAndSetMarker(address, resultsMap) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        // Initialize and add the map
+        function initMap() {
+            var address = '@Html.Raw(ViewData["Address"])';
+            var res = address.split(',');
+            // The location of Uluru
+            var uluru = { lat: parseFloat(res[0]), lng: parseFloat(res[1]) };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+            
+        }
+    </script>
+
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkDRcmsIUuyqoobMW6jiQch4XkIMimHN8&callback=initMap">
+    </script>
+</div>
+
 
