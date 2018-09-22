@@ -23,7 +23,7 @@ namespace Neighbors.Controllers
             ViewData["Message3"] = "Neighbors is a social platform that lets you borrow anything you wish from other members.";
             ViewData["Message4"] = "Of course, as a good neighbor one is obligated to return the tools on time and keep in a tip-top shape.";
             ViewData["Message5"] = "A user who will not follow these rules, will be fined in accordance with the terms and agreements.";
-            ViewData["Address"] = "31.968992,34.770670";
+            ViewData["Address"] = "31.968992,34.770670|32.073225,34.792253";
 
             return View();
         }
