@@ -20,6 +20,8 @@ namespace Neighbors.Data
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Neighbors.Models.Branch> Branch { get; set; }
+
 
   /*      protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
