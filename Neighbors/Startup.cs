@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Neighbors.Services;
 using Neighbors.Services.DAL;
+using FluentValidation;
+using Neighbors.Validators;
+using FluentValidation.AspNetCore;
 
 namespace Neighbors
 {
@@ -28,10 +31,8 @@ namespace Neighbors
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddMvc();
-
-			services.AddDbContext<NeighborsContext>(options =>
+        { 
+            services.AddDbContext<NeighborsContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("NeighborsDb")));
 
 			ConfigureAuthentication(services);
@@ -54,15 +55,20 @@ namespace Neighbors
 				googleOptions.ClientSecret = Configuration.GetSection("Authentication").GetSection("Google")["ClientSecret"];
 			});
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+
+            services.AddMvc()
+                .AddFluentValidation(fv =>
+                    fv.RegisterValidatorsFromAssemblyContaining<CategoryValidator>())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
 				.AddRazorPagesOptions(options =>
 				{
 					options.AllowAreas = true;
 					options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
 					options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-				});
-
-			services.ConfigureApplicationCookie(options =>
+				})
+               ;
+            
+            services.ConfigureApplicationCookie(options =>
 			{
 				options.LoginPath = $"/Identity/Account/Login";
 				options.LogoutPath = $"/Identity/Account/Logout";
@@ -72,7 +78,9 @@ namespace Neighbors
 			// using Microsoft.AspNetCore.Identity.UI.Services;
 			services.AddSingleton<IEmailSender, EmailSender>();
 			services.AddScoped<IProductsRepository, ProductsRepository>();
-		}
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddTransient<IValidator<Category>,CategoryValidator>();
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)

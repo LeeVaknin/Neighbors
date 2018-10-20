@@ -23,14 +23,16 @@ namespace Neighbors.Data
         public DbSet<Neighbors.Models.Branch> Branch { get; set; }
 
 
-  /*      protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>()
-                .HasOne<Category>(p => p.Category)
-                .WithMany(c => c.CategoryProducts)
-                .HasForeignKey(p => p.Id);
+            modelBuilder.Entity<Category>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
+            //.HasOne<Category>(p => p.Category)
+            //.WithMany(c => c.CategoryProducts)
+            //.HasForeignKey(p => p.Id);
         }
-        */
     }
     
 }

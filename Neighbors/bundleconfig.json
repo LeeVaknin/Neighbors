@@ -20,5 +20,29 @@
     "inputFiles": [
       "wwwroot/css/forms.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/grid.min.css",
+    "inputFiles": [
+      "wwwroot/css/grid.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/buttons.min.css",
+    "inputFiles": [
+      "wwwroot/css/buttons.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/customForms.min.css",
+    "inputFiles": [
+      "wwwroot/css/customForms.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/custom-forms.min.css",
+    "inputFiles": [
+      "wwwroot/css/custom-forms.css"
+    ]
   }
 ]

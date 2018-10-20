@@ -1,0 +1,61 @@
+﻿
+
+.center-items {
+    align-items: center;
+    display: inline-flex;
+}
+
+/*All sides*/
+
+.p-2 {
+    padding:8px;
+}
+
+.m-2 {
+    margin: 8px;
+}
+
+.p-5 {
+    padding: 20px;
+}
+
+.m-5 {
+    margin: 20px;
+}
+
+/*Only top*/
+
+.pt-2 {
+    padding-top: 8px;
+}
+
+.mt-2 {
+    margin-top: 8px;
+}
+
+.pt-5 {
+    padding-top: 20px;
+}
+
+.mt-5 {
+    margin-top: 20px;
+}
+
+
+/*Only right*/
+
+.pr-2 {
+    padding-right: 8px;
+}
+
+.mr-2 {
+    margin-right: 8px;
+}
+
+.pr-5 {
+    padding-right: 20px;
+}
+
+.mr-5 {
+    margin-right: 20px;
+}

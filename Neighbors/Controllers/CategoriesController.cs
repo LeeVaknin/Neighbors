@@ -7,147 +7,128 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Neighbors.Data;
 using Neighbors.Models;
+using Neighbors.Services.DAL;
 
 namespace Neighbors.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly NeighborsContext _context;
+        private readonly ICategoriesRepository _categoriesRepo;
 
-        public CategoriesController(NeighborsContext context)
+        public CategoriesController(ICategoriesRepository categoriesRepo)
         {
-            _context = context;
+            _categoriesRepo = categoriesRepo;
         }
+
+        #region Client side methods
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string searchStr)
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(_categoriesRepo.GetAllCategories());
         }
 
-        // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Search(string filter)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
+            var res = await _categoriesRepo.GetCategoryByNameAsync(filter);
+            return Json(res);
         }
 
         // GET: Categories/Create
-        public IActionResult Create()
+        public IActionResult _CreateCatPartial()
         {
-            return View();
+
+            //var response = _categoriesRepo.GetAllCategories();
+            //ViewBag.CategoryId = new SelectList(response, "Value", "Text");
+            return PartialView();
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await _categoriesRepo.GetCategoryById(id);
+
+            return View(category ?? new Category());
+        }
+
+        // GET: Categories/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var product = await _categoriesRepo.GetCategoryById(id);
+            return View();
+
+        }
+
+        #endregion
+
+        public async Task<IActionResult> Details(int id)
+        {
+
+            var category = await _categoriesRepo.GetCategoryById(id);
+            return View(category);
+        }
+
+        #region The actual REST methods - Server side
+
+
 
         // POST: Categories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("/Categories")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
+        public async Task<IActionResult> AddNewCategory(Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                await _categoriesRepo.AddCategory(category);
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            else
+            {
+                return View("Create", category);
+            }
         }
 
-        // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories.SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
-        }
 
         // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPut("/Categories/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
+        public async Task<IActionResult> UpdateCategory(int id, Category category)
         {
-            if (id != category.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
-                try
+                if (id != category.Id || !_categoriesRepo.CategoryExists(id))
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                await _categoriesRepo.UpdateCategory(id, category);
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
-        }
 
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
         }
 
         // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpDelete("/Categories/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                await _categoriesRepo.DeleteCategory(id);
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+
+           
         }
 
-        private bool CategoryExists(int id)
-        {
-            return _context.Categories.Any(e => e.Id == id);
-        }
+        #endregion
     }
+
 }

@@ -21,7 +21,14 @@ namespace Neighbors.Models
 
         [Display(Name = "Owner ID")]
         public int OwnerId { get; set; }
-     //   public User User { get; set; }
+
+        [Required(ErrorMessage = "Select from when you can land your item")]
+        [Display(Name = "From")]
+        public DateTime AvailableFrom { get; set; }
+
+        [Required(ErrorMessage = "Select till when you can land your item")]
+        [Display(Name = "Until")]
+        public DateTime AvailableUntil { get; set; }
 
         [Display(Name = "Borrows days")]
         public int BorrowsDays { get; set; }

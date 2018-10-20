@@ -1,1 +1,0 @@
-input:focus~.floating-label,input:not(:focus):valid~.floating-label{font-size:11px;opacity:1;color:#808080;top:29%}.inputText{font-size:14px}.floating-label{position:absolute;pointer-events:none;left:8%;color:#d3d3d3;transition:.2s ease all;top:32%}
