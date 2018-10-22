@@ -9,11 +9,11 @@ namespace Neighbors.Services.DAL
 	public interface IProductsRepository
 	{
 		#region Add, Delete update
-		Task AddProduct(Product newProduct);
+		Task<int> AddProduct(Product newProduct);
 
-		Task DeleteProduct(int productId);
+		Task<int> DeleteProduct(int productId);
 
-		Task UpdateProduct(int productId, Product product);
+		Task<int> UpdateProduct(int productId, Product product);
 
 		#endregion
 
@@ -23,11 +23,11 @@ namespace Neighbors.Services.DAL
 
 		Task<ICollection<Product>> GetProductsByNameAsync(string name);
 
-		ICollection<Product> GetProductsByCategory(Category category);
+		Task<ICollection<Product>> GetProductsByCategory(Category category);
 
-		ICollection<Product> GetProductsByCity(string City);
+		Task<ICollection<Product>> GetProductsByCity(string City);
 
-		ICollection<Product> GetAllProducts();
+		Task <ICollection<Product>> GetAllProducts();
 
 		#endregion
 
@@ -35,12 +35,7 @@ namespace Neighbors.Services.DAL
 
 		bool ProductExists(int id);
 
-        #endregion
+		#endregion
 
-        #region Categories 
-
-        IEnumerable<object> GetAllCategories();
-
-        #endregion
-    }
+	}
 }

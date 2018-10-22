@@ -9,11 +9,11 @@ namespace Neighbors.Services.DAL
     public interface ICategoriesRepository
     {
         #region Add, Delete update
-        Task AddCategory(Category newCategory);
+        Task<int> AddCategory(Category newCategory);
 
-        Task DeleteCategory(int categoryId);
+        Task<int> DeleteCategory(int categoryId);
 
-        Task UpdateCategory(int categoryId, Category category);
+        Task<int> UpdateCategory(int categoryId, Category category);
 
         #endregion
 
@@ -22,7 +22,8 @@ namespace Neighbors.Services.DAL
         Task<Category> GetCategoryById(int id);
 
         Task<ICollection<Category>> GetCategoryByNameAsync(string name);
-        ICollection<Category> GetAllCategories();
+
+        Task<ICollection<Category>> GetAllCategories();
 
         #endregion
 

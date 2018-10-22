@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Neighbors.Models;
 using Neighbors.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using System;
 
 namespace Neighbors.Services.DAL
 {
@@ -13,47 +19,64 @@ namespace Neighbors.Services.DAL
 		#region C-TOR and Data members
 
 		private readonly NeighborsContext _context;
+		private readonly SignInManager<User> _signinManager;
+		private readonly ICategoriesRepository _catRepo;
 
-		public ProductsRepository(NeighborsContext neighborsContext)
+		public ProductsRepository(NeighborsContext neighborsContext, ICategoriesRepository catRepo, SignInManager<User> signinManager)
 		{
 			_context = neighborsContext;
+			_catRepo = catRepo;
+			this._signinManager = signinManager;
 		}
 
 		#endregion
 
 		#region Add, Delete and Update
 
-		public async Task AddProduct(Product newProduct)
+		public async Task<int> AddProduct(Product newProduct)
 		{
+			if (newProduct.CategoryId <= 0)
+			{
+				if (newProduct.Category == null) return 0;
+				await _catRepo.AddCategory(newProduct.Category);
+				newProduct.CategoryId = newProduct.Category.Id;
+			}
+
+			if (newProduct.OwnerId <= 0)
+			{
+				var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+				if (Int32.TryParse(strUserId, out var userId)) newProduct.OwnerId = userId;
+				else return 0;
+
+			}
 			_context.Add(newProduct);
-			await _context.SaveChangesAsync();
+			return await _context.SaveChangesAsync();
 		}
 
-		public async Task DeleteProduct(int productId)
+		public async Task<int> DeleteProduct(int productId)
 		{
 			var product = await _context.Product.FindAsync(productId);
 			if (product != null)
 			{
-			_context.Product.Remove(product);
+				_context.Product.Remove(product);
 			}
 
-			await _context.SaveChangesAsync();
+			return await _context.SaveChangesAsync();
 		}
 
-		public async Task UpdateProduct(int productId, Product product)
+		public async Task<int> UpdateProduct(int productId, Product product)
 		{
 			_context.Update(product);
-			await _context.SaveChangesAsync();
-
+			return await _context.SaveChangesAsync();
 		}
 
 		#endregion
 
 		#region Getters
 
-		public ICollection<Product> GetAllProducts()
+		public async Task<ICollection<Product>> GetAllProducts()
 		{
-			return _context.Product.ToList();
+			return await _context.Product.ToListAsync();
 		}
 
 		public async Task<Product> GetProductById(int id)
@@ -61,14 +84,22 @@ namespace Neighbors.Services.DAL
 			return (await _context.Product.FirstOrDefaultAsync(pr => pr.Id == id));
 		}
 
-		public ICollection<Product> GetProductsByCategory(Category category)
+		public async Task<ICollection<Product>> GetProductsByCategory(Category category)
 		{
-			throw new NotImplementedException();
+			var response = await (from pr in _context.Product
+								  where pr.Category == category
+								  select pr).ToListAsync();
+			return response;
 		}
 
-		public ICollection<Product> GetProductsByCity(string City)
+		public async Task<ICollection<Product>> GetProductsByCity(string city)
 		{
-			throw new NotImplementedException();
+			var response = await (from pr in _context.Product
+								  join cityUsr in
+									  (from usr in _context.Users where usr.City == city select usr.Id)
+								  on pr.OwnerId equals cityUsr
+								  select pr).ToListAsync();
+			return response;
 		}
 
 		public async Task<ICollection<Product>> GetProductsByNameAsync(string name)
@@ -86,17 +117,7 @@ namespace Neighbors.Services.DAL
 			return _context.Product.Any(e => e.Id == id);
 		}
 
-        #endregion
+		#endregion
 
-        #region Categories
-
-        public IEnumerable<object> GetAllCategories()
-        {
-            var q = from c in _context.Categories
-                    select new { Value = c.Id, Text = c.Name };
-
-            return q.ToList();
-        }
-        #endregion
-    }
+	}
 }

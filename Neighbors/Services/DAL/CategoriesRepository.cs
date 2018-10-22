@@ -22,13 +22,13 @@ namespace Neighbors.Services.DAL
         #endregion
 
         #region Add, Delete update
-        public async Task AddCategory(Category newCategory)
+        public async Task<int> AddCategory(Category newCategory)
         {
             _context.Add(newCategory);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCategory(int categoryId)
+        public async Task<int> DeleteCategory(int categoryId)
         {
             var category = await _context.Categories.FindAsync(categoryId);
             if (category != null)
@@ -36,22 +36,22 @@ namespace Neighbors.Services.DAL
                 _context.Categories.Remove(category);
             }
 
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
            
         }
 
-        public async Task UpdateCategory(int categoryId, Category category)
+        public async Task<int> UpdateCategory(int categoryId, Category category)
         {
             _context.Update(category);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         #endregion
 
         #region Getters
-        public ICollection<Category> GetAllCategories()
+        public async Task<ICollection<Category>> GetAllCategories()
         {
-            return _context.Categories.ToList();
+            return await _context.Categories.ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
