@@ -1,70 +1,103 @@
 ﻿@model IEnumerable<Neighbors.Models.Product>
 
 @{
-    ViewData["Title"] = "Products";
+	ViewData["Title"] = "Products";
 }
 
 <h2>Products To Borrow</h2>
 
+<button type="button" class="btn-transparent" data-toggle="modal" data-target="#addProductModal"> 
+	Offer Your Product
+</button>
 
-<p>
-    <a asp-action="Create">Offer your product</a>
-</p>
+<div id="addProductModal" class="modal fade" role="dialog">
+	@{await Html.RenderPartialAsync("_CreateProductPartial", new Product());}
+</div>
+
+<div class="row well">
+	<div class="col-xs-10">
+		<form asp-action="Search" class="form-inline" method="get">
+			<div class="form-group">
+				<label>Category</label>
+				<input id="Category" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label>Name</label>
+				<input id="Name" class="form-control" />
+			</div>
+			<label class="control-label"> Location </label>
+			<div class="form-group">
+				<div class="dropdown">
+					<button class="dropdown-toggle btn btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						City <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu list-group text-center ">
+						<li class="">Tel-Aviv</li>
+						<li>Rishon-Lezion</li>
+						<li>Jerusalem</li>
+						<li>Azor</li>
+						<li>Bazra</li>
+						<li>Krayot</li>
+					</ul>
+				</div>
+				<input id="Street" placeholder="Street" class="form-control" />
+			</div>
+
+			<button type="submit" class="btn btn-default">Search</button>
+		</form>
+	</div>
 
 
-@using (Html.BeginForm())
-{
-    <p>
-        @Html.TextBox("SearchString", "", new { placeholder = "Search.." })<span title="Search" class="glyphicon glyphicon-search"></span>
-    </p>
-}
+</div>
+
+
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OwnerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BorrowsDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OwnerId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BorrowsDays)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <!-- <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |-->
-                    <a asp-action="Details" asp-route-id="@item.Id">I want that !</a> |
-                    <!--     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>-->
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CategoryId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.OwnerId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.BorrowsDays)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Price)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CategoryId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.OwnerId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.BorrowsDays)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+				<td>
+					<!-- <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |-->
+					<a asp-action="Details" asp-route-id="@item.Id">I want that !</a> |
+					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>

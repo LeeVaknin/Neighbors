@@ -3,7 +3,7 @@
 <center>
 	<div class="row">
 		<img src="~/images/logo.png" />
-	</div>	
+	</div>
 	<div class="row">
 		<div class="col-xs-6">
 			<a asp-controller="Products" asp-action="Index">
@@ -11,14 +11,20 @@
 			</a>
 		</div>
 		<div class="col-xs-6">
-			<a asp-controller="Products" asp-action="Create">
-				<img src="~/Images/im_lander.png" alt="" />
-			</a>
 		</div>
-		
+
+		<button type="button" class="btn-transparent"
+				data-toggle="modal" data-target="#addProductModal">
+			<img src="~/Images/im_lander.png" alt="" />
+		</button>
+
+		<div id="addProductModal" class="modal fade" role="dialog">
+			@{await Html.RenderPartialAsync("/Views/Products/_CreateProductPartial.cshtml", new Product());}
+		</div>
+
 	</div>
- 
-    
+
+
 </center>
     
 }

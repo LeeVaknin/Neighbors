@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\Neighbors\**" />
+    <Content Remove="Migrations\Neighbors\**" />
+    <EmbeddedResource Remove="Migrations\Neighbors\**" />
+    <None Remove="Migrations\Neighbors\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.0.100" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
     <!--<PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.1.1" />-->
@@ -23,8 +30,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\Neighbors\" />
 	<Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\custom-forms.css" />
+    <None Include="wwwroot\css\custom-forms.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\EditorTemplates\Category.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>
