@@ -27,7 +27,7 @@ namespace Neighbors.Validators
             while (!cancellation.IsCancellationRequested)
             {
                 var dupCategory = await _categiruesRepo.GetCategoryByNameAsync(name);
-                return dupCategory == null;
+				return dupCategory.Count == 0;
             }
             return false;
 
