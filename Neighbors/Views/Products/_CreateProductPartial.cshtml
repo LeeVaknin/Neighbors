@@ -1,139 +1,116 @@
 ﻿@model Neighbors.Models.Product
 
-<script>
-    function showCurrencies() {
-        let url = "http://openexchangerates.org/api/latest.json?app_id=d04a1cbf0f14493c973fc7087c0629fb"
-        $.get(url).then(function (response) {
-            alert('a')
-            let price_input = $("#price_input").val()
-            alert('b')
-            if (price_input !== '') {
-                let usd_ils_rate = response.rates['ILS']
-                let amount_in_usd = parseFloat(price_input) / parseFloat(usd_ils_rate)
-                alert('c')
-                let amount_in_usd_str = amount_in_usd.toString()
-                let dot_index = amount_in_usd_str.indexOf(".")
-                alert('d')
-                if (dot_index > 0) {
-                    amount_in_usd_str = amount_in_usd_str.substring(0, dot_index + 3)
-                }
-                alert(amount_in_usd_str)
-                $('#usd_value').html('(' + amount_in_usd_str + ' $)')
-            }
-
-        });
-    }
-</script>
-
 <div class="modal-dialog p-7">
-    <!-- Modal content-->
-    <div class="modal-content p-7">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Offer Your Product</h4>
-        </div>
+	<!-- Modal content-->
+	<div class="modal-content p-7">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Offer Your Product</h4>
+		</div>
 
-        <form asp-controller="Products" asp-action="AddNewProduct" method="post">
+		<form asp-controller="Products" asp-action="AddNewProduct" method="post">
 
-            <div class="modal-body">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="modal-body">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="form-group min-form-control-width">
-                    <div class="text-left">
-                        <label asp-for="Name" class="control-label mr-2"></label>
-                    </div>
-                    <input asp-for="Name" class="form-control mr-2" type="text" placeholder="Pick a nice name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
+				<div class="form-group min-form-control-width">
+					<div class="text-left">
+						<label asp-for="Name" class="control-label mr-2"></label>
+					</div>
+					<input asp-for="Name" class="form-control mr-2" type="text" placeholder="Pick a nice name" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
 
-                <div class="form-group min-form-control-width">
+				<div class="form-group min-form-control-width">
 
-                    <div class="text-left">
-                        <label asp-for="CategoryId" class="control-label mr-2 text-left"></label>
-                    </div>
+					<div class="text-left">
+						<label asp-for="CategoryId" class="control-label mr-2 text-left"></label>
+					</div>
 
 					<div class="center-items">
 						@Html.DropDownListFor(m => m.CategoryId,
 							Enumerable.Empty<SelectListItem>(),
 							"Categories",
 							new { id = "CatFromJson", @class = "form-control mr-2" })
-						
+
 						<span asp-validation-for="CategoryId" class="text-danger"></span>
 						<button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
 							Add Category
 						</button>
 					</div>
 
-                    <div id="addCategory" class="collapse min-form-control-width">
-                        @{ if (Model.Category == null) { Model.Category = new Category(); } }
-                        @Html.EditorFor(m => m.Category)
-                    </div>
-                </div>
+					<div id="addCategory" class="collapse min-form-control-width">
+						@{ if (Model.Category == null) { Model.Category = new Category(); } }
+						@Html.EditorFor(m => m.Category)
+					</div>
+				</div>
 
-                <div class="center-items">
+				<div class="center-items">
 
-                    <div class="form-group">
-                        <label asp-for="AvailableFrom" class="control-label"></label>
-                        <div class="form-group">
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input asp-for="AvailableFrom" type="date" class="form-control" placeholder="Date" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                        <span asp-validation-for="AvailableFrom" class="text-danger"></span>
-                    </div>
+					<div class="form-group">
+						<label asp-for="AvailableFrom" class="control-label"></label>
+						<div class="form-group">
+							<div class='input-group date' id='datetimepicker1'>
+								<input asp-for="AvailableFrom" type="date" class="form-control" placeholder="Date" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<span asp-validation-for="AvailableFrom" class="text-danger"></span>
+					</div>
 
-                    <div class="form-group">
-                        <label asp-for="AvailableUntil" class="control-label"></label>
-                        <div class="form-group">
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input asp-for="AvailableUntil" type="date" class="form-control" placeholder="Date" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                        <span asp-validation-for="AvailableUntil" class="text-danger"></span>
-                    </div>
+					<div class="form-group">
+						<label asp-for="AvailableUntil" class="control-label"></label>
+						<div class="form-group">
+							<div class='input-group date' id='datetimepicker1'>
+								<input asp-for="AvailableUntil" type="date" class="form-control" placeholder="Date" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<span asp-validation-for="AvailableUntil" class="text-danger"></span>
+					</div>
 
-                </div>
+				</div>
 
 
-                <div class="form-group">
+				<div class="form-group">
 
-                    <div class="text-left">
-                        <label asp-for="Price" class="control-label"></label>
-                    </div>
+					<div class="text-left">
+						<label asp-for="Price" class="control-label"></label>
+					</div>
 
-                    <div class="input-group">
-                        <input asp-for="Price" id="price_input" type="number" class="form-control" placeholder="00.00" />
-                        <div class="input-group-addon">
-                            <span class="input-group-text">₪</span>
-                            <span id="usd_value" class="input-group-text">(0 $)</span>
-                            <button class="btn btn-info" onclick="showCurrencies()">Convert to USD</button>
-                        </div>
-                    </div>
+					<div class="input-group">
+						<input asp-for="Price" id="price_input" type="number" min="0" class="form-control" placeholder="00.00" />
+						<div class="input-group-addon">
+							<span class="input-group-text">₪</span>
+							<span id="usd_value" class="input-group-text">(0 $)</span>
+							<button type="button" class="btn btn-info" onclick="showCurrencies()">Convert to USD</button>
+						</div>
+					</div>
 
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
+					<span asp-validation-for="Price" class="text-danger"></span>
+				</div>
 
-            </div>
+			</div>
 
-            <div class="modal-footer">
-                <input type="submit" value="Offer" class="btn btn-default" />
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </form>
+			<div class="modal-footer">
+				<input type="submit" value="Offer" class="btn btn-default" />
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</form>
 
-    </div>
+	</div>
 
 </div>
+
+@* ----- Scripts ----- *@
 
 <script async type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script async src="~/js/cotrollers/categories.js"></script>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
