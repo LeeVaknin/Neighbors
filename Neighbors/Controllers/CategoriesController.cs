@@ -28,7 +28,12 @@ namespace Neighbors.Controllers
             return View(_categoriesRepo.GetAllCategories());
         }
 
-        public async Task<IActionResult> Search(string filter)
+		public async Task<JsonResult> ReturnJSONCategories() //It will be fired from Jquery ajax call  
+		{
+			var categories = await _categoriesRepo.GetAllCategories();
+			return Json(categories);
+		}
+		public async Task<IActionResult> Search(string filter)
         {
             var res = await _categoriesRepo.GetCategoryByNameAsync(filter);
             return Json(res);

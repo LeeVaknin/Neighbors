@@ -1,7 +1,6 @@
 ﻿@model Neighbors.Models.Product
 
 
-
 <div class="modal-dialog p-7">
 	<!-- Modal content-->
 	<div class="modal-content p-7">
@@ -30,10 +29,11 @@
 					</div>
 
 					<div class="center-items">
-						@*@Html.DropDownList("Category", ViewBag.OList as IEnumerable<SelectListItem>, new { @id = "ODD", @class = "form-control", @onchange = "FetchP()" })*@
-						<select asp-for="CategoryId" class="form-control mr-2 dropdown-toggle">
-							<option value="" disabled selected>Existing Categories</option>
-						</select>
+						@Html.DropDownListFor(m => m.CategoryId,
+							Enumerable.Empty<SelectListItem>(),
+							"Categories",
+							new { id = "CatFromJson", @class = "form-control mr-2" })
+						
 						<span asp-validation-for="CategoryId" class="text-danger"></span>
 						<button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
 							Add Category
@@ -52,7 +52,7 @@
 						<label asp-for="AvailableFrom" class="control-label"></label>
 						<div class="form-group">
 							<div class='input-group date' id='datetimepicker1'>
-								<input asp-for="AvailableFrom" type="date" class="form-control" placeholder="Date" />
+								<input asp-for="AvailableFrom" type="date" class="form-control" />
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -65,7 +65,7 @@
 						<label asp-for="AvailableUntil" class="control-label"></label>
 						<div class="form-group">
 							<div class='input-group date' id='datetimepicker1'>
-								<input asp-for="AvailableUntil" type="date" class="form-control" placeholder="Date" />
+								<input asp-for="AvailableUntil" type="date" class="form-control" />
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -104,6 +104,9 @@
 	</div>
 
 </div>
+
+<script async type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script async src="~/js/cotrollers/categories.js"></script>
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

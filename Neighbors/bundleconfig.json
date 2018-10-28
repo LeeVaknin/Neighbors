@@ -44,5 +44,11 @@
     "inputFiles": [
       "wwwroot/css/custom-forms.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/cotrollers/categories.min.js",
+    "inputFiles": [
+      "wwwroot/js/cotrollers/categories.js"
+    ]
   }
 ]
