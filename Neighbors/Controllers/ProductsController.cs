@@ -24,9 +24,9 @@ namespace Neighbors.Controllers
 		#region View Getters
 
 		// GET: Products
-		public IActionResult Index(string SearchString)
+		public async Task<IActionResult> Index(string SearchString)
 		{
-			return View(_productsRepo.GetAllProducts());
+			return View(await _productsRepo.GetAllProducts());
 		}
 
 		// GET: Products
@@ -43,14 +43,6 @@ namespace Neighbors.Controllers
 			return View(product);
 		}
 
-		// GET: Products/Create
-		public IActionResult Create()
-		{
-            var response = _productsRepo.GetAllCategories();
-
-            ViewBag.CategoryId = new SelectList(response, "Value", "Text");
-            return View();
-		}
 
 		[HttpGet("/Products/Delete/{id}")]
 		public async Task<IActionResult> Delete(int id)
@@ -83,7 +75,7 @@ namespace Neighbors.Controllers
 				return RedirectToAction(nameof(Index));
 			}
 
-			return View(product);
+			return PartialView("_CreateProductPartial", product);
 		}
 
 		// POST: Products/Edit/5

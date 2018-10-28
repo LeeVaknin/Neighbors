@@ -34,24 +34,19 @@ namespace Neighbors.Controllers
             return Json(res);
         }
 
-        // GET: Categories/Create
-        public IActionResult _CreateCatPartial()
-        {
-
-            //var response = _categoriesRepo.GetAllCategories();
-            //ViewBag.CategoryId = new SelectList(response, "Value", "Text");
-            return PartialView();
-        }
-
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoriesRepo.GetCategoryById(id);
 
             return View(category ?? new Category());
         }
+		public IActionResult Create()
+		{
+			return PartialView("_CreateCatPartial", new Category());
+		}
 
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int id)
+		// GET: Categories/Delete/5
+		public async Task<IActionResult> Delete(int id)
         {
 
             var product = await _categoriesRepo.GetCategoryById(id);
@@ -79,16 +74,12 @@ namespace Neighbors.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddNewCategory(Category category)
         {
-            if (ModelState.IsValid)
-            {
-                await _categoriesRepo.AddCategory(category);
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                return View("Create", category);
-            }
-        }
+			if (ModelState.IsValid)
+			{
+				await _categoriesRepo.AddCategory(category);
+			}
+			return PartialView("_CreateCatPartial", category);
+		}
 
 
         // POST: Categories/Edit/5
