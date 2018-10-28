@@ -7,7 +7,6 @@ $(document).ready(function () {
 		datatype: JSON,
 		success: function (result) {
 			$(result).each(function (i, category) {
-				console.log(`This is ${category.id}`);
 				$("#CatFromJson").append($("<option></option>").val(category.id).html(category.name));
 			});
 		},
