@@ -1,10 +1,6 @@
 ﻿@model Neighbors.Models.Product
 
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-
 <div class="modal-dialog p-7">
 	<!-- Modal content-->
 	<div class="modal-content p-7">
@@ -51,6 +47,8 @@
 						@{ if (Model.Category == null) { Model.Category = new Category(); } }
 						@Html.EditorFor(m => m.Category)
 					</div>
+
+					<div id="success_placeholder"></div>
 				</div>
 
 				<div class="center-items">
@@ -95,7 +93,7 @@
 						<div class="input-group-addon">
 							<span class="input-group-text">₪</span>
 							<span id="usd_value" class="input-group-text mr-2">(0 $)</span>
-							<button type="button" class="btn btn-info" onclick="showCurrencies()">Convert to USD</button>
+							<button type="button" class="btn btn-info btn-sm" onclick="showCurrencies()">Convert to USD</button>
 						</div>
 					</div>
 

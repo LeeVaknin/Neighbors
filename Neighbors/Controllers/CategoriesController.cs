@@ -72,18 +72,28 @@ namespace Neighbors.Controllers
 
 
 
-        // POST: Categories/Create
+        // POST: Ca9tegories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("/Categories")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddNewCategory(Category category)
+        public async Task<JsonResult> AddNewCategory([FromBody] Category category)
         {
 			if (ModelState.IsValid)
 			{
-				await _categoriesRepo.AddCategory(category);
+				var res = await _categoriesRepo.AddCategory(category);
+				if (res > 0)
+				{
+					category = (await _categoriesRepo.GetCategoryByNameAsync(category.Name)).FirstOrDefault();
+					if (category != null)
+					{
+						return Json(new { model = category, isValid = true, err = "" });
+					}
+				}
 			}
-			return PartialView("_CreateCatPartial", category);
+			// bad practice, but I'm lazy.
+			return Json(new { model = category,
+				isValid = false,
+				error = $"Couldn't create category with the name: {category.Name}" });
 		}
 
 
