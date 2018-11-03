@@ -1,9 +1,18 @@
 ﻿
+// veriables
+
+var $newCategoryName = $("#newCategoryName");
+var $catList = $("#catList");
+var $addCategory = $('#addCategory');
+var $catErrors = $('#catErrors');
+var $alert_placeholder = $('#alert_placeholder');
+var $success_placeholder = $('#success_placeholder');
+
 // update triggers
 
 $(document).ready(getCategories);
 
-$('#newCategoryName').on('focusout', function () {
+$newCategoryName.on('focusout', function () {
 	addCategory();
 });	
 
@@ -18,7 +27,7 @@ function getCategories() {
 		success: function (result) {
 			$(result).each(function (i, category) {
 				var value = $("<option></option>").val(category.id).html(category.name);
-				$("#CatList").append(value);
+				$catList.append(value);
 			});
 		},
 		error: function (data) { }
@@ -32,13 +41,13 @@ function addCategory() {
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({
-				Name: $('#newCategoryName').val() 
+				Name: $newCategoryName.val() 
 		}),
 		datatype: JSON,
 		success: function (result) {
 			if (result.isValid == true) {
 				var value = $("<option></option>").val(result.model.id).html(result.model.name);
-				$("#CatList").append(value);
+				$catList.append(value);
 				updateAnimation(value);
 			} else {
 				raiseError(result.error);
@@ -55,23 +64,23 @@ function updateAnimation(valueToSelect) {
 	closeModal();
 	raiseSuccess(message);
 	updateSelection();
-	$('#CatList').fadeOut(300).fadeIn(300);
+	$catList.fadeOut(300).fadeIn(300);
 };
 
 function updateSelection() {
-	var element = document.getElementById("CatList");
+	var element = document.getElementById("catList");
 	element.selectedIndex = element.length - 1;
 }
 
 function raiseSuccess(message) {
-	$('#success_placeholder').html('<div class="alert alert-dismissible alert-success"> <button type="button" class="close" data-dismiss="alert">&times;</button><small>' + message + '</small></div>');
+	$success_placeholder.html('<div class="alert alert-dismissible alert-success"> <button type="button" class="close" data-dismiss="alert">&times;</button><small>' + message + '</small></div>');
 };
 
 function raiseError(err) {
-	$('#alert_placeholder').html('<div id="catErrors" class="alert alert-danger"><small>' + err + '</small></div>');
+	$alert_placeholder.html('<div id="catErrors" class="alert alert-danger"><small>' + err + '</small></div>');
 };
 
 function closeModal() {
-	$('#catErrors').alert('close');
-	$('#addCategory').collapse('hide');
+	$catErrors.alert('close');
+	$addCategory.collapse('hide');
 }
