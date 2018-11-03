@@ -76,8 +76,8 @@ function raiseError(err) {
 function closeModal() {
 	try {
 		$('#catErrors').alert('close');
+		$('#addCategory').collapse('hide');
 	}
 	catch (err) {
 	}
-	$('#addCategory').collapse('hide');
 }
