@@ -74,6 +74,10 @@ function raiseError(err) {
 };
 
 function closeModal() {
-	$('#catErrors').alert('close');
+	try {
+		$('#catErrors').alert('close');
+	}
+	catch (err) {
+	}
 	$('#addCategory').collapse('hide');
 }

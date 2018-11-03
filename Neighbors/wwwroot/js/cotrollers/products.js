@@ -1,14 +1,14 @@
 ﻿
-var $form = $("#addProductForm");
-var $submitbutton = $("#submitbutton");
+//var $form = $("#addProductForm");
+//var $submitbutton = $("#submitbutton");
 
-$form.on("blur", "input", () => {
-	if ($form.valid()) {
-		$submitbutton.removeattr("disabled");
-	} else {
-		$submitbutton.attr("disabled", "disabled");
-	}
-});
+//$("#addProductForm").on("blur", "input", () => {
+//	if ($("#addProductForm").valid()) {
+//		$("#submitbutton").removeattr("disabled");
+//	} else {
+//		$("#submitbutton").attr("disabled", "disabled");
+//	}
+//});
 
 //$(document).ready(setDateNow);
 
