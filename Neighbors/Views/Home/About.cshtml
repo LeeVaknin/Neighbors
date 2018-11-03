@@ -49,8 +49,26 @@
                 new google.maps.Marker({ position: location, map: map });
             }
         }
-
     </script>
+    <br />
+    <center>
+        <canvas id="myCanvas" width="200" height="100" style="border:0px solid #000000;"></canvas>
+        <script language="javascript">
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            ctx.font = "20px Arial";
+            ctx.fillText("Be good get good", 10, 50);
+        </script>
+    </center>
+
+    <br />
+    <center>
+        <video id="myVideo" width="320" height="240" controls>
+            <source src="~/videos/About.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </center>
+    
 
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
