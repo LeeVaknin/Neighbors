@@ -35,13 +35,6 @@ namespace Neighbors.Services.DAL
 
 		public async Task<int> AddProduct(Product newProduct)
 		{
-			if (newProduct.CategoryId <= 0)
-			{
-				if (newProduct.Category == null) return 0;
-				await _catRepo.AddCategory(newProduct.Category);
-				newProduct.CategoryId = newProduct.Category.Id;
-			}
-
 			if (newProduct.OwnerId <= 0)
 			{
 				var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -115,6 +108,11 @@ namespace Neighbors.Services.DAL
 		public bool ProductExists(int id)
 		{
 			return _context.Product.Any(e => e.Id == id);
+		}
+
+		public Task<ICollection<Product>> GetProducts(ProductSearch searchModel)
+		{
+			throw new NotImplementedException();
 		}
 
 		#endregion

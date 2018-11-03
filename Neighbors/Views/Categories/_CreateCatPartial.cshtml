@@ -1,11 +1,18 @@
 ﻿@model Neighbors.Models.Category
 
+<div class="panel panel-info">
+	<div class="panel-heading left-items">
+		<h3 class="panel-title">Category Addition</h3>
+	</div>
+	<div class="panel-body center-items">
+		<div class="form-inline">
+			<div class="text-left">
+				<label asp-for="Name" class="control-label"></label>
+			</div>
+			<input asp-for="Name" id="newCategoryName" class="form-control m-2  min-inline-form-group-width" />
+			<div id="alert_placeholder"></div>
+		</div>
+	</div>
+</div>
 
-<form asp-controller="Categories" method="post">
-	@Html.EditorFor(m => m)
-	<button type="submit" class="btn btn-info btn-sm">
-		Add +
-	</button>
-</form>
- 
 

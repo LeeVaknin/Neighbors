@@ -9,7 +9,7 @@
 			<h4 class="modal-title">Offer Your Product</h4>
 		</div>
 
-		<form asp-controller="Products" asp-action="AddNewProduct" asp-antiforgery="true" role="form"
+		<form id="addProductForm" asp-controller="Products" asp-action="AddNewProduct" asp-antiforgery="true" role="form"
 			data-ajax-success="Bindgrid"
 			data-ajax="true"
 			data-ajax-method="POST">
@@ -35,17 +35,16 @@
 						@Html.DropDownListFor(m => m.CategoryId,
 							Enumerable.Empty<SelectListItem>(),
 							"Categories",
-							new { id = "CatList", @class = "form-control mr-2" })
+							new { id = "catList", @class = "form-control mr-2" })
 
 						<span asp-validation-for="CategoryId" class="text-danger"></span>
 						<button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
 							Add Category
 						</button>
 					</div>
-
 					<div id="addCategory" class="collapse min-form-control-width">
-						@{ if (Model.Category == null) { Model.Category = new Category(); } }
-						@Html.EditorFor(m => m.Category)
+						@{await Html.RenderPartialAsync("/Views/Categories/_CreateCatPartial.cshtml", new Category());}
+						@*@Html.EditorFor(new Category())*@
 					</div>
 
 					<div id="success_placeholder"></div>
@@ -57,7 +56,7 @@
 						<label asp-for="AvailableFrom" class="control-label"></label>
 						<div class="form-group">
 							<div class='input-group date' id='datetimepicker1'>
-								<input asp-for="AvailableFrom" type="date" class="form-control" placeholder="Date" />
+								<input asp-for="AvailableFrom" type="date" class="form-control" id="datePicker" />
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -69,8 +68,8 @@
 					<div class="form-group">
 						<label asp-for="AvailableUntil" class="control-label"></label>
 						<div class="form-group">
-							<div class='input-group date' id='datetimepicker1'>
-								<input asp-for="AvailableUntil" type="date" class="form-control" placeholder="Date" />
+							<div class='input-group date'>
+								<input asp-for="AvailableUntil" type="date" class="form-control" id="datePicker" />
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -103,7 +102,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<input type="submit" value="Offer" class="btn btn-default" />
+				<input id="submitbutton" type="submit" value="Offer" class="btn btn-default" />
 			</div>
 		</form>
 
@@ -115,6 +114,7 @@
 
 <script async type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script async src="~/js/cotrollers/categories.js"></script>
+<script async src="~/js/cotrollers/products.js"></script>
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

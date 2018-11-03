@@ -27,7 +27,11 @@ namespace Neighbors.Services.DAL
 
 		Task<ICollection<Product>> GetProductsByCity(string City);
 
-		Task <ICollection<Product>> GetAllProducts();
+		Task<ICollection<Product>> GetAllProducts();
+
+		Task<ICollection<Product>> GetProducts(ProductSearch searchModel);
+
+
 
 		#endregion
 

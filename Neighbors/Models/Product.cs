@@ -17,6 +17,7 @@ namespace Neighbors.Models
         [Required(ErrorMessage = "Select category")]
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
+
         public Category Category { get; set; }
 
         [Display(Name = "Owner ID")]

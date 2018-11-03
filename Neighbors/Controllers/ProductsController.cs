@@ -30,9 +30,9 @@ namespace Neighbors.Controllers
 		}
 
 		// GET: Products
-		public async Task<IActionResult> Search(string filter)
+		public async Task<IActionResult> Search(ProductSearch filter)
 		{
-			var res = await _productsRepo.GetProductsByNameAsync(filter);
+			var res = await _productsRepo.GetProducts(filter);
 			return Json(res);
 		}
 
@@ -71,6 +71,7 @@ namespace Neighbors.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+
 				await _productsRepo.AddProduct(product);
 				return RedirectToAction(nameof(Index));
 			}

@@ -1,0 +1,39 @@
+﻿@model Neighbors.Models.ProductSearch
+
+
+<div class="row well">
+	<div class="col-xs-10">
+		<form asp-action="Search" asp-controller="Products" class="form-inline" method="get">
+			<div class="form-group">
+				<label>Category</label>
+				<input asp-for="Category" id="Category" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label>Name</label>
+				<input asp-for="Name" id="Name" class="form-control" />
+			</div>
+			<label class="control-label"> Location </label>
+			<div class="form-group">
+				<div class="dropdown">
+					<button class="dropdown-toggle btn btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						City <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu list-group text-center ">
+						<li class="">Tel-Aviv</li>
+						<li>Rishon-Lezion</li>
+						<li>Jerusalem</li>
+						<li>Azor</li>
+						<li>Bazra</li>
+						<li>Krayot</li>
+					</ul>
+				</div>
+				<input id="Street" placeholder="Street" class="form-control" />
+			</div>
+
+			<button type="submit" class="btn btn-default">Search</button>
+		</form>
+	</div>
+
+
+</div>
+

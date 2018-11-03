@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Shared\EditorTemplates\Category.cshtml">
+    <Content Update="Views\Shared\EditorTemplates\Location.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
