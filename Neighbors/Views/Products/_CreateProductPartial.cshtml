@@ -35,7 +35,7 @@
 						@Html.DropDownListFor(m => m.CategoryId,
 							Enumerable.Empty<SelectListItem>(),
 							"Categories",
-							new { id = "CatFromJson", @class = "form-control mr-2" })
+							new { id = "CatList", @class = "form-control mr-2" })
 
 						<span asp-validation-for="CategoryId" class="text-danger"></span>
 						<button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
@@ -104,7 +104,6 @@
 
 			<div class="modal-footer">
 				<input type="submit" value="Offer" class="btn btn-default" />
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</form>
 

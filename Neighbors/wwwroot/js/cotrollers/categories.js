@@ -1,9 +1,13 @@
 ﻿
+// update triggers
+
 $(document).ready(getCategories);
 
 $('#newCategoryName').on('focusout', function () {
 	addCategory();
 });	
+
+// Controller methods execution
 
 function getCategories() {
 	$.ajax({
@@ -14,7 +18,7 @@ function getCategories() {
 		success: function (result) {
 			$(result).each(function (i, category) {
 				var value = $("<option></option>").val(category.id).html(category.name);
-				$("#CatFromJson").append(value);
+				$("#CatList").append(value);
 			});
 		},
 		error: function (data) { }
@@ -34,7 +38,7 @@ function addCategory() {
 		success: function (result) {
 			if (result.isValid == true) {
 				var value = $("<option></option>").val(result.model.id).html(result.model.name);
-				$("#CatFromJson").append(value);
+				$("#CatList").append(value);
 				updateAnimation(value);
 			} else {
 				raiseError(result.error);
@@ -44,15 +48,30 @@ function addCategory() {
 	});
 }
 
+// visual behaviors
+
 function updateAnimation(valueToSelect) {
-	var message = "The category was added successfuly.";
-	$('#catErrors').alert('close');
-	$('#addCategory').collapse('hide');
-	$('#success_placeholder').html('<div class="alert alert-dismissible alert-success"> <button type="button" class="close" data-dismiss="alert">&times;</button><small>' + message + '</small></div>');
-	var element = document.getElementById("CatFromJson");
+	var message = "The category was added successfully.";
+	closeModal();
+	raiseSuccess(message);
+	updateSelection();
+	$('#CatList').fadeOut(300).fadeIn(300);
+};
+
+function updateSelection() {
+	var element = document.getElementById("CatList");
 	element.selectedIndex = element.length - 1;
+}
+
+function raiseSuccess(message) {
+	$('#success_placeholder').html('<div class="alert alert-dismissible alert-success"> <button type="button" class="close" data-dismiss="alert">&times;</button><small>' + message + '</small></div>');
 };
 
 function raiseError(err) {
 	$('#alert_placeholder').html('<div id="catErrors" class="alert alert-danger"><small>' + err + '</small></div>');
 };
+
+function closeModal() {
+	$('#catErrors').alert('close');
+	$('#addCategory').collapse('hide');
+}
