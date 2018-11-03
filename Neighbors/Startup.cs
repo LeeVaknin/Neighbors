@@ -17,6 +17,7 @@ using Neighbors.Services.DAL;
 using FluentValidation;
 using Neighbors.Validators;
 using FluentValidation.AspNetCore;
+using System.Threading;
 
 namespace Neighbors
 {
@@ -93,6 +94,7 @@ namespace Neighbors
                 var ctx = services.GetRequiredService<NeighborsContext>();
                 var seeder = new NeighborsSeeder(userManager, roleManager, ctx);
 				await seeder.Seed();
+                Thread.Sleep(2000);
 			}
 		}
 

@@ -45,7 +45,7 @@ namespace Neighbors.Data
 		{
 			var user = new User
 			{
-				UserName = "Admin",
+				UserName = "caysebix@email.com",
 				FirstName = "Admin",
 				LastName = "Admin",
 				Email = "caysebix@email.com",
@@ -142,18 +142,29 @@ namespace Neighbors.Data
         {
             for (int i = 0; i < data.Count; i++)
             {
+                if (!_roleManager.Roles.Any(r => r.Name == Roles.Consumer.ToString()))
+                {
+                    await _roleManager.CreateAsync(new Role { Name = Roles.Consumer.ToString() });
+                }
+
                 string username = data[i]["First Name"] + data[i]["Last Name"];
                 string email = username + "@email.com";
-                User user = new User {Email = email, EmailConfirmed=true, UserName = username, FirstName = data[i]["First Name"], LastName = data[i]["Last Name"], Address = data[i]["Address"], City = data[i]["City"], BorrowedProduct = {}, MyProducts = { }, MyBorrowed = { } };
-
+                
+                User user = new User {Email = email, EmailConfirmed=true, LockoutEnabled = false, SecurityStamp = Guid.NewGuid().ToString(),  UserName = email, FirstName = data[i]["First Name"], LastName = data[i]["Last Name"], Address = data[i]["Address"], City = data[i]["City"], TwoFactorEnabled=false};
                 if (!_userManager.Users.Any(u => u.UserName == user.UserName))
                 {
                     
                     var password = new PasswordHasher<User>();
                     var hashed = password.HashPassword(user, "password");
                     user.PasswordHash = hashed;
-                     await _userManager.CreateAsync(user);
-                     await _userManager.AddToRoleAsync(user, Roles.Consumer.ToString());
+                    try
+                    {
+                        await _userManager.CreateAsync(user);
+                        await _userManager.AddToRoleAsync(user, Roles.Consumer.ToString());
+                    }
+                    catch (Exception e)
+                    {
+                    }
                 }
             }
         }
