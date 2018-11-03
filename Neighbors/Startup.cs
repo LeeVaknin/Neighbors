@@ -36,6 +36,11 @@ namespace Neighbors
 					options.UseSqlServer(Configuration.GetConnectionString("NeighborsDb")));
 
 			ConfigureAuthentication(services);
+
+			services.AddSingleton<IEmailSender, EmailSender>();
+			services.AddScoped<IProductsRepository, ProductsRepository>();
+			services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+			services.AddTransient<IValidator<Category>, CategoryValidator>();
 		}
 
 		/// <summary>
@@ -76,14 +81,22 @@ namespace Neighbors
 			});
 
 			// using Microsoft.AspNetCore.Identity.UI.Services;
-			services.AddSingleton<IEmailSender, EmailSender>();
-			services.AddScoped<IProductsRepository, ProductsRepository>();
-            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
-            services.AddTransient<IValidator<Category>,CategoryValidator>();
-        }
+		}
+
+		private async Task SeedDB(IApplicationBuilder app)
+		{
+			using (var scope = app.ApplicationServices.CreateScope())
+			{
+				var services = scope.ServiceProvider;
+				var userManager = services.GetRequiredService<UserManager<User>>();
+				var roleManager = services.GetRequiredService<RoleManager<Role>>();
+				var seeder = new NeighborsSeeder(userManager, roleManager);
+				await seeder.Seed();
+			}
+		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			if (env.IsDevelopment())
 			{
@@ -105,6 +118,8 @@ namespace Neighbors
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+			await SeedDB(app);
 		}
 	}
 }
