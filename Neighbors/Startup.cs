@@ -90,7 +90,8 @@ namespace Neighbors
 				var services = scope.ServiceProvider;
 				var userManager = services.GetRequiredService<UserManager<User>>();
 				var roleManager = services.GetRequiredService<RoleManager<Role>>();
-				var seeder = new NeighborsSeeder(userManager, roleManager);
+                var ctx = services.GetRequiredService<NeighborsContext>();
+                var seeder = new NeighborsSeeder(userManager, roleManager, ctx);
 				await seeder.Seed();
 			}
 		}
@@ -107,7 +108,7 @@ namespace Neighbors
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
-
+            
 			app.UseStaticFiles();
 
 			app.UseAuthentication();
