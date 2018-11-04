@@ -8,7 +8,7 @@ $(document).ready(function () {
 function login() {
 
 	$.ajax({
-		url: "Login",
+		url: "/Login",
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({
