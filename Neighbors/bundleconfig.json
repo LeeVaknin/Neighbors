@@ -56,5 +56,11 @@
     "inputFiles": [
       "wwwroot/js/cotrollers/products.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/cotrollers/login.min.js",
+    "inputFiles": [
+      "wwwroot/js/cotrollers/login.js"
+    ]
   }
 ]

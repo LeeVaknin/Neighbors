@@ -1,32 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-<center>
-	<div class="row">
-		<img src="~/images/logo.png" />
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<a asp-controller="Products" asp-action="Index">
-				<img src="~/Images/im_borrower.png" alt="" hspace="20" />
-			</a>
+﻿@using Microsoft.AspNetCore.Identity
+@using Neighbors.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+@{
+	ViewData["Title"] = "Home Page";
+	<center>
+		<div class="row">
+			<img src="~/images/logo.png" />
 		</div>
-		<div class="col-xs-6">
+		<div class="row">
+			<div class="col-xs-6">
+				<a asp-controller="Products" asp-action="Index">
+					<img src="~/Images/im_borrower.png" alt="" hspace="20" />
+				</a>
+			</div>
+			<div class="col-xs-6">
+			</div>
+
+			<button type="button" class="btn-transparent" id="modal-trigger"
+					data-toggle="modal">
+				<img src="~/Images/im_lander.png" alt="" />
+			</button>
+
+			<div id="addProductModal" class="modal fade" role="dialog">
+				@{await Html.RenderPartialAsync("/Views/Products/_CreateProductPartial.cshtml", new Product());}
+			</div>
 		</div>
+	</center>
 
-		<button type="button" class="btn-transparent"
-				data-toggle="modal" data-target="#addProductModal">
-			<img src="~/Images/im_lander.png" alt="" />
-		</button>
-
-		<div id="addProductModal" class="modal fade" role="dialog">
-			@{await Html.RenderPartialAsync("/Views/Products/_CreateProductPartial.cshtml", new Product());}
-		</div>
-
-	</div>
-
-
-</center>
-    
 }
 
 
