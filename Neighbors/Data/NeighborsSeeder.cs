@@ -38,10 +38,10 @@ namespace Neighbors.Data
 		{
 			var user = new User
 			{
-				UserName = "Admin",
-				FirstName = "Admin",
-				LastName = "Admin",
-				Email = "caysebix@email.com",
+				UserName = "makaka@email.com",
+				FirstName = "Mrs.",
+				LastName = "Administrator",
+				Email = "makaka@email.com",
 				EmailConfirmed = true,
 				Address="Eli-Vizel",
 				City = "Rishon-Lezion",
