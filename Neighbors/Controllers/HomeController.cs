@@ -25,6 +25,7 @@ namespace Neighbors.Controllers
 
         public IActionResult About()
         {
+            
             // Meesages1-5 are being printed in a specific format inside the view
             ViewData["Message1"] = "Have you ever dreamed of friends who could lend you tools instead of wasting precious money to buy it ?";
             ViewData["Message2"] = "Neighbors are here to fulfill your dream.";

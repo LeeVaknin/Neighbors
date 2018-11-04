@@ -34,11 +34,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Error\OurError.cshtml" />
     <None Include="wwwroot\css\custom-forms.css" />
     <None Include="wwwroot\css\custom-forms.min.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Error\InvalidAction.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\EditorTemplates\Location.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

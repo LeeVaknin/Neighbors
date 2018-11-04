@@ -16,6 +16,7 @@ namespace Neighbors.Controllers
 		private readonly IProductsRepository _productsRepo;
 
 
+
 		public ProductsController(IProductsRepository productsRepository)
 		{
 			_productsRepo = productsRepository;

@@ -101,7 +101,8 @@ namespace Neighbors
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
-			if (env.IsDevelopment())
+            app.UseStatusCodePagesWithRedirects("~/Error/{0}");
+            if (env.IsDevelopment())
 			{
 				app.UseBrowserLink();
 				app.UseDeveloperExceptionPage();
@@ -115,13 +116,14 @@ namespace Neighbors
 
 			app.UseAuthentication();
 
-			app.UseMvc(routes =>
+            app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
 
+            
 			await SeedDB(app);
 		}
 	}
