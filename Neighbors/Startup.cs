@@ -92,7 +92,7 @@ namespace Neighbors
 				var roleManager = services.GetRequiredService<RoleManager<Role>>();
                 var ctx = services.GetRequiredService<NeighborsContext>();
                 var seeder = new NeighborsSeeder(userManager, roleManager, ctx);
-				await seeder.Seed();
+				//await seeder.Seed();
 			}
 		}
 

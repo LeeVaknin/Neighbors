@@ -14,6 +14,8 @@ namespace Neighbors.Models
         [Display(Name = "Category name")]
         public string Name{ get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual IList<Product> Products { get; set; }
+     
+       
     }
 }

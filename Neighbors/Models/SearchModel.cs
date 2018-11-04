@@ -7,7 +7,6 @@ namespace Neighbors.Models
 {
 	public class SearchModel
 	{
-
 		public virtual string Name { get; set; }
 
 		public virtual string Id { get; set; }

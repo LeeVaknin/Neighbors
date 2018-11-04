@@ -23,9 +23,9 @@ namespace Neighbors.Controllers
         #region Client side methods
 
         // GET: Categories
-        public IActionResult Index(string searchStr)
+        public async Task<IActionResult> Index()
         {
-            return View(_categoriesRepo.GetAllCategories());
+            return View(await _categoriesRepo.GetAllCategories());
         }
 
 		public async Task<JsonResult> ReturnJSONCategories() //It will be fired from Jquery ajax call  
@@ -65,6 +65,10 @@ namespace Neighbors.Controllers
         {
 
             var category = await _categoriesRepo.GetCategoryById(id);
+            if(category == null)
+            {
+                return NotFound();
+            } 
             return View(category);
         }
 

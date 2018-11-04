@@ -24,13 +24,13 @@ namespace Neighbors.Data
             _context = context;
 		}
 
-		public async Task Seed()
+	/*	public async Task Seed()
 		{
 			await SeedRoles();
 			await SeedAdminUser();
             await SeedData();
 		}
-
+        */
 		private async Task SeedRoles()
 		{
 			var roles = Enum.GetValues(typeof(Roles));

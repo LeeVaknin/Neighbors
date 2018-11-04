@@ -11,18 +11,15 @@ namespace Neighbors.Models
     {
         public int Id { get; set; }
 
-      //  public int LenderId { get; set; }
-        [NotMapped]
+     //   public int LenderId { get; set; }
         public User Lender { get; set; }
 
-     //   public int BorrowerId { get; set; }
-        [NotMapped]
+    //    public int BorrowerId { get; set; }
         public User Borrower { get; set; }
 
         [Display(Name = "Product ID")]
-        public int ProductId { get; set; }
-
         [Required(ErrorMessage = "Please provide product")]
+        public int ProductId { get; set; }
         public Product Product { get; set; }
 
         [Required]

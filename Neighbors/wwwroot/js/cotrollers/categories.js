@@ -74,9 +74,10 @@ function raiseError(err) {
 };
 
 function closeModal() {
-	try {
+    try {
+        $('#addCategory').collapse({ toggle: false});
 		$('#catErrors').alert('close');
-		$('#addCategory').collapse('hide');
+    	$('#addCategory').collapse('hide');
 	}
 	catch (err) {
 	}

@@ -39,7 +39,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Shared\EditorTemplates\Location.cshtml">
+    <Content Update="Areas\Identity\Pages\Account\Manage\UserPages\_editUser.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Pages\Account\Manage\UserPages\_ShowUserProducts.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Products\ProductOwner.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\EditorTemplates\Category.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

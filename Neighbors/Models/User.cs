@@ -29,16 +29,14 @@ namespace Neighbors.Models
         public string City { get; set; }
 
         //Condiser of having the following properties under model view ???
-
+        [NotMapped]
         // Collection of all the products that people borrowed from me
-        [NotMapped]
-        public ICollection<Borrow> BorrowedProduct { get; set; }
-        [NotMapped]
-        public ICollection<Product> MyProducts { get; set; }
+        public IList<Borrow> BorrowedProduct { get; set; }
 
-        // Collection of all the products that I borrowed from others
+        public IList<Product> MyProducts { get; set; }
         [NotMapped]
-        public ICollection<Borrow> MyBorrowed { get; set; }
+        // Collection of all the products that I borrowed from others
+        public IList<Borrow> MyBorrowed { get; set; }
 
 	}
 }

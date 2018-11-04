@@ -10,14 +10,14 @@ using Neighbors.Data;
 namespace Neighbors.Migrations
 {
     [DbContext(typeof(NeighborsContext))]
-    [Migration("20180820172445_Category")]
-    partial class Category
+    [Migration("20181103202609_oneToMany2")]
+    partial class oneToMany2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -110,9 +110,13 @@ namespace Neighbors.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BorrowerId");
+
                     b.Property<DateTime>("EndDate");
 
                     b.Property<double>("Fine");
+
+                    b.Property<int?>("LenderId");
 
                     b.Property<int>("ProductId");
 
@@ -120,9 +124,49 @@ namespace Neighbors.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BorrowerId");
+
+                    b.HasIndex("LenderId");
+
                     b.HasIndex("ProductId");
 
                     b.ToTable("Borrows");
+                });
+
+            modelBuilder.Entity("Neighbors.Models.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<float>("Altitude");
+
+                    b.Property<string>("Description");
+
+                    b.Property<float>("Longitude");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branch");
+                });
+
+            modelBuilder.Entity("Neighbors.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Neighbors.Models.Product", b =>
@@ -130,6 +174,10 @@ namespace Neighbors.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AvailableFrom");
+
+                    b.Property<DateTime>("AvailableUntil");
 
                     b.Property<int>("BorrowsDays");
 
@@ -143,6 +191,8 @@ namespace Neighbors.Migrations
                     b.Property<double>("Price");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("OwnerId");
 
@@ -197,10 +247,12 @@ namespace Neighbors.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("LastName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -285,6 +337,14 @@ namespace Neighbors.Migrations
 
             modelBuilder.Entity("Neighbors.Models.Borrow", b =>
                 {
+                    b.HasOne("Neighbors.Models.User", "Borrower")
+                        .WithMany()
+                        .HasForeignKey("BorrowerId");
+
+                    b.HasOne("Neighbors.Models.User", "Lender")
+                        .WithMany()
+                        .HasForeignKey("LenderId");
+
                     b.HasOne("Neighbors.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -293,8 +353,13 @@ namespace Neighbors.Migrations
 
             modelBuilder.Entity("Neighbors.Models.Product", b =>
                 {
+                    b.HasOne("Neighbors.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Neighbors.Models.User", "Owner")
-                        .WithMany()
+                        .WithMany("MyProducts")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

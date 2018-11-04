@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Neighbors.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class oneToMany : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,30 +27,59 @@ namespace Neighbors.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
                     Address = table.Column<string>(nullable: false),
                     City = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Branch",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Altitude = table.Column<float>(nullable: false),
+                    Longitude = table.Column<float>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Branch", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,14 +195,22 @@ namespace Neighbors.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
-                    Category = table.Column<int>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false),
                     OwnerId = table.Column<int>(nullable: false),
+                    AvailableFrom = table.Column<DateTime>(nullable: false),
+                    AvailableUntil = table.Column<DateTime>(nullable: false),
                     BorrowsDays = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Product_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Product_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
@@ -188,6 +225,8 @@ namespace Neighbors.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    LenderId = table.Column<int>(nullable: true),
+                    BorrowerId = table.Column<int>(nullable: true),
                     ProductId = table.Column<int>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
@@ -197,12 +236,39 @@ namespace Neighbors.Migrations
                 {
                     table.PrimaryKey("PK_Borrows", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Borrows_AspNetUsers_BorrowerId",
+                        column: x => x.BorrowerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Borrows_AspNetUsers_LenderId",
+                        column: x => x.LenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Borrows_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Branch",
+                columns: new[] { "Id", "Address", "Altitude", "Description", "Longitude" },
+                values: new object[] { 1, "Eli Vizel 2, Rishon Lezion", 31.96899f, "Main headquarters", 34.77067f });
+
+            migrationBuilder.InsertData(
+                table: "Branch",
+                columns: new[] { "Id", "Address", "Altitude", "Description", "Longitude" },
+                values: new object[] { 2, "Azrieli Center", 32.07322f, "RnD Center", 34.79225f });
+
+            migrationBuilder.InsertData(
+                table: "Branch",
+                columns: new[] { "Id", "Address", "Altitude", "Description", "Longitude" },
+                values: new object[] { 3, "Rupin rd 15, Haifa", 32.79269f, "Support center", 35.00083f });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -244,9 +310,30 @@ namespace Neighbors.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Borrows_BorrowerId",
+                table: "Borrows",
+                column: "BorrowerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Borrows_LenderId",
+                table: "Borrows",
+                column: "LenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Borrows_ProductId",
                 table: "Borrows",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_Name",
+                table: "Categories",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_CategoryId",
+                table: "Product",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_OwnerId",
@@ -275,10 +362,16 @@ namespace Neighbors.Migrations
                 name: "Borrows");
 
             migrationBuilder.DropTable(
+                name: "Branch");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

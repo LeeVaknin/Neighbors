@@ -23,6 +23,8 @@ namespace Neighbors.Models
         [Display(Name = "Owner ID")]
         public int OwnerId { get; set; }
 
+        public User Owner { get; set; }
+
         [Required(ErrorMessage = "Select from when you can land your item")]
         [Display(Name = "From")]
         public DateTime AvailableFrom { get; set; }

@@ -1,4 +1,5 @@
-﻿using Neighbors.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Neighbors.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,12 @@ namespace Neighbors.Services.DAL
 
 		Task<int> UpdateProduct(int productId, Product product);
 
-		#endregion
+        #endregion
 
-		#region Getters
+        #region Getters
+   //     Task<IActionResult> ProductOwner();
 
-		Task<Product> GetProductById(int id);
+        Task<Product> GetProductById(int id);
 
 		Task<ICollection<Product>> GetProductsByNameAsync(string name);
 

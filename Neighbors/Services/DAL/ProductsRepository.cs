@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System;
+using Neighbors.ViewModels;
 
 namespace Neighbors.Services.DAL
 {
@@ -42,7 +43,10 @@ namespace Neighbors.Services.DAL
 				else return 0;
 
 			}
-			_context.Add(newProduct);
+            
+            newProduct.Owner = await _context.Users.FirstOrDefaultAsync(user => user.Id == newProduct.OwnerId);
+
+            _context.Add(newProduct);
 			return await _context.SaveChangesAsync();
 		}
 
@@ -63,25 +67,39 @@ namespace Neighbors.Services.DAL
 			return await _context.SaveChangesAsync();
 		}
 
-		#endregion
+        #endregion
 
-		#region Getters
+        #region Getters
 
-		public async Task<ICollection<Product>> GetAllProducts()
+  /*      public async Task<IActionResult> ProductOwner()
+        {
+
+            var q = from p in _context.Product
+                    join u in _context.Users on p.Owner.Id equals u.Id
+                    select new UserProductsVM()
+                    {
+                        ProductName = p.Name,
+                        OwnerName = u.FirstName + ' ' + u.LastName
+                    };
+
+            return View(await q.ToListAsync());
+        }
+        */
+        public async Task<ICollection<Product>> GetAllProducts()
 		{
-			return await _context.Product.ToListAsync();
+			return await _context.Product.Include(c => c.Category).ToListAsync();
 		}
 
 		public async Task<Product> GetProductById(int id)
 		{
-			return (await _context.Product.FirstOrDefaultAsync(pr => pr.Id == id));
+			return (await _context.Product.Include(c => c.Category).FirstOrDefaultAsync(pr => pr.Id == id));
 		}
 
 		public async Task<ICollection<Product>> GetProductsByCategory(Category category)
 		{
 			var response = await (from pr in _context.Product
 								  where pr.Category == category
-								  select pr).ToListAsync();
+								  select pr).Include(c => c.Category).ToListAsync();
 			return response;
 		}
 
@@ -91,13 +109,13 @@ namespace Neighbors.Services.DAL
 								  join cityUsr in
 									  (from usr in _context.Users where usr.City == city select usr.Id)
 								  on pr.OwnerId equals cityUsr
-								  select pr).ToListAsync();
+								  select pr).Include(c => c.Category).ToListAsync();
 			return response;
 		}
 
 		public async Task<ICollection<Product>> GetProductsByNameAsync(string name)
 		{
-			var response = await _context.Product.Where(pr => pr.Name.Contains(name)).ToListAsync();
+			var response = await _context.Product.Where(pr => pr.Name.Contains(name)).Include(c => c.Category).ToListAsync();
 			return response;
 		}
 
