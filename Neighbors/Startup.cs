@@ -17,6 +17,7 @@ using Neighbors.Services.DAL;
 using FluentValidation;
 using Neighbors.Validators;
 using FluentValidation.AspNetCore;
+using System.Threading;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
@@ -96,15 +97,18 @@ namespace Neighbors
 				var services = scope.ServiceProvider;
 				var userManager = services.GetRequiredService<UserManager<User>>();
 				var roleManager = services.GetRequiredService<RoleManager<Role>>();
-				var seeder = new NeighborsSeeder(userManager, roleManager);
+                var ctx = services.GetRequiredService<NeighborsContext>();
+                var seeder = new NeighborsSeeder(userManager, roleManager, ctx);
 				await seeder.Seed();
+                Thread.Sleep(2000);
 			}
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
-			if (env.IsDevelopment())
+            app.UseStatusCodePagesWithRedirects("~/Error/{0}");
+            if (env.IsDevelopment())
 			{
 				app.UseBrowserLink();
 				app.UseDeveloperExceptionPage();
@@ -113,18 +117,19 @@ namespace Neighbors
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
-
+            
 			app.UseStaticFiles();
 
 			app.UseAuthentication();
 
-			app.UseMvc(routes =>
+            app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
 
+            
 			await SeedDB(app);
 		}
 	}

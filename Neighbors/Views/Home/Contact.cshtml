@@ -1,24 +1,58 @@
 ﻿@{
-	ViewData["Title"] = "Neighbors - Contact us";
+    ViewData["Title"] = "Neighbors - Contact us";
 }
+<style>
+    .transition_div {
+        width: 15px;
+        height: 15px;
+        background: #1E90FF;
+        transition: width 2s;
+    }
+
+        .transition_div:hover {
+            width: 575px;
+        }
+
+    h2 {
+        text-shadow: 2px 2px 8px #1E90FF;
+    }
+
+    .contacts {
+        border: 1px solid blue;
+        padding: 10px;
+        border-radius: 20px;
+    }
+
+    .container_row_well_well_lg {
+        font-family: "Comic Sans MS", Times, serif;
+        font-size: 15px;
+        column-count: 2;
+        column-gap: 40px;
+        column-rule-style: solid;
+    }
+</style>
 <h2>@ViewData["Title"]</h2>
+<br />
 
-<div class="container row well well-lg">
-	<div class="col-xs-6 left-border">
-		<p>@ViewData["Text"] </p>
+<div class="container_row_well_well_lg">
+    <div>
+        <p>@ViewData["Text"] </p>
 
-		<address>
-			Eli Vizel 1<br />
-			Rishon Lezion, Israel<br />
-			<span>Phone: </span>
-			03-3333555
-		</address>
-	</div>
-	
-	<div class="col-xs-3 left-border">
-		<address>
-			<strong>Support:</strong> <a href="mailto:Support@neighboers.com">Support@neighboers.com</a><br />
-			<strong>Marketing:</strong> <a href="mailto:Marketing@neighboers.com">Marketing@neighboers.com</a>
-		</address>
-	</div>
+        <address>
+            Eli Vizel 1<br />
+            Rishon Lezion, Israel<br />
+            <span>Phone: </span>
+            03-3333555
+        </address>
+    </div>
+
+    <div class="col_xs_3_left_border">
+        <address class="contacts">
+            <strong>Support:</strong> <a href="mailto:Support@neighboers.com">Support@neighboers.com</a><br />
+            <strong>Marketing:</strong> <a href="mailto:Marketing@neighboers.com">Marketing@neighboers.com</a>
+        </address>
+    </div>
+
 </div>
+<br />
+<div class="transition_div"></div>
