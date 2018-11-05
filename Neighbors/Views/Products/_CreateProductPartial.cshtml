@@ -9,7 +9,7 @@
 			<h4 class="modal-title">Offer Your Product</h4>
 		</div>
 		
-		<form id="addProductForm" asp-controller="Products" asp-action="AddNewProduct" asp-antiforgery="true" role="form"
+		<form id="addProductForm" asp-controller="Products" method=post asp-antiforgery="true" role="form"
 			  data-ajax-success="Bindgrid"
 			  data-ajax="true"
 			  data-ajax-method="POST">

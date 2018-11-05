@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,39 +23,35 @@ namespace Neighbors.Controllers
 		}
 
 		#region View Getters
-
-		// GET: Products
+		[AllowAnonymous]
 		public async Task<IActionResult> Index(string SearchString)
 		{
 			return View(await _productsRepo.GetAllProducts());
 		}
 
-		// GET: Products
+		[AllowAnonymous]
 		public async Task<IActionResult> Search(ProductSearch filter)
 		{
 			var res = await _productsRepo.GetProducts(filter);
 			return Json(res);
 		}
-
-		[HttpGet("/Products/Details/{id}")]
+		[AllowAnonymous]
 		public async Task<IActionResult> Details(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
 			return View(product);
 		}
 
-
-		[HttpGet("/Products/Delete/{id}")]
+		[Authorize]
 		public async Task<IActionResult> Delete(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-			return View();
+			return View(product);
 		}
 
-		[HttpGet("/Products/Edit/{id}")]
+		[Authorize]
 		public async Task<IActionResult> Edit(int id)
 		{
-			
 			var product = await _productsRepo.GetProductById(id);
 			return View(product);
 		}
@@ -63,10 +60,8 @@ namespace Neighbors.Controllers
 
 		#region Add, Delete, Update
 		// POST: Products/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		//[ValidateAntiForgeryToken]
+		[HttpPost("/Products")]
+		[Authorize]
 		public async Task<IActionResult> AddNewProduct(Product product)
 		{
 			if (ModelState.IsValid)
@@ -80,11 +75,9 @@ namespace Neighbors.Controllers
 		}
 
 		// POST: Products/Edit/5
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost("/Products/Edit/{id}")]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, Product product)
+		[HttpPut("/Products/{id}")]
+		[Authorize]
+		public async Task<IActionResult> EditProduct(int id, Product product)
 		{
 			if (ModelState.IsValid)
 			{
@@ -102,6 +95,7 @@ namespace Neighbors.Controllers
 		// POST: Products/Delete/5
 		[HttpPost("/Products/Delete/{id}")]
 		[ValidateAntiForgeryToken]
+		[Authorize]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			if (ModelState.IsValid)

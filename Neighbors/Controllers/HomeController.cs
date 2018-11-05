@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Neighbors.Models;
 using Neighbors.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Neighbors.Controllers
 {
+	[AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly NeighborsContext _context;
@@ -62,10 +64,5 @@ namespace Neighbors.Controllers
             return View();
         }
 
-  /*      public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-        */
     }
 }

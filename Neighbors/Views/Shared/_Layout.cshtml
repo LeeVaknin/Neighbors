@@ -82,11 +82,17 @@
 	<div class="container body-content">
 		@RenderBody()
 		@if (!SignInManager.IsSignedIn(User))
-		 {
+		{
 			<div id="login-modal" class="modal fade" role="dialog">
 				@{ await Html.RenderPartialAsync("/Views/_Login.cshtml", new Login()); }
 			</div>
-		 }
+		}
+		else
+		{
+			<div id="addProductModal" class="modal fade" role="dialog">
+				@{await Html.RenderPartialAsync("/Views/Products/_CreateProductPartial.cshtml", new Product());}
+			</div>
+		}
 		<hr />
 		<footer>
 			<p>&copy; 2018 - Neighbors</p>

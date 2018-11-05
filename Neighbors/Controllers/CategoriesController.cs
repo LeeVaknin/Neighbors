@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,8 @@ using Neighbors.Services.DAL;
 
 namespace Neighbors.Controllers
 {
-    public class CategoriesController : Controller
+	[Authorize]
+	public class CategoriesController : Controller
     {
         private readonly ICategoriesRepository _categoriesRepo;
 
@@ -20,63 +22,63 @@ namespace Neighbors.Controllers
             _categoriesRepo = categoriesRepo;
         }
 
-        #region Client side methods
-
-        // GET: Categories
-        public IActionResult Index(string searchStr)
+		#region Client side methods
+		[AllowAnonymous]
+		public async Task<IActionResult> Index(string searchStr)
         {
-            return View(_categoriesRepo.GetAllCategories());
+            return View(await _categoriesRepo.GetAllCategories());
         }
 
-		public async Task<JsonResult> ReturnJSONCategories() //It will be fired from Jquery ajax call  
-		{
-			var categories = await _categoriesRepo.GetAllCategories();
-			return Json(categories);
-		}
+		[AllowAnonymous]
 		public async Task<IActionResult> Search(string filter)
         {
             var res = await _categoriesRepo.GetCategoryByNameAsync(filter);
             return Json(res);
         }
 
-        public async Task<IActionResult> Edit(int id)
+		[Authorize(Roles = "Administrator")]
+		public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoriesRepo.GetCategoryById(id);
 
             return View(category ?? new Category());
         }
+
+		[Authorize(Roles = "Administrator")]
 		public IActionResult Create()
 		{
 			return PartialView("_CreateCatPartial", new Category());
 		}
 
-		// GET: Categories/Delete/5
+		[Authorize(Roles = "Administrator")]
 		public async Task<IActionResult> Delete(int id)
         {
+			var category = await _categoriesRepo.GetCategoryById(id);
+			return View();
+		}
 
-            var product = await _categoriesRepo.GetCategoryById(id);
-            return View();
-
-        }
-
-        #endregion
-
-        public async Task<IActionResult> Details(int id)
+		[Authorize(Roles = "Administrator")]
+		public async Task<IActionResult> Details(int id)
         {
 
             var category = await _categoriesRepo.GetCategoryById(id);
             return View(category);
         }
 
-        #region The actual REST methods - Server side
+		#endregion
 
+		#region The actual REST methods - Server side
 
+		[AllowAnonymous]
+		[HttpGet("/Categories")]
+		public async Task<IActionResult> GetCategories() //It will be fired from Jquery ajax call  
+		{
+			var categories = await _categoriesRepo.GetAllCategories();
+			return Json(categories);
+		}
 
-        // POST: Ca9tegories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost("/Categories")]
-        public async Task<JsonResult> AddNewCategory([FromBody] Category category)
+		[HttpPost("/Categories")]
+		public async Task<IActionResult> AddNewCategory([FromBody] Category category)
         {
 			if (ModelState.IsValid)
 			{
@@ -101,8 +103,8 @@ namespace Neighbors.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut("/Categories/{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateCategory(int id, Category category)
+		[Authorize(Roles = "Administrator")]
+		public async Task<IActionResult> UpdateCategory(int id, Category category)
         {
 
             if (ModelState.IsValid)
@@ -121,8 +123,8 @@ namespace Neighbors.Controllers
 
         // POST: Categories/Delete/5
         [HttpDelete("/Categories/{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+		[Authorize(Roles = "Administrator")]
+		public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (ModelState.IsValid)
             {
