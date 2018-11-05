@@ -10,6 +10,10 @@
 	display:block;
 }
 
+button.vcenter {
+	vertical-align: baseline;
+}
+
 /*All sides*/
 
 .p-2 {

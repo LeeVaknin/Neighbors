@@ -10,9 +10,17 @@
 //	}
 //});
 
-//$(document).ready(setDateNow);
+//$('.glyphicon-calendar').on('click', function () {
+//	$('#ARDT').focus();
+//});
 
-//function setDateNow() {
-//	$('.date-pick').datepicker().datepicker("setDate", new Date());
-//}
+$(document).ready(getCities);
 
+function getCities() {
+	// Create a seed for that shit
+	var result = [ "Afula", "Azor", "Ashdod", "Arad", "Ashkelon", "Bat-Yam", "BeerSheva", "Bazra", "Ashdod", "Holon", "Eilat", "Krayot"]
+	$(result).each(function (i, city) {
+		var value = $("<option></option>").val(city).html(city);
+		$("#citiesList").append(value);
+	});
+}

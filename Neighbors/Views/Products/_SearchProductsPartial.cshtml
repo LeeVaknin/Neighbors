@@ -2,38 +2,57 @@
 
 
 <div class="row well">
-	<div class="col-xs-10">
-		<form asp-action="Search" asp-controller="Products" class="form-inline" method="get">
-			<div class="form-group">
-				<label>Category</label>
-				<input asp-for="Category" id="Category" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label>Name</label>
-				<input asp-for="Name" id="Name" class="form-control" />
-			</div>
-			<label class="control-label"> Location </label>
-			<div class="form-group">
-				<div class="dropdown">
-					<button class="dropdown-toggle btn btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						City <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu dropdown-menu list-group text-center ">
-						<li class="">Tel-Aviv</li>
-						<li>Rishon-Lezion</li>
-						<li>Jerusalem</li>
-						<li>Azor</li>
-						<li>Bazra</li>
-						<li>Krayot</li>
-					</ul>
+	<div class="row">
+		<div class="col-md-offset-1">
+			<div class="input-group ml-2" id="adv-search">
+				<input type="text" class="form-control" placeholder="Search for products" />
+				<div class="btn-transparent input-group-btn pr-2">
+					<div class="btn-group" role="group">
+						<div class="dropdown dropdown-lg">
+							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+							<div class="dropdown-menu dropdown-menu-right p-5" role="menu">
+
+								<form asp-action="Search" asp-controller="Products" class="form-horizontal" method="get">
+
+
+										
+									<div class="row flex-container">
+										<div class="col-xs-11">
+											<div class="form-group">
+												@* Categories Filter *@
+												<div class="form-group">
+													<label asp-for="CategoryId" class="control-label mr-2 text-left"></label>
+													@Html.DropDownListFor(m => m.CategoryId,
+															Enumerable.Empty<SelectListItem>(),
+															"Categories",
+															new { id = "catList", @class = "form-control m-2" })
+												</div>
+												<div class="row">
+													@* Cities Filter *@
+													<div class="form-group col-xs-4">
+														<label asp-for="Location.City" class="control-label"></label>
+														@Html.DropDownListFor(m => m.Location.City,
+																Enumerable.Empty<SelectListItem>(),
+																"Cities",
+																new { id = "citiesList", @class = "form-control m-2" })
+													</div>
+													@* StreetAddress Filter *@
+													<div class="col-xs-7 form-group">
+														<label asp-for="Location.StreetAddress" class="control-label"></label>
+														<input asp-for="Location.StreetAddress" placeholder="Maybe there is somebody near your block?" type="text" for="contain" class="form-control m-2" />
+													</div>
+												</div>
+											</div>
+										</div>
+											
+										<button type="submit" class="btn btn-info flex-item" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
-				<input id="Street" placeholder="Street" class="form-control" />
 			</div>
-
-			<button type="submit" class="btn btn-default">Search</button>
-		</form>
+		</div>
 	</div>
-
-
 </div>
-

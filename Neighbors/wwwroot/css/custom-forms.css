@@ -3,8 +3,12 @@
 }
 
 .min-inline-form-group-width{
-    min-width:25vw;
+    min-width:20vw;
 }
 .max-form-panel {
     max-height: 25vh;
+}
+
+.custom-inline-form {
+	display: flex;
 }

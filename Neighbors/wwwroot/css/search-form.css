@@ -1,0 +1,56 @@
+﻿body {
+	padding-top: 50px;
+}
+
+.input-group {
+	margin-left:5px;
+}
+
+.dropdown.dropdown-lg .dropdown-menu {
+	margin-top: -1px;
+	padding: 15px;
+}
+
+.input-group-btn .btn-group {
+	display: flex !important;
+}
+
+.btn-group .btn {
+	border-radius: 0;
+	margin-left: -1px;
+}
+
+
+.btn-group .form-horizontal .btn[type="submit"] {
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.form-horizontal .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.flex-container {
+	display: flex;
+}
+
+
+.flex-item {
+	font-weight: bold;
+	text-align: center;
+	padding-bottom: 4px;
+	display: block;
+	
+}
+
+@media screen and (min-width: 768px) {
+	#adv-search {
+		width: 50vw;
+		margin: 0 auto;
+	}
+
+	.dropdown.dropdown-lg .dropdown-menu {
+		min-width: 50vw;
+	}
+}

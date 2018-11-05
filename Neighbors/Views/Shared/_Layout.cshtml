@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="~/css/site.css" />
 		<link rel="stylesheet" href="~/css/grid.css" />
 		<link rel="stylesheet" href="~/css/buttons.css" />
+		<link rel="stylesheet" href="~/css/search-form.css" />
 	</environment>
 
 	<environment exclude="Development">
@@ -21,8 +22,9 @@
 			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 		<link rel="stylesheet" href="~/css/custom-forms.min.css" asp-append-version="true" />
-		<link rel="stylesheet" href="~/css/grid.css" asp-append-version="true" />
-		<link rel="stylesheet" href="~/css/buttons.css" asp-append-version="true" />
+		<link rel="stylesheet" href="~/css/grid.min.css" asp-append-version="true" />
+		<link rel="stylesheet" href="~/css/buttons.min.css" asp-append-version="true" />
+		<link rel="stylesheet" href="~/css/search-form.min.css" />
 	</environment>
 
 	@*  ----------- Scripts -----------  *@
@@ -34,6 +36,8 @@
 		<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="~/js/site.js" asp-append-version="true"></script>
 		<script language="JavaScript" type="text/javascript" src="~/js/cotrollers/login.js"></script>
+		<script async language="JavaScript" type="text/javascript" src="~/js/cotrollers/categories.js"></script>
+		<script async language="JavaScript" type="text/javascript" src="~/js/cotrollers/products.js"></script>
 	</environment>
 
 	<environment exclude="Development">
@@ -50,6 +54,8 @@
 				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
 		</script>
 		<script src="~/js/site.min.js" asp-append-version="true"></script>
+		<script async language="JavaScript" type="text/javascript" src="~/js/cotrollers/categories.min.js"></script>
+		<script async language="JavaScript" type="text/javascript" src="~/js/cotrollers/products.min.js"></script>
 	</environment>
 </head>
 
