@@ -28,7 +28,7 @@ namespace Neighbors.Data
 		{
 			await SeedRoles();
 			await SeedAdminUser();
-            await SeedData();
+            SeedData();
 		}
 
 		private async Task SeedRoles()
@@ -71,7 +71,7 @@ namespace Neighbors.Data
 				await _userManager.AddToRoleAsync(user, Roles.Administrator.ToString());
 			}
 		}
-        private async Task SeedData()
+        private void SeedData()
         {
             dynamic data = JsonConvert.DeserializeObject(File.ReadAllText("data/data.json"));
             dynamic categories = data["Categories"];
@@ -162,7 +162,7 @@ namespace Neighbors.Data
                         await _userManager.CreateAsync(user);
                         await _userManager.AddToRoleAsync(user, Roles.Consumer.ToString());
                     }
-                    catch (Exception e)
+                    catch (Exception )
                     {
                     }
                 }
