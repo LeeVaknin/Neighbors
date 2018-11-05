@@ -1,17 +1,17 @@
 ﻿
 // veriables
 
-$(document).ready(getCategories);
+//$(document).ready(getCategories);
 
 // update triggers
 
 $("#newCategoryName").on('focusout', function () {
-	addCategory();
+	getCategories();
 });	
 
 // Controller methods execution
 
-function getCategories() {
+function getCategories(selector) {
 	$.ajax({
 		url: "/Categories",
 		type: "GET",
@@ -20,7 +20,7 @@ function getCategories() {
 		success: function (result) {
 			$(result).each(function (i, category) {
 				var value = $("<option></option>").val(category.id).html(category.name);
-				$("#catList").append(value);
+				$(selector).append(value);
 			});
 		},
 		error: function (data) { }

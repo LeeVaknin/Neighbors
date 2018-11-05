@@ -35,7 +35,7 @@
 						@Html.DropDownListFor(m => m.CategoryId,
 						Enumerable.Empty<SelectListItem>(),
 						"Categories",
-						new { id = "catList", @class = "form-control mr-2" })
+						new { id = "catList_1", @class = "form-control mr-2" })
 
 						<span asp-validation-for="CategoryId" class="text-danger"></span>
 						<button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
@@ -107,6 +107,9 @@
 	</div>
 </div>
 
+<script>
+	getCategories("#catList_1");
+</script>
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
