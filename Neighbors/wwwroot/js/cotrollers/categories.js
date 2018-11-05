@@ -13,7 +13,7 @@ $("#newCategoryName").on('focusout', function () {
 
 function getCategories() {
 	$.ajax({
-		url: "Categories/ReturnJSONCategories",
+		url: "/Categories",
 		type: "GET",
 		contentType: "application/json; charset=utf-8",
 		datatype: JSON,
@@ -30,7 +30,7 @@ function getCategories() {
 function addCategory() {
 
 	$.ajax({
-		url: "Categories",
+		url: "/Categories",
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({
