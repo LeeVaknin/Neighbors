@@ -28,7 +28,7 @@ namespace Neighbors.Data
         {
             await SeedRoles();
             await SeedAdminUser();
-            SeedData();
+           // SeedData();
         }
 
         private async Task SeedRoles()

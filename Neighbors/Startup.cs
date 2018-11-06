@@ -96,8 +96,8 @@ namespace Neighbors
 				var roleManager = services.GetRequiredService<RoleManager<Role>>();
                 var ctx = services.GetRequiredService<NeighborsContext>();
                 var seeder = new NeighborsSeeder(userManager, roleManager, ctx);
-				//await seeder.Seed();
-                //Thread.Sleep(2000);
+				await seeder.Seed();
+                Thread.Sleep(2000);
 			}
 		}
 
