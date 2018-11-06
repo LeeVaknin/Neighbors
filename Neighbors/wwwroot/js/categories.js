@@ -5,10 +5,6 @@
 
 // update triggers
 
-$("#newCategoryName").on('focusout', function () {
-	getCategories();
-});	
-
 // Controller methods execution
 
 function getCategories(selector) {
@@ -27,7 +23,7 @@ function getCategories(selector) {
 	});
 }
 
-function addCategory() {
+function addCategory(selector) {
 
 	$.ajax({
 		url: "/Categories",
@@ -40,7 +36,7 @@ function addCategory() {
 		success: function (result) {
 			if (result.isValid == true) {
 				var value = $("<option></option>").val(result.model.id).html(result.model.name);
-				$("#catList").append(value);
+				$(selector).append(value);
 				updateAnimation(value);
 			} else {
 				raiseError(result.error);
