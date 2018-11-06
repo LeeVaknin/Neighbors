@@ -24,8 +24,11 @@ namespace Neighbors.Models
         [Required(ErrorMessage = "Please provide address")]
         public string Address { get; set; }
 
-        // Cheack if there is relevant attribute
-        [Required(ErrorMessage = "Please provide city")]
+		[NotMapped]
+		public string FullName => String.Join(" ", FirstName, LastName);
+
+		// Cheack if there is relevant attribute
+		[Required(ErrorMessage = "Please provide city")]
         public string City { get; set; }
         
         //Condiser of having the following properties under model view ???

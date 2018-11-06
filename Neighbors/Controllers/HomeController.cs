@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Neighbors.Models;
 using Neighbors.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Neighbors.Controllers
 {
+	[AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly NeighborsContext _context;
@@ -25,6 +27,7 @@ namespace Neighbors.Controllers
 
         public IActionResult About()
         {
+            
             // Meesages1-5 are being printed in a specific format inside the view
             ViewData["Message1"] = "Have you ever dreamed of friends who could lend you tools instead of wasting precious money to buy it ?";
             ViewData["Message2"] = "Neighbors are here to fulfill your dream.";
@@ -62,10 +65,5 @@ namespace Neighbors.Controllers
             return View();
         }
 
-  /*      public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-        */
     }
 }

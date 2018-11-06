@@ -56,5 +56,17 @@
     "inputFiles": [
       "wwwroot/js/cotrollers/products.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/cotrollers/login.min.js",
+    "inputFiles": [
+      "wwwroot/js/cotrollers/login.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/search-form.min.css",
+    "inputFiles": [
+      "wwwroot/css/search-form.css"
+    ]
   }
 ]

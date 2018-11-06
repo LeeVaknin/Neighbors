@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,8 @@ using Neighbors.Data;
 
 namespace Neighbors.Models
 {
-    public class BranchesController : Controller
+	[Authorize(Roles = "Administrator")]
+	public class BranchesController : Controller
     {
         private readonly NeighborsContext _context;
 
@@ -18,13 +20,13 @@ namespace Neighbors.Models
             _context = context;
         }
 
-        // GET: Branches
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Branch.ToListAsync());
         }
 
-        // GET: Branches/Details/5
+		[AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,18 +44,29 @@ namespace Neighbors.Models
             return View(branch);
         }
 
-        // GET: Branches/Create
-        public IActionResult Create()
+		public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Branches/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+		public async Task<IActionResult> Edit(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var branch = await _context.Branch.FindAsync(id);
+			if (branch == null)
+			{
+				return NotFound();
+			}
+			return View(branch);
+		}
+
+		[HttpPost("/Branches")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,Address,Altitude,Longitude")] Branch branch)
+		public async Task<IActionResult> Create(Branch branch)
         {
             if (ModelState.IsValid)
             {
@@ -64,28 +77,9 @@ namespace Neighbors.Models
             return View(branch);
         }
 
-        // GET: Branches/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var branch = await _context.Branch.FindAsync(id);
-            if (branch == null)
-            {
-                return NotFound();
-            }
-            return View(branch);
-        }
-
-        // POST: Branches/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,Address,Altitude,Longitude")] Branch branch)
+		[HttpPut("/Branches/{id}")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, Branch branch)
         {
             if (id != branch.Id)
             {
@@ -115,7 +109,6 @@ namespace Neighbors.Models
             return View(branch);
         }
 
-        // GET: Branches/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +126,6 @@ namespace Neighbors.Models
             return View(branch);
         }
 
-        // POST: Branches/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

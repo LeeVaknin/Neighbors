@@ -6,12 +6,11 @@
 
 <h2>Products To Borrow</h2>
 
-<button type="button" class="btn-transparent" data-toggle="modal" data-target="#addProductModal">
-	Offer Your Product
-</button>
-
-<div id="addProductModal" class="modal fade" role="dialog">
-	@{await Html.RenderPartialAsync("_CreateProductPartial", new Product());}
+<div class="row">
+	<button type="button" id="modal-trigger" class="btn-transparent" data-toggle="modal">
+		Offer Your Product
+	</button> 
+	<span class="glyphicon glyphicon-plus"></span>
 </div>
 
 @{await Html.RenderPartialAsync("_SearchProductsPartial", new ProductSearch());}

@@ -1,0 +1,58 @@
+﻿@model Neighbors.Models.Login
+
+
+<div class="modal-dialog p-7">
+	<div class="modal-content p-7">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Login</h4>
+		</div>
+		<div class="modal-body text-left">
+			<form asp-controller="Login" role="form" asp-action="OnPostAsync" method="post" id="login-form"
+				  data-ajax-success="Bindgrid"
+				  data-ajax="true"
+				  data-ajax-method="POST">
+				<h5>Use a local account to log in.</h5>
+				<hr />
+				<div class="form-group">
+					<label asp-for="Email"></label>
+					<input asp-for="Email" class="form-control" id="email" />
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Password"></label>
+					<input asp-for="Password" class="form-control" id="password" />
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="form-group form-inline">
+					
+					<label asp-for="RememberMe">
+					<input asp-for="RememberMe" type="checkbox" class="checkbox" id="remember-me" />
+					@Html.DisplayNameFor(m => m.RememberMe)
+					</label>
+				</div>
+				<div class="form-group row">
+					<div class="col-xs-5">
+						<div class="form-group">
+							<div id="login_error"></div>
+							<button type="button" id="submit-login" onclick="login()" class="btn btn-default">Log in</button>
+						</div>
+						<div class="form-group">
+							<p> <a asp-area="Identity" asp-page="/Account/ForgotPassword">Forgot your password?</a></p>
+							<p> <a asp-area="Identity" asp-page="/Account/Register">Register</a> </p>
+						</div>
+					</div>
+					</form>
+				<div class="col-xs-7 left-border">
+					<h6 class="pl-5">Use another service to log in.</h6>
+					<form asp-area="Identity" asp-page="/Account/ExternalLogin" method="post" class="form-horizontal">
+						<button type="submit" class="btn-transparent" name="provider" value="Google" title="Log in using your Google account">
+							<img src="~/Images/btn_google_signin_normal_web.png" alt="" />
+						</button>
+					</form>
+				</div>
+
+				</div>
+		</div>
+	</div>
+</div>

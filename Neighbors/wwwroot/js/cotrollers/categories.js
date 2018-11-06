@@ -1,26 +1,26 @@
 ﻿
 // veriables
 
-$(document).ready(getCategories);
+//$(document).ready(getCategories);
 
 // update triggers
 
 $("#newCategoryName").on('focusout', function () {
-	addCategory();
+	getCategories();
 });	
 
 // Controller methods execution
 
-function getCategories() {
+function getCategories(selector) {
 	$.ajax({
-		url: "Categories/ReturnJSONCategories",
+		url: "/Categories",
 		type: "GET",
 		contentType: "application/json; charset=utf-8",
 		datatype: JSON,
 		success: function (result) {
 			$(result).each(function (i, category) {
 				var value = $("<option></option>").val(category.id).html(category.name);
-				$("#catList").append(value);
+				$(selector).append(value);
 			});
 		},
 		error: function (data) { }
@@ -30,7 +30,7 @@ function getCategories() {
 function addCategory() {
 
 	$.ajax({
-		url: "Categories",
+		url: "/Categories",
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({

@@ -1,23 +1,23 @@
 ﻿@model Neighbors.Models.Product
 
 
-<div class="modal-dialog p-7">
+<div class="modal-dialog p-5">
 	<!-- Modal content-->
-	<div class="modal-content p-7">
+	<div class="modal-content p-5">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			<h4 class="modal-title">Offer Your Product</h4>
 		</div>
-
-		<form id="addProductForm" asp-controller="Products" asp-action="AddNewProduct" asp-antiforgery="true" role="form"
-			data-ajax-success="Bindgrid"
-			data-ajax="true"
-			data-ajax-method="POST">
+		
+		<form id="addProductForm" asp-controller="Products" method=post asp-antiforgery="true" role="form"
+			  data-ajax-success="Bindgrid"
+			  data-ajax="true"
+			  data-ajax-method="POST">
 
 			<div class="modal-body">
 				<div asp-validation-summary="ModelOnly" id="formErrs" class="text-danger"></div>
 
-				<div class="form-group min-form-control-width">
+				<div class="form-group">
 					<div class="text-left">
 						<label asp-for="Name" class="control-label mr-2"></label>
 					</div>
@@ -33,9 +33,9 @@
 
 					<div class="center-items">
 						@Html.DropDownListFor(m => m.CategoryId,
-							Enumerable.Empty<SelectListItem>(),
-							"Categories",
-							new { id = "catList", @class = "form-control mr-2" })
+						Enumerable.Empty<SelectListItem>(),
+						"Categories",
+						new { id = "catList_1", @class = "form-control mr-2" })
 
 						<span asp-validation-for="CategoryId" class="text-danger"></span>
 						<button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
@@ -44,7 +44,6 @@
 					</div>
 					<div id="addCategory" class="collapse min-form-control-width">
 						@{await Html.RenderPartialAsync("/Views/Categories/_CreateCatPartial.cshtml", new Category());}
-						@*@Html.EditorFor(new Category())*@
 					</div>
 
 					<div id="success_placeholder"></div>
@@ -69,7 +68,7 @@
 						<label asp-for="AvailableUntil" class="control-label"></label>
 						<div class="form-group">
 							<div class='input-group date'>
-								<input asp-for="AvailableUntil" type="date" class="form-control"/>
+								<input asp-for="AvailableUntil" type="date" class="form-control" />
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -105,16 +104,12 @@
 				<input id="submitbutton" type="submit" value="Offer" class="btn btn-default" />
 			</div>
 		</form>
-
 	</div>
-
 </div>
 
-@* ----- Scripts ----- *@
-
-<script async type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script async src="~/js/cotrollers/categories.js"></script>
-<script async src="~/js/cotrollers/products.js"></script>
+<script>
+	getCategories("#catList_1");
+</script>
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
