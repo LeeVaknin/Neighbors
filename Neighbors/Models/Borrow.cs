@@ -10,9 +10,8 @@ namespace Neighbors.Models
     public class Borrow
     {
         public int Id { get; set; }
-
-        public int LenderId { get; set; }
-        public User Lender { get; set; }
+        public int BorrowerId { get; set; }
+        public User Borrower { get; set; }
 
         [Display(Name = "Product ID")]
         [Required(ErrorMessage = "Please provide product")]
@@ -31,7 +30,6 @@ namespace Neighbors.Models
         public DateTime EndDate { get; set; }
 
         public double Fine { get; set; }
-
 
     }
 }

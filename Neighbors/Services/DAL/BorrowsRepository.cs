@@ -31,20 +31,16 @@ namespace Neighbors.Services.DAL
         #region Add, Delete and Update
         public async Task<int> AddBorrow(Borrow newBorrow, int productId)
         {
-          //  var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var product = await _context.Product.FirstOrDefaultAsync(pro => pro.Id == productId);
-            
-            //newBorrow.Product = product;
-            newBorrow.ProductId = productId;
-            
-            //newBorrow.Lender = product.Owner;
-            //newBorrow.Lender = product.Owner;
-            newBorrow.LenderId = product.OwnerId;
 
-            //newBorrow.Borrower = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == strUserId);
-            /*    if (Int32.TryParse(strUserId, out var userId)) newBorrow.BorrowerId = userId;
-                else return 0;
-    */
+            newBorrow.ProductId = productId;
+            newBorrow.BorrowerId = product.OwnerId;
+            
+            if (Int32.TryParse(strUserId, out var userId))
+                newBorrow.BorrowerId = userId;
+            else return 0;
+    
             newBorrow.StartDate = product.AvailableFrom;
             newBorrow.EndDate = product.AvailableUntil;
             newBorrow.Fine = product.Price;
@@ -69,14 +65,14 @@ namespace Neighbors.Services.DAL
         #region Getters
         public async Task<ICollection<Borrow>> GetAllBorrowsAsync()
         {
-            return await _context.Borrows.Include(b => b.Lender).Include(b => b.Product).ToListAsync();
+            return await _context.Borrows.Include(b => b.Borrower).Include(b => b.Product).ToListAsync();
         }
 
         public async Task<Borrow> GetBorrowByIdAsync(int id)
         {
             var borrow = await _context.Borrows
                 //.Include(b => b.Borrower)
-                .Include(b => b.Lender)
+                .Include(b => b.Borrower)
                 .Include(b => b.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             return borrow;

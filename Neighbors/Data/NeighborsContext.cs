@@ -34,9 +34,9 @@ namespace Neighbors.Data
                 .HasIndex(u => u.Name)
                 .IsUnique();
             modelBuilder.Entity<Borrow>()
-                .HasOne(l => l.Lender)
+                .HasOne(l => l.Borrower)
                 .WithMany(o => o.MyBorrowed)
-                .HasForeignKey(k => k.LenderId);
+                .HasForeignKey(k => k.BorrowerId);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
