@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Borrower)
             </th>
             <th>
-               Borrower
+                Borrower
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product)
@@ -39,12 +39,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Borrower.FirstName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Owner.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
-            </td>
+                  <td>
+               @Html.DisplayFor(modelItem => item.Product.Owner.FirstName)
+           </td>
+           <td>
+               @Html.DisplayFor(modelItem => item.Product.Name)
+           </td> 
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>

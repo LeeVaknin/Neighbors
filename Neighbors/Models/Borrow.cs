@@ -18,6 +18,7 @@ namespace Neighbors.Models
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
+
       //  [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Start date")]

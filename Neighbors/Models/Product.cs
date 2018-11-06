@@ -38,8 +38,8 @@ namespace Neighbors.Models
 
         public double Price { get; set; }
 
-        public int BorrowId { get; set; }
         public Borrow Borrow { get; set; }
+
 
     }
 }

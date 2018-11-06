@@ -44,7 +44,7 @@ namespace Neighbors.Services.DAL
             newBorrow.StartDate = product.AvailableFrom;
             newBorrow.EndDate = product.AvailableUntil;
             newBorrow.Fine = product.Price;
-            
+
             _context.Add(newBorrow);
             return await _context.SaveChangesAsync();
         }
@@ -65,13 +65,14 @@ namespace Neighbors.Services.DAL
         #region Getters
         public async Task<ICollection<Borrow>> GetAllBorrowsAsync()
         {
-            return await _context.Borrows.Include(b => b.Borrower).Include(b => b.Product).ToListAsync();
+            return await _context.Borrows.Include(b => b.Borrower)
+                .Include(b => b.Product)
+                .ToListAsync();
         }
 
         public async Task<Borrow> GetBorrowByIdAsync(int id)
         {
             var borrow = await _context.Borrows
-                //.Include(b => b.Borrower)
                 .Include(b => b.Borrower)
                 .Include(b => b.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);

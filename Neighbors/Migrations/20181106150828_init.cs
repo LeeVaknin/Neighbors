@@ -201,7 +201,7 @@ namespace Neighbors.Migrations
                     AvailableUntil = table.Column<DateTime>(nullable: false),
                     BorrowsDays = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    BorrowId = table.Column<int>(nullable: false)
+                  //  BorrowId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,6 +218,13 @@ namespace Neighbors.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                /*    table.ForeignKey(
+                        name: "FK_Product_AspNetUsers_BorrowId",
+                        column: x => x.BorrowId,
+                        principalTable: "Borrows",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                        */
                 });
 
             migrationBuilder.CreateTable(
@@ -246,7 +253,7 @@ namespace Neighbors.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Restrict); 
                 });
 
             migrationBuilder.CreateIndex(

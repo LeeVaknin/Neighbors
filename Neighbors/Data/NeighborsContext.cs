@@ -28,7 +28,7 @@ namespace Neighbors.Data
             modelBuilder.Entity<Product>()
                 .HasOne(a => a.Borrow)
                 .WithOne(b => b.Product)
-                 .HasForeignKey<Borrow>(b => b.ProductId);
+                .HasForeignKey<Borrow>(b => b.ProductId);
 
             modelBuilder.Entity<Category>()
                 .HasIndex(u => u.Name)
