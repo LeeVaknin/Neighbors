@@ -94,7 +94,7 @@ namespace Neighbors.Areas.Identity.Pages.Account
 			}
 
 			// Sign in the user with this external login provider if the user already has a login.
-			var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+			var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor : true);
 			if (result.Succeeded)
 			{
 				_logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
@@ -154,7 +154,7 @@ namespace Neighbors.Areas.Identity.Pages.Account
 					result = await _userManager.AddLoginAsync(user, info);
 					if (result.Succeeded)
 					{
-						await _signInManager.SignInAsync(user, isPersistent: false);
+						await _signInManager.SignInAsync(user, isPersistent: true);
 						_logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
 						return LocalRedirect(returnUrl);
 					}
