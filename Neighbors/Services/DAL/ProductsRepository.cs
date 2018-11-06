@@ -69,7 +69,24 @@ namespace Neighbors.Services.DAL
 
 		public async Task<ICollection<Product>> GetAllProducts()
 		{
+
 			return await _context.Product.ToListAsync();
+
+		}
+
+		public async Task<ICollection<IGrouping<Category, Product>>> GetProductsGroupedByCategory() {
+			var result = await _context.Product.GroupBy(product => product.Category).ToListAsync();
+			return result;
+		}
+
+		public async Task<ICollection<IGrouping<string, Product>>> GetProductsGroupedByCity()
+		{
+			var result = await (from product in _context.Product
+						  join cityUsr in _context.Users
+						  on product.OwnerId equals cityUsr.Id
+						  group product by cityUsr.City into groupByCity
+						  select groupByCity).ToListAsync();
+			return result;
 		}
 
 		public async Task<Product> GetProductById(int id)
@@ -77,10 +94,20 @@ namespace Neighbors.Services.DAL
 			return (await _context.Product.FirstOrDefaultAsync(pr => pr.Id == id));
 		}
 
-		public async Task<ICollection<Product>> GetProductsByCategory(Category category)
+		public async Task<ICollection<Product>> GetProductsByAddress(string address)
 		{
 			var response = await (from pr in _context.Product
-								  where pr.Category == category
+								  join cityUsr in
+									  (from usr in _context.Users where (usr.Address.Contains(address) || address.Contains(usr.Address))select usr.Id)
+												 on pr.OwnerId equals cityUsr
+												 select pr).ToListAsync();
+			return response;
+		}
+
+		public async Task<ICollection<Product>> GetProductsByCategory(int categoryId)
+		{
+			var response = await (from pr in _context.Product
+								  where pr.Category.Id == categoryId
 								  select pr).ToListAsync();
 			return response;
 		}
@@ -93,26 +120,63 @@ namespace Neighbors.Services.DAL
 								  on pr.OwnerId equals cityUsr
 								  select pr).ToListAsync();
 			return response;
-		}
+		} 
 
 		public async Task<ICollection<Product>> GetProductsByNameAsync(string name)
 		{
-			var response = await _context.Product.Where(pr => pr.Name.Contains(name)).ToListAsync();
+			var response = await _context.Product.Where(pr => (pr.Name.Contains(name) || name.Contains(pr.Name) )).ToListAsync();
 			return response;
 		}
 
 		#endregion
+
+		public async Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel)
+		{
+			var productSearch = searchModel as ProductSearch;
+
+			if (productSearch == null) { return null; }
+
+			// join products and cities into one db
+			var joinedDb = (from pr in _context.Product
+							join cityUsr in _context.Users
+							on pr.OwnerId equals cityUsr.Id
+							select new { product = pr, city = cityUsr.City, address = cityUsr.Address});
+
+			// Check if the name was filled, if not, add the result to the list
+			try
+			{
+				var result = joinedDb.Where(productJoin => productSearch.Name == "" ||
+											productSearch.Name == null ||
+											productJoin.product.Name.Contains(searchModel.Name) ||
+											searchModel.Name.Contains(productJoin.product.Name))
+						//// Check if the category was chosen, if not, add the result to the list
+						.Where(productJoin => productSearch.CategoryId == 0 ||
+										productSearch.CategoryId == productJoin.product.CategoryId)
+						// Check if the city was filled, if not, add the result to the list
+						.Where(productJoin => productSearch.Location.City == "" ||
+											productSearch.Location.City == null ||
+											productJoin.city == productSearch.Location.City)
+						// Check if the street was filled, if not, add the result to the list
+						.Where(productJoin => productSearch.Location.StreetAddress == "" ||
+											productSearch.Location.StreetAddress == null ||
+											productSearch.Location.StreetAddress.Contains(productJoin.address) ||
+											productJoin.address.Contains(productSearch.Location.StreetAddress))
+
+						.Select(productJoin => productJoin.product);
+				return await (result.Distinct()).ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+			return new List<Product>();
+		}
 
 		#region Helper
 
 		public bool ProductExists(int id)
 		{
 			return _context.Product.Any(e => e.Id == id);
-		}
-
-		public Task<ICollection<Product>> GetProducts(ProductSearch searchModel)
-		{
-			throw new NotImplementedException();
 		}
 
 		#endregion

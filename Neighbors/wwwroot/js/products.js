@@ -5,15 +5,15 @@ function searchProducts() {
 
 	$.ajax({
 		url: "/Products/Search",
-		type: "GET",
+		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({
 			Name: $("#search-name").val(),
 			Category: $("#search-category").val(),
-			Location: JSON.stringify({
+			Location: {
 				City: $("#search-city").val(),
 				StreetAddress: $("#search-address").val(),
-			}),
+			}
 		}),
 		datatype: JSON,
 		success: function (result) {

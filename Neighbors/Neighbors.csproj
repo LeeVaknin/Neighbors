@@ -263,7 +263,6 @@
     <None Include="Views\Error\OurError.cshtml" />
     <None Include="wwwroot\css\custom-forms.css" />
     <None Include="wwwroot\css\custom-forms.min.css" />
-    <None Include="wwwroot\js\login.min.js" />
     <None Include="wwwroot\node_modules\chart.js\.editorconfig" />
     <None Include="wwwroot\node_modules\chart.js\.eslintignore" />
     <None Include="wwwroot\node_modules\chart.js\.eslintrc.yml" />

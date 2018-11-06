@@ -44,6 +44,11 @@
 	
 }
 
+.form-horizontal .control-label {
+	color: cadetblue;
+	font-weight: bold;
+} 
+
 @media screen and (min-width: 768px) {
 	#adv-search {
 		width: 50vw;

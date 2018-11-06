@@ -12,40 +12,43 @@
 							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
 							<div class="dropdown-menu dropdown-menu-right p-5" role="menu">
 
-								<form asp-action="Search" asp-controller="Products" class="form-horizontal" method="get">
-
-
+								<form id="search-form" asp-action="Search" asp-controller="Products" class="form-horizontal" data-ajax="true" data-ajax-method="get">
 										
 									<div class="row flex-container">
 										<div class="col-xs-11">
 											<div class="form-group">
-												@* Categories Filter *@
-												<div class="form-group">
-													<label asp-for="CategoryId" class="control-label mr-2 text-left"></label>
-													@Html.DropDownListFor(m => m.CategoryId,
+												<label asp-for="Name" class="control-label"></label>
+												<input asp-for="Name" placeholder="What are you looking for?" type="text" id="search-name" class="form-control m-2" />
+											</div>
+											@* Categories Filter *@
+											<div class="form-group">
+												<label asp-for="CategoryId" id="search-category" class="control-label"></label>
+												@Html.DropDownListFor(m => m.CategoryId,
+														Enumerable.Empty<SelectListItem>(),
+														"Categories",
+														new { id = "catList_2", @class = "form-control m-2" })
+											</div>
+											<div class="row">
+
+												@if (Model.Location == null) { Model.Location = new Location(); }
+
+												@* Cities Filter *@
+												<div class="form-group col-xs-4">
+													<label asp-for="Location.City" id="search-city" class="control-label"></label>
+													@Html.DropDownListFor(m => m.Location.City,
 															Enumerable.Empty<SelectListItem>(),
-															"Categories",
-															new { id = "catList_2", @class = "form-control m-2" })
+															"Cities",
+															new { id = "citiesList", @class = "form-control m-2" })
 												</div>
-												<div class="row">
-													@* Cities Filter *@
-													<div class="form-group col-xs-4">
-														<label asp-for="Location.City" class="control-label"></label>
-														@Html.DropDownListFor(m => m.Location.City,
-																Enumerable.Empty<SelectListItem>(),
-																"Cities",
-																new { id = "citiesList", @class = "form-control m-2" })
-													</div>
-													@* StreetAddress Filter *@
-													<div class="col-xs-7 form-group">
-														<label asp-for="Location.StreetAddress" class="control-label"></label>
-														<input asp-for="Location.StreetAddress" placeholder="Maybe there is somebody near your block?" type="text" for="contain" class="form-control m-2" />
-													</div>
+												@* StreetAddress Filter *@
+												<div class="col-xs-7 form-group">
+													<label asp-for="Location.StreetAddress" class="control-label"></label>
+													<input asp-for="Location.StreetAddress"  id="search-address" placeholder="Maybe there is somebody near your block?" type="text" for="contain" class="form-control m-2" />
 												</div>
 											</div>
 										</div>
 											
-										<button type="submit" class="btn btn-info flex-item" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+										<button type="button" class="btn btn-info flex-item" onclick="searchProducts()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 									</div>
 								</form>
 							</div>
@@ -59,4 +62,5 @@
 
 <script>
 	getCategories(catList_2);
+	getCities();
 </script>

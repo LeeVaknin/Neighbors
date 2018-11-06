@@ -23,15 +23,19 @@ namespace Neighbors.Services.DAL
 
 		Task<ICollection<Product>> GetProductsByNameAsync(string name);
 
-		Task<ICollection<Product>> GetProductsByCategory(Category category);
+		Task<ICollection<Product>> GetProductsByCategory(int categoryId);
 
 		Task<ICollection<Product>> GetProductsByCity(string City);
 
 		Task<ICollection<Product>> GetAllProducts();
 
-		Task<ICollection<Product>> GetProducts(ProductSearch searchModel);
+		Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel);
 
+		Task<ICollection<IGrouping<Category, Product>>> GetProductsGroupedByCategory();
 
+		Task<ICollection<Product>> GetProductsByAddress(string address);
+
+		Task<ICollection<IGrouping<string, Product>>> GetProductsGroupedByCity();
 
 		#endregion
 
