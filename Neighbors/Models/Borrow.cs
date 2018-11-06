@@ -11,18 +11,15 @@ namespace Neighbors.Models
     {
         public int Id { get; set; }
 
-     //   public int LenderId { get; set; }
+        public int LenderId { get; set; }
         public User Lender { get; set; }
-
-    //    public int BorrowerId { get; set; }
-        public User Borrower { get; set; }
 
         [Display(Name = "Product ID")]
         [Required(ErrorMessage = "Please provide product")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        [Required]
+      //  [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Start date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

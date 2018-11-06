@@ -35,11 +35,26 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
         public async Task<ICollection<Product>> GetMyProducts()
         {
             var strUserId = _signInManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var response = await (from pr in _context.Product
-                                  where pr.OwnerId.ToString() == strUserId
-                                  select pr).ToListAsync();
            
-           // var response = (await _signInManager.UserManager.GetUserAsync(User)).MyProducts;
+            var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).MyProducts;
+            return response;
+        }
+
+        // Get all the products that people borrowed from me
+    /*    public async Task<ICollection<Borrow>> GetBorrowedProducts()
+        {
+            var strUserId = _signInManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).BorrowedProductFromMe;
+            return response;
+        }
+*/
+        // Get all the products that I borrowed from others
+        public async Task<ICollection<Borrow>> GetMyBorrowedProducts()
+        {
+            var strUserId = _signInManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).MyBorrowed;
             return response;
         }
 

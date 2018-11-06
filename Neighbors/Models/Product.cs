@@ -20,7 +20,7 @@ namespace Neighbors.Models
 
         public Category Category { get; set; }
 
-        [Display(Name = "Owner ID")]
+        [Display(Name = "Owner")]
         public int OwnerId { get; set; }
 
         public User Owner { get; set; }

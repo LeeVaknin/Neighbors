@@ -71,35 +71,22 @@ namespace Neighbors.Services.DAL
 
         #region Getters
 
-  /*      public async Task<IActionResult> ProductOwner()
-        {
-
-            var q = from p in _context.Product
-                    join u in _context.Users on p.Owner.Id equals u.Id
-                    select new UserProductsVM()
-                    {
-                        ProductName = p.Name,
-                        OwnerName = u.FirstName + ' ' + u.LastName
-                    };
-
-            return View(await q.ToListAsync());
-        }
-        */
+ 
         public async Task<ICollection<Product>> GetAllProducts()
 		{
-			return await _context.Product.Include(c => c.Category).ToListAsync();
+			return await _context.Product.Include(c => c.Category).Include(u => u.Owner).ToListAsync();
 		}
 
 		public async Task<Product> GetProductById(int id)
 		{
-			return (await _context.Product.Include(c => c.Category).FirstOrDefaultAsync(pr => pr.Id == id));
+			return (await _context.Product.Include(c => c.Category).Include(u => u.Owner).FirstOrDefaultAsync(pr => pr.Id == id));
 		}
 
 		public async Task<ICollection<Product>> GetProductsByCategory(Category category)
 		{
 			var response = await (from pr in _context.Product
 								  where pr.Category == category
-								  select pr).Include(c => c.Category).ToListAsync();
+								  select pr).Include(c => c.Category).Include(u => u.Owner).ToListAsync();
 			return response;
 		}
 
@@ -109,13 +96,13 @@ namespace Neighbors.Services.DAL
 								  join cityUsr in
 									  (from usr in _context.Users where usr.City == city select usr.Id)
 								  on pr.OwnerId equals cityUsr
-								  select pr).Include(c => c.Category).ToListAsync();
+								  select pr).Include(c => c.Category).Include(u => u.Owner).ToListAsync();
 			return response;
 		}
 
 		public async Task<ICollection<Product>> GetProductsByNameAsync(string name)
 		{
-			var response = await _context.Product.Where(pr => pr.Name.Contains(name)).Include(c => c.Category).ToListAsync();
+			var response = await _context.Product.Where(pr => pr.Name.Contains(name)).Include(c => c.Category).Include(u => u.Owner).ToListAsync();
 			return response;
 		}
 

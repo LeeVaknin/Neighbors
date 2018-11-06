@@ -144,7 +144,8 @@ namespace Neighbors.Data
             {
                 string username = data[i]["First Name"] + data[i]["Last Name"];
                 string email = username + "@email.com";
-                User user = new User {Email = email, EmailConfirmed=true, UserName = username, FirstName = data[i]["First Name"], LastName = data[i]["Last Name"], Address = data[i]["Address"], City = data[i]["City"], BorrowedProduct = {}, MyProducts = { }, MyBorrowed = { } };
+            //    User user = new User {Email = email, EmailConfirmed=true, UserName = username, FirstName = data[i]["First Name"], LastName = data[i]["Last Name"], Address = data[i]["Address"], City = data[i]["City"], BorrowedProductFromMe = {}, MyProducts = { }, MyBorrowed = { } };
+                User user = new User {Email = email, EmailConfirmed=true, UserName = username, FirstName = data[i]["First Name"], LastName = data[i]["Last Name"], Address = data[i]["Address"], City = data[i]["City"], MyProducts = { }, MyBorrowed = { } };
 
                 if (!_userManager.Users.Any(u => u.UserName == user.UserName))
                 {

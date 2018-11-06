@@ -29,6 +29,18 @@ namespace Neighbors.Data
             modelBuilder.Entity<Category>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
+            modelBuilder.Entity<Borrow>()
+                .HasOne(l => l.Lender)
+                .WithMany(o => o.MyBorrowed)
+                .HasForeignKey(k => k.LenderId);
+                
+
+        /*    modelBuilder.Entity<Borrow>()
+                .HasOne(o => o.Borrower)
+                .WithMany(i => i.BorrowedProductFromMe)
+                .HasForeignKey(k => k.BorrowerId);
+                //.OnDelete(DeleteBehavior.Cascade);
+*/
             base.OnModelCreating(modelBuilder);
             //.HasOne<Category>(p => p.Category)
             //.WithMany(c => c.CategoryProducts)

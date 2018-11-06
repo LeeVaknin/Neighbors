@@ -226,7 +226,7 @@ namespace Neighbors.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     LenderId = table.Column<int>(nullable: true),
-                    BorrowerId = table.Column<int>(nullable: true),
+                    //BorrowerId = table.Column<int>(nullable: true),
                     ProductId = table.Column<int>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
@@ -235,12 +235,12 @@ namespace Neighbors.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Borrows", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Borrows_AspNetUsers_BorrowerId",
-                        column: x => x.BorrowerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                   // table.ForeignKey(
+                     //   name: "FK_Borrows_AspNetUsers_BorrowerId",
+                     //   column: x => x.BorrowerId,
+                     //   principalTable: "AspNetUsers",
+                     //   principalColumn: "Id",
+                     //   onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Borrows_AspNetUsers_LenderId",
                         column: x => x.LenderId,
@@ -309,10 +309,10 @@ namespace Neighbors.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Borrows_BorrowerId",
-                table: "Borrows",
-                column: "BorrowerId");
+         //   migrationBuilder.CreateIndex(
+         //       name: "IX_Borrows_BorrowerId",
+         //       table: "Borrows",
+         //       column: "BorrowerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Borrows_LenderId",

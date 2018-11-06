@@ -1,11 +1,11 @@
-﻿@model ICollection<Neighbors.Models.Product>
+﻿@model ICollection<Neighbors.Models.Borrow>
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-               My Products
+               Name
             </th> 
             <th></th>
         </tr>
@@ -15,7 +15,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Product.Name)
                 </td>
             </tr>
         }

@@ -17,6 +17,7 @@ using Neighbors.Services.DAL;
 using FluentValidation;
 using Neighbors.Validators;
 using FluentValidation.AspNetCore;
+using Neighbors.Areas.Identity.Pages.Account.Manage;
 
 namespace Neighbors
 {
@@ -40,8 +41,10 @@ namespace Neighbors
 			services.AddSingleton<IEmailSender, EmailSender>();
 			services.AddScoped<IProductsRepository, ProductsRepository>();
 			services.AddScoped<ICategoriesRepository, CategoriesRepository>();
-			services.AddTransient<IValidator<Category>, CategoryValidator>();
-		}
+            services.AddScoped<IBorrowsRepository, BorrowsRepository>();
+            services.AddTransient<IValidator<Category>, CategoryValidator>();
+            services.AddTransient<IUserStore<User>, ApplicationUserStore>();
+        }
 
 		/// <summary>
 		/// Added google authentication method and identity to the project.
