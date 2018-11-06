@@ -77,7 +77,7 @@ namespace Neighbors.Controllers
             
             await _borrowRepo.AddBorrow(newBorrow, productId);
 
-            return View(newBorrow.Id);
+            return View(newBorrow);
         }
 
     }

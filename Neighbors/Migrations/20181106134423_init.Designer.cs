@@ -10,14 +10,14 @@ using Neighbors.Data;
 namespace Neighbors.Migrations
 {
     [DbContext(typeof(NeighborsContext))]
-    [Migration("20181103182235_oneToMany")]
-    partial class oneToMany
+    [Migration("20181106134423_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -110,21 +110,17 @@ namespace Neighbors.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BorrowerId");
-
                     b.Property<DateTime>("EndDate");
 
                     b.Property<double>("Fine");
 
-                    b.Property<int?>("LenderId");
+                    b.Property<int>("LenderId");
 
                     b.Property<int>("ProductId");
 
                     b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BorrowerId");
 
                     b.HasIndex("LenderId");
 
@@ -150,12 +146,6 @@ namespace Neighbors.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Branch");
-
-                    b.HasData(
-                        new { Id = 1, Address = "Eli Vizel 2, Rishon Lezion", Altitude = 31.96899f, Description = "Main headquarters", Longitude = 34.77067f },
-                        new { Id = 2, Address = "Azrieli Center", Altitude = 32.07322f, Description = "RnD Center", Longitude = 34.79225f },
-                        new { Id = 3, Address = "Rupin rd 15, Haifa", Altitude = 32.79269f, Description = "Support center", Longitude = 35.00083f }
-                    );
                 });
 
             modelBuilder.Entity("Neighbors.Models.Category", b =>
@@ -343,18 +333,15 @@ namespace Neighbors.Migrations
 
             modelBuilder.Entity("Neighbors.Models.Borrow", b =>
                 {
-                    b.HasOne("Neighbors.Models.User", "Borrower")
-                        .WithMany()
-                        .HasForeignKey("BorrowerId");
-
                     b.HasOne("Neighbors.Models.User", "Lender")
-                        .WithMany()
-                        .HasForeignKey("LenderId");
+                        .WithMany("MyBorrowed")
+                        .HasForeignKey("LenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Neighbors.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Neighbors.Models.Product", b =>
@@ -362,12 +349,12 @@ namespace Neighbors.Migrations
                     b.HasOne("Neighbors.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Neighbors.Models.User", "Owner")
                         .WithMany("MyProducts")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

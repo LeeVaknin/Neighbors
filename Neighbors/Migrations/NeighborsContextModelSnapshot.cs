@@ -122,7 +122,8 @@ namespace Neighbors.Migrations
 
                     b.HasIndex("LenderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("Borrows");
                 });
@@ -172,6 +173,8 @@ namespace Neighbors.Migrations
                     b.Property<DateTime>("AvailableFrom");
 
                     b.Property<DateTime>("AvailableUntil");
+
+                    b.Property<int>("BorrowId");
 
                     b.Property<int>("BorrowsDays");
 
@@ -334,12 +337,12 @@ namespace Neighbors.Migrations
                     b.HasOne("Neighbors.Models.User", "Lender")
                         .WithMany("MyBorrowed")
                         .HasForeignKey("LenderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Neighbors.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne("Borrow")
+                        .HasForeignKey("Neighbors.Models.Borrow", "ProductId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Neighbors.Models.Product", b =>
@@ -347,12 +350,12 @@ namespace Neighbors.Migrations
                     b.HasOne("Neighbors.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Neighbors.Models.User", "Owner")
                         .WithMany("MyProducts")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

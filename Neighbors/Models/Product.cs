@@ -37,6 +37,9 @@ namespace Neighbors.Models
         public int BorrowsDays { get; set; }
 
         public double Price { get; set; }
-       
+
+        public int BorrowId { get; set; }
+        public Borrow Borrow { get; set; }
+
     }
 }

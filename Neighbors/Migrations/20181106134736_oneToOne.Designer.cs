@@ -10,14 +10,14 @@ using Neighbors.Data;
 namespace Neighbors.Migrations
 {
     [DbContext(typeof(NeighborsContext))]
-    [Migration("20181103202609_oneToMany2")]
-    partial class oneToMany2
+    [Migration("20181106134736_oneToOne")]
+    partial class oneToOne
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -110,13 +110,11 @@ namespace Neighbors.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BorrowerId");
-
                     b.Property<DateTime>("EndDate");
 
                     b.Property<double>("Fine");
 
-                    b.Property<int?>("LenderId");
+                    b.Property<int>("LenderId");
 
                     b.Property<int>("ProductId");
 
@@ -124,11 +122,10 @@ namespace Neighbors.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BorrowerId");
-
                     b.HasIndex("LenderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("Borrows");
                 });
@@ -178,6 +175,8 @@ namespace Neighbors.Migrations
                     b.Property<DateTime>("AvailableFrom");
 
                     b.Property<DateTime>("AvailableUntil");
+
+                    b.Property<int>("BorrowId");
 
                     b.Property<int>("BorrowsDays");
 
@@ -337,18 +336,15 @@ namespace Neighbors.Migrations
 
             modelBuilder.Entity("Neighbors.Models.Borrow", b =>
                 {
-                    b.HasOne("Neighbors.Models.User", "Borrower")
-                        .WithMany()
-                        .HasForeignKey("BorrowerId");
-
                     b.HasOne("Neighbors.Models.User", "Lender")
-                        .WithMany()
-                        .HasForeignKey("LenderId");
+                        .WithMany("MyBorrowed")
+                        .HasForeignKey("LenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Neighbors.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne("Borrow")
+                        .HasForeignKey("Neighbors.Models.Borrow", "ProductId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Neighbors.Models.Product", b =>
@@ -356,12 +352,12 @@ namespace Neighbors.Migrations
                     b.HasOne("Neighbors.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Neighbors.Models.User", "Owner")
                         .WithMany("MyProducts")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

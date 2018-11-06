@@ -20,7 +20,7 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly NeighborsContext _context;
+        
 
         public IndexModel(
             UserManager<User> userManager,

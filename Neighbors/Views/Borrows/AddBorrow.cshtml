@@ -1,20 +1,14 @@
 ﻿@model Neighbors.Models.Borrow
 
 
-<h2>Borrow details</h2>
+<h4>You borrowed the following product. Enjoy!</h4>
 
 <div>
-    <h4>Borrow</h4>
+    <h6>Borrow details</h6>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Lender)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Lender.Address)
-        </dd>
-        <dt>
-           Borrower
+            Borrower
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Product.Owner.FirstName)
@@ -46,6 +40,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <form asp-controller="Products" asp-action="Index">
+        <input type="submit" value="Back to Products" class="btn btn-group-sm" />
+    </form>
 </div>

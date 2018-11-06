@@ -28,7 +28,7 @@
                <p>Borrowed products</p>
             </div>
             <div class="tab-pane fade" id="my-borrowed">
-                <p>My borrowed</p>
+                @{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_ShowMyBorrowedProducts.cshtml", (await Model.GetMyBorrowedProducts()));}
             </div>
         </div>
     </div>

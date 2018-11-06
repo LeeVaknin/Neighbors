@@ -33,18 +33,22 @@ namespace Neighbors.Services.DAL
         {
           //  var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var product = await _context.Product.FirstOrDefaultAsync(pro => pro.Id == productId);
-                   
+            
             //newBorrow.Product = product;
             newBorrow.ProductId = productId;
-
+            
             //newBorrow.Lender = product.Owner;
             //newBorrow.Lender = product.Owner;
             newBorrow.LenderId = product.OwnerId;
 
             //newBorrow.Borrower = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == strUserId);
-        /*    if (Int32.TryParse(strUserId, out var userId)) newBorrow.BorrowerId = userId;
-            else return 0;
-*/
+            /*    if (Int32.TryParse(strUserId, out var userId)) newBorrow.BorrowerId = userId;
+                else return 0;
+    */
+            newBorrow.StartDate = product.AvailableFrom;
+            newBorrow.EndDate = product.AvailableUntil;
+            newBorrow.Fine = product.Price;
+            
             _context.Add(newBorrow);
             return await _context.SaveChangesAsync();
         }

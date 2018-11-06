@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Neighbors.Migrations
 {
-    public partial class oneToMany : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -210,13 +210,13 @@ namespace Neighbors.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,8 +225,7 @@ namespace Neighbors.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    LenderId = table.Column<int>(nullable: true),
-                    //BorrowerId = table.Column<int>(nullable: true),
+                    LenderId = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
@@ -235,12 +234,6 @@ namespace Neighbors.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Borrows", x => x.Id);
-                   // table.ForeignKey(
-                     //   name: "FK_Borrows_AspNetUsers_BorrowerId",
-                     //   column: x => x.BorrowerId,
-                     //   principalTable: "AspNetUsers",
-                     //   principalColumn: "Id",
-                     //   onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Borrows_AspNetUsers_LenderId",
                         column: x => x.LenderId,
@@ -252,23 +245,8 @@ namespace Neighbors.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Branch",
-                columns: new[] { "Id", "Address", "Altitude", "Description", "Longitude" },
-                values: new object[] { 1, "Eli Vizel 2, Rishon Lezion", 31.96899f, "Main headquarters", 34.77067f });
-
-            migrationBuilder.InsertData(
-                table: "Branch",
-                columns: new[] { "Id", "Address", "Altitude", "Description", "Longitude" },
-                values: new object[] { 2, "Azrieli Center", 32.07322f, "RnD Center", 34.79225f });
-
-            migrationBuilder.InsertData(
-                table: "Branch",
-                columns: new[] { "Id", "Address", "Altitude", "Description", "Longitude" },
-                values: new object[] { 3, "Rupin rd 15, Haifa", 32.79269f, "Support center", 35.00083f });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -308,11 +286,6 @@ namespace Neighbors.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-         //   migrationBuilder.CreateIndex(
-         //       name: "IX_Borrows_BorrowerId",
-         //       table: "Borrows",
-         //       column: "BorrowerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Borrows_LenderId",
