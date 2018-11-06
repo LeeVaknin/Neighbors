@@ -18,6 +18,7 @@ using FluentValidation;
 using Neighbors.Validators;
 using FluentValidation.AspNetCore;
 using Neighbors.Areas.Identity.Pages.Account.Manage;
+using System.Threading;
 
 namespace Neighbors
 {
@@ -95,7 +96,8 @@ namespace Neighbors
 				var roleManager = services.GetRequiredService<RoleManager<Role>>();
                 var ctx = services.GetRequiredService<NeighborsContext>();
                 var seeder = new NeighborsSeeder(userManager, roleManager, ctx);
-				//await seeder.Seed();
+			//	await seeder.Seed();
+            //    Thread.Sleep(2000);
 			}
 		}
 
