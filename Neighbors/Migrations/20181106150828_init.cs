@@ -200,7 +200,8 @@ namespace Neighbors.Migrations
                     AvailableFrom = table.Column<DateTime>(nullable: false),
                     AvailableUntil = table.Column<DateTime>(nullable: false),
                     BorrowsDays = table.Column<int>(nullable: false),
-                    Price = table.Column<double>(nullable: false)
+                    Price = table.Column<double>(nullable: false),
+                    BorrowId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -295,7 +296,8 @@ namespace Neighbors.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Borrows_ProductId",
                 table: "Borrows",
-                column: "ProductId");
+                column: "ProductId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_Name",

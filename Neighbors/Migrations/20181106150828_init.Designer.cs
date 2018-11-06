@@ -10,7 +10,7 @@ using Neighbors.Data;
 namespace Neighbors.Migrations
 {
     [DbContext(typeof(NeighborsContext))]
-    [Migration("20181106134423_init")]
+    [Migration("20181106150828_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -124,7 +124,8 @@ namespace Neighbors.Migrations
 
                     b.HasIndex("LenderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("Borrows");
                 });
@@ -174,6 +175,8 @@ namespace Neighbors.Migrations
                     b.Property<DateTime>("AvailableFrom");
 
                     b.Property<DateTime>("AvailableUntil");
+
+                    b.Property<int>("BorrowId");
 
                     b.Property<int>("BorrowsDays");
 
@@ -339,8 +342,8 @@ namespace Neighbors.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Neighbors.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
+                        .WithOne("Borrow")
+                        .HasForeignKey("Neighbors.Models.Borrow", "ProductId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
