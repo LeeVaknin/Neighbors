@@ -28,7 +28,7 @@ namespace Neighbors.Data
         {
             await SeedRoles();
             await SeedAdminUser();
-           // SeedData();
+            SeedData();
         }
 
         private async Task SeedRoles()
@@ -105,7 +105,7 @@ namespace Neighbors.Data
                 DateTime from = Convert.ToDateTime(data[i]["Avilable From"]);
                 DateTime until = Convert.ToDateTime(data[i]["Avilable Until"]);
                 int borrowDays = Convert.ToInt32((until - from).TotalDays);
-                int ownerId = data[i]["Owner Id"];
+                int ownerId = 1;// data[i]["Owner Id"];
                 int price = data[i]["Price"];
                 string categoryName = data[i]["Category"];
                 Category cat = _context.Categories.Where(m => m.Name == categoryName).First();
