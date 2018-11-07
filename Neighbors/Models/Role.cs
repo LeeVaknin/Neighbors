@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Neighbors.Models
 {
+
+	public enum Roles
+	{
+		Administrator,
+		Consumer
+	}
 	public class Role: IdentityRole<int>
 	{
 	}

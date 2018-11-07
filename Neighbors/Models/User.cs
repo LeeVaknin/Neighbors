@@ -10,29 +10,36 @@ namespace Neighbors.Models
 {
     public class User: IdentityUser<int>
     {
-        [Required]
+
+        [Required(ErrorMessage = "Please provide first name")]
+        [Display(Name = "First name")]
+        [StringLength(50, MinimumLength = 1)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide last name")]
+        [Display(Name = "Last name")]
+        [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide address")]
         public string Address { get; set; }
 
-        // Cheack if there is relevant attribute
-        [Required]
+		[NotMapped]
+		public string FullName => String.Join(" ", FirstName, LastName);
+
+		// Cheack if there is relevant attribute
+		[Required(ErrorMessage = "Please provide city")]
         public string City { get; set; }
-
+        
+        //Condiser of having the following properties under model view ???
+        
         // Collection of all the products that people borrowed from me
-		[NotMapped]
-        public ICollection<Borrow> BorrowedProduct { get; set; }
+       // public IList<Borrow> BorrowedProductFromMe { get; set; }
 
-		[NotMapped]
-		public ICollection<Product> MyProducts { get; set; }
+        public IList<Product> MyProducts { get; set; }
+        
+        // Collection of all the products that I borrowed from others
+        public IList<Borrow> MyBorrowed { get; set; }
 
-		[NotMapped]
-		// Collection of all the products that I borrowed from others
-		public ICollection<Borrow> MyBorrowed { get; set; }
-
-    }
+	}
 }

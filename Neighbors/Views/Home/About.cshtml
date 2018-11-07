@@ -1,7 +1,83 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Our Story";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+<style>
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 400px; /* The height is 400 pixels */
+        width: 50%; /* The width is the width of the web page */
+    }
+</style>
+<div class="jumbotron">
+    <h2>@ViewData["Title"]</h2>
+    <p>
+        @ViewData["Message1"]
+        <br />
+        @ViewData["Message2"]
+        <br />
+        @ViewData["Message3"]
+        <br />
+        @ViewData["Message4"]
 
-<p>Use this area to provide additional information.</p>
+    </p>
+    <p class="text-warning">Warning: @ViewData["Message5"]</p>
+</div>
+<center><h3>@ViewData["Map"]</h3></center>
+<div>
+    <center><div id="map"></div></center>
+    <script>
+        function deserializeSingleMarker(markerStr) {
+            var res = markerStr.split(',');
+            var location = { lat: parseFloat(res[0]), lng: parseFloat(res[1]) };
+            return location;
+        }
+
+        function splitSeveralMarkers(markers) {
+            var res = markers.split('|');
+            return res;
+        }
+        // Initialize and add the map
+        function initMap() {
+            var address = '@Html.Raw(ViewData["Address"])';
+            severalMarkers = splitSeveralMarkers(address);
+            center = deserializeSingleMarker(severalMarkers[0]);
+            //The map
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 7, center: center });
+            for (var i = 0; i < severalMarkers.length; i++) {
+                var location = deserializeSingleMarker(severalMarkers[i]);
+                new google.maps.Marker({ position: location, map: map });
+            }
+        }
+    </script>
+    <br />
+    <center>
+        <canvas id="myCanvas" width="200" height="100" style="border:0px solid #000000;"></canvas>
+        <script language="javascript">
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            ctx.font = "20px Arial";
+            ctx.fillText("Be good get good", 10, 50);
+        </script>
+    </center>
+
+    <br />
+    <center>
+        <video id="myVideo" width="320" height="240" controls>
+            <source src="~/videos/About.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </center>
+
+
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkDRcmsIUuyqoobMW6jiQch4XkIMimHN8&callback=initMap">
+    </script>
+</div>
+
+

@@ -1,0 +1,119 @@
+﻿@model Neighbors.Models.Product
+
+
+<div class="modal-dialog p-5">
+	<!-- Modal content-->
+	<div class="modal-content p-5">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Offer Your Product</h4>
+		</div>
+		
+		<form id="addProductForm" asp-controller="Products" method=post asp-antiforgery="true" role="form"
+			  data-ajax-success="Bindgrid"
+			  data-ajax="true"
+			  data-ajax-method="POST">
+
+			<div class="modal-body">
+				<div asp-validation-summary="ModelOnly" id="formErrs" class="text-danger"></div>
+
+				<div class="form-group">
+					<div class="text-left">
+						<label asp-for="Name" class="control-label mr-2"></label>
+					</div>
+					<input asp-for="Name" class="form-control mr-2" type="text" placeholder="Pick a nice name" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+
+					<div class="text-left">
+						<label asp-for="CategoryId" class="control-label mr-2 text-left"></label>
+					</div>
+
+					<div class="center-items">
+						@Html.DropDownListFor(m => m.CategoryId,
+						Enumerable.Empty<SelectListItem>(),
+						"Categories",
+						new { id = "catList_1", @class = "form-control mr-2" })
+
+						<span asp-validation-for="CategoryId" class="text-danger"></span>
+						<button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
+							Add Category
+						</button>
+					</div>
+					<div id="addCategory" class="collapse">
+						@{await Html.RenderPartialAsync("/Views/Categories/_CreateCatPartial.cshtml", new Category());}
+					</div>
+
+					<div id="success_placeholder"></div>
+				</div>
+
+				<div class="center-items">
+
+					<div class="form-group">
+						<label asp-for="AvailableFrom" class="control-label"></label>
+						<div class="form-group">
+							<div class='input-group date' id='datetimepicker1'>
+								<input asp-for="AvailableFrom" type="date" class="form-control" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<span asp-validation-for="AvailableFrom" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="AvailableUntil" class="control-label"></label>
+						<div class="form-group">
+							<div class='input-group date'>
+								<input asp-for="AvailableUntil" type="date" class="form-control" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<span asp-validation-for="AvailableUntil" class="text-danger"></span>
+					</div>
+
+				</div>
+
+
+				<div class="form-group">
+
+					<div class="text-left">
+						<label asp-for="Price" class="control-label"></label>
+					</div>
+
+					<div class="input-group">
+						<input asp-for="Price" id="price_input" type="number" min="0" class="form-control" placeholder="00.00" />
+						<div class="input-group-addon">
+							<span class="input-group-text">₪</span>
+							<span id="usd_value" class="input-group-text mr-2">(0 $)</span>
+							<button type="button" class="btn btn-info btn-sm" onclick="showCurrencies()">Convert to USD</button>
+						</div>
+					</div>
+
+					<span asp-validation-for="Price" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+				<input id="submitbutton" type="submit" value="Offer" class="btn btn-default" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	getCategories("#catList_1");
+	$("#newCategoryName").on('focusout', function () {
+		addCategory("#catList_1");
+	});	
+</script>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -17,10 +17,22 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Category)
+            @Html.DisplayNameFor(model => model.CategoryId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Category)
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Owner.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Owner.FirstName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.BorrowsDays)
@@ -37,6 +49,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <form asp-controller="Borrows" asp-action="AddBorrow" asp-route-id="@Model.Id">
+        <input type="submit" value="Borrow" class="btn btn-group-sm" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+
 </div>
