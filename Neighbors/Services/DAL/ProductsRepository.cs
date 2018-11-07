@@ -119,7 +119,7 @@ namespace Neighbors.Services.DAL
 		public async Task<ICollection<Product>> GetProductsByCategory(int categoryId)
 		{
 			var response = await (from pr in _context.Product
-								  where pr.Category == category
+								  where pr.Category.Id == categoryId
 								  select pr)
                                   .Include(c => c.Category)
                               //  .Include(b => b.Borrow)
