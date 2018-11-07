@@ -23,19 +23,15 @@ namespace Neighbors.Controllers
 			_productsRepo = productsRepository;
 		}
 
-		#region View Getters
+		#region Client side getters
+
 		[AllowAnonymous]
 		public async Task<IActionResult> Index(string SearchString)
 		{
 			return View(await _productsRepo.GetAllProducts());
 		}
 
-		[AllowAnonymous]
-		public async Task<IActionResult> Search(ProductSearch filter)
-		{
-			var res = await _productsRepo.GetProducts(filter);
-			return Json(res);
-		}
+	
 		[AllowAnonymous]
 		public async Task<IActionResult> Details(int id)
 		{
@@ -59,7 +55,33 @@ namespace Neighbors.Controllers
 
 		#endregion
 
-		#region Add, Delete, Update
+		#region Server side methods
+
+		[AllowAnonymous]
+		[HttpPost("/Products/Search")]
+		public async Task<IActionResult> Search([FromBody] ProductSearch filter)
+		{
+			var res = await _productsRepo.SearchForProduct(filter);
+			return Json(res);
+		}
+
+		[AllowAnonymous]
+		[HttpGet("/Products/GroupByCity")]
+		public async Task<IActionResult> GroupByCities()
+		{
+			var res = await _productsRepo.GetProductsGroupedByCity();
+			return Json(res);
+		}
+
+		[AllowAnonymous]
+		[HttpGet("/Products/GroupByCategory")]
+		public async Task<IActionResult> GroupByCategories()
+		{
+			var res = await _productsRepo.GetProductsGroupedByCategory();
+			return Json(res);
+		}
+
+
 		// POST: Products/Create
 		[HttpPost("/Products")]
 		[Authorize]

@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 namespace Neighbors.Models
 {
 
-	public class ProductSearch: SearchModel
+	public class ProductSearch: ISearchModel
 	{
 		public Location Location { get; set; }
 
 		[DisplayName("Category")]
-		public string CategoryId { get; set; }
+		public int CategoryId { get; set; }
 
+		public string Name { get; set; }
 
+		public int Id { get; set; }
 	}
 }

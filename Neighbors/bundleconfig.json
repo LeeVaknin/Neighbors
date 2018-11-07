@@ -68,5 +68,11 @@
     "inputFiles": [
       "wwwroot/css/search-form.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/login.min.js",
+    "inputFiles": [
+      "wwwroot/js/login.js"
+    ]
   }
 ]

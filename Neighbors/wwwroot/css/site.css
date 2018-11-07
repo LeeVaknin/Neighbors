@@ -44,3 +44,8 @@
 .alert-sm {
 	width: 40%
 }
+
+.chartStyle {
+	width: 400px !important;
+	height: 200px !important;
+}

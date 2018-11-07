@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace Neighbors.Models
 {
-	public class SearchModel
+	public interface ISearchModel
 	{
-		public virtual string Name { get; set; }
 
-		public virtual string Id { get; set; }
+		string Name { get; set; }
+
+		int Id { get; set; }
 	}
 }
