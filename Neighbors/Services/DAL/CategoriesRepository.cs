@@ -51,14 +51,13 @@ namespace Neighbors.Services.DAL
         #region Getters
         public async Task<ICollection<Category>> GetAllCategories()
         {
+            //return await _context.Categories.Include(p => p.Products).ToListAsync();
             return await _context.Categories.ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
         {
-
-            return (await _context.Categories.FirstOrDefaultAsync(c => c.Id == id));
-            
+            return (await _context.Categories.Include(p => p.Products).FirstOrDefaultAsync(c => c.Id == id)); 
         }
 
         public async Task<ICollection<Category>> GetCategoryByNameAsync(string name)

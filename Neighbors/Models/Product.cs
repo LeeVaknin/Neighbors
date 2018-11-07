@@ -20,8 +20,10 @@ namespace Neighbors.Models
 
         public Category Category { get; set; }
 
-        [Display(Name = "Owner ID")]
+        [Display(Name = "Owner")]
         public int OwnerId { get; set; }
+
+        public User Owner { get; set; }
 
         [Required(ErrorMessage = "Select from when you can land your item")]
         [Display(Name = "From")]
@@ -35,6 +37,9 @@ namespace Neighbors.Models
         public int BorrowsDays { get; set; }
 
         public double Price { get; set; }
-       
+
+        public Borrow Borrow { get; set; }
+
+
     }
 }
