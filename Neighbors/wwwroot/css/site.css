@@ -46,6 +46,11 @@
 }
 
 .chartStyle {
-	width: 400px !important;
-	height: 200px !important;
+	width: 490px !important;
+	height: 250px !important;
 }
+
+.pieStyle {
+	width: 600px !important;
+	height: 300px !important;
+} 

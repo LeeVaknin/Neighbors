@@ -108,10 +108,12 @@
 </div>
 
 <script>
-	getCategories("#catList_1");
-	$("#newCategoryName").on('focusout', function () {
-		addCategory("#catList_1");
-	});	
+	$(document).ready(function() {
+		getCategories("#catList_1");
+		$("#newCategoryName").on('focusout', function () {
+			addCategory("#catList_1");
+		});	
+	});
 </script>
 
 @section Scripts {

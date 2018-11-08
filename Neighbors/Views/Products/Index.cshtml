@@ -16,7 +16,7 @@
 @{await Html.RenderPartialAsync("_SearchProductsPartial", new ProductSearch());}
 
 
-<table class="table">
+<table class="table table-striped table-hover ">
 	<thead>
 		<tr>
 			<th>
@@ -65,3 +65,20 @@
 		}
 	</tbody>
 </table>
+
+<div class="row well">
+	<div class="col-xs-6">
+		<canvas id="products-by-city-chart" class="chartStyle"></canvas>
+	</div>
+	<div class="col-xs-6">
+		<canvas id="products-by-cat-pie" class="pieStyle"></canvas>
+	</div>
+
+</div>
+
+
+<script>
+	getProductsBy("City");
+	getProductsBy("Category");
+</script>
+

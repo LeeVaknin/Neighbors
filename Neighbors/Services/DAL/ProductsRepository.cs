@@ -14,6 +14,14 @@ using System;
 
 namespace Neighbors.Services.DAL
 {
+
+	public class CountModel {
+
+		public string Name { get; set; }
+
+		public int Count { get; set; }
+	}
+
 	public class ProductsRepository : IProductsRepository
 	{
 		#region C-TOR and Data members
@@ -74,18 +82,20 @@ namespace Neighbors.Services.DAL
 
 		}
 
-		public async Task<ICollection<IGrouping<Category, Product>>> GetProductsGroupedByCategory() {
-			var result = await _context.Product.GroupBy(product => product.Category).ToListAsync();
+		public async Task<ICollection<CountModel>> GetProductsGroupedByCategory() {
+			var result = await _context.Product.GroupBy(product => product.Category)
+				.Select(group => new CountModel() { Name = group.Key.Name, Count = group.Count() })
+				.ToListAsync();
 			return result;
 		}
 
-		public async Task<ICollection<IGrouping<string, Product>>> GetProductsGroupedByCity()
+		public async Task<ICollection<CountModel>> GetProductsGroupedByCity()
 		{
 			var result = await (from product in _context.Product
 						  join cityUsr in _context.Users
 						  on product.OwnerId equals cityUsr.Id
 						  group product by cityUsr.City into groupByCity
-						  select groupByCity).ToListAsync();
+						  select new CountModel() {  Name = groupByCity.Key,  Count = groupByCity.Count() }).ToListAsync();
 			return result;
 		}
 
