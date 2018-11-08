@@ -21,14 +21,8 @@
             @Html.DisplayNameFor(model => model.CategoryId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OwnerId)
-        </dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>  
         <dt>
             @Html.DisplayNameFor(model => model.BorrowsDays)
         </dt>
@@ -41,8 +35,7 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-    </dl>
-    
+    </dl> 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

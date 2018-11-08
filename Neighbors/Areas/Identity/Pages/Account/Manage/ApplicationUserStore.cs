@@ -19,8 +19,11 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
          
         public override async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken = new CancellationToken())
         {
-            return await Users.Include(p => p.MyProducts).ThenInclude(c => c.Category)
-                .Include(b => b.MyBorrowed)
+            return await Users.Include(b => b.MyBorrowed)
+                .ThenInclude(p => p.Product)
+                .ThenInclude(o => o.Owner)
+                .Include(p => p.MyProducts)
+                .ThenInclude(c => c.Category) 
                 .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
         }
 

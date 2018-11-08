@@ -8,28 +8,32 @@
             <th>Fine</th>
             <th>Start date</th>
             <th>End date</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Owner.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fine)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Owner.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                <a asp-controller="Borrows" asp-action="Delete" asp-route-id="@item.Id">Return Product</a>           
+            </td>
+        </tr>
         }
     </tbody>
 </table>

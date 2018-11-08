@@ -11,7 +11,7 @@ namespace Neighbors.Models
     {
         public int Id { get; set; }
         public int BorrowerId { get; set; }
-        public User Borrower { get; set; }
+        public virtual User Borrower { get; set; }
 
         [Display(Name = "Product ID")]
         [Required(ErrorMessage = "Please provide product")]

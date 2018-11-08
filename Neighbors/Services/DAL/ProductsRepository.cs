@@ -71,15 +71,16 @@ namespace Neighbors.Services.DAL
 
         #region Getters
 
- 
         public async Task<ICollection<Product>> GetAllProducts()
 		{
-			return await _context.Product
-                .Include(c => c.Category)
-              //  .Include(b => b.Borrow)
-                .Include(u => u.Owner)
-                .ToListAsync();
-
+            var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var response = await (from pr in _context.Product
+                                  where pr.OwnerId.ToString() != strUserId
+                                  where pr.Borrow == null
+                                  select pr).Include(c => c.Category)
+                                  .Include(o => o.Owner)
+                                  .ToListAsync();
+            return response;
 		}
 
 		public async Task<ICollection<IGrouping<Category, Product>>> GetProductsGroupedByCategory() {
@@ -152,9 +153,11 @@ namespace Neighbors.Services.DAL
 			return response;
 		}
 
-		#endregion
+        #endregion
 
-		public async Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel)
+        #region Search
+
+        public async Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel)
 		{
 			var productSearch = searchModel as ProductSearch;
 
@@ -196,9 +199,11 @@ namespace Neighbors.Services.DAL
 			return new List<Product>();
 		}
 
-		#region Helper
+        #endregion
 
-		public bool ProductExists(int id)
+        #region Helper
+
+        public bool ProductExists(int id)
 		{
 			return _context.Product.Any(e => e.Id == id);
 		}

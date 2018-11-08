@@ -124,8 +124,8 @@ namespace Neighbors.Controllers
 			if (ModelState.IsValid)
 			{
 				await _productsRepo.DeleteProduct(id);
-				return RedirectToAction(nameof(Index));
-			}
+				return RedirectToAction("Index", "Identity/Account/Manage");
+            }
 			return View();
 		}
 

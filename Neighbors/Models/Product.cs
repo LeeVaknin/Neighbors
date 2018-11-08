@@ -18,12 +18,12 @@ namespace Neighbors.Models
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         [Display(Name = "Owner")]
         public int OwnerId { get; set; }
 
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
 
         [Required(ErrorMessage = "Select from when you can land your item")]
         [Display(Name = "From")]

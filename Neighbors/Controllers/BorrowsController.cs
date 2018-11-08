@@ -53,7 +53,7 @@ namespace Neighbors.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var borrow = await _borrowRepo.GetBorrowByIdAsync(id);
-            return View();
+            return View(borrow);
         }
 
         [HttpPost("/Borrows/Delete/{id}")]
@@ -63,7 +63,7 @@ namespace Neighbors.Controllers
             if (ModelState.IsValid)
             {
                 await _borrowRepo.DeleteBorrow(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Identity/Account/Manage");
             }
             return View();
         }

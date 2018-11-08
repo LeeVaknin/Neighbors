@@ -75,6 +75,7 @@ namespace Neighbors.Services.DAL
             var borrow = await _context.Borrows
                 .Include(b => b.Borrower)
                 .Include(b => b.Product)
+                .ThenInclude(o => o.Owner)
                 .FirstOrDefaultAsync(m => m.Id == id);
             return borrow;
         }
