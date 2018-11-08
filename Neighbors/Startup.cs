@@ -17,9 +17,8 @@ using Neighbors.Services.DAL;
 using FluentValidation;
 using Neighbors.Validators;
 using FluentValidation.AspNetCore;
+using Neighbors.Areas.Identity.Pages.Account.Manage;
 using System.Threading;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Neighbors
 {
@@ -43,8 +42,10 @@ namespace Neighbors
 			services.AddSingleton<IEmailSender, EmailSender>();
 			services.AddScoped<IProductsRepository, ProductsRepository>();
 			services.AddScoped<ICategoriesRepository, CategoriesRepository>();
-			services.AddTransient<IValidator<Category>, CategoryValidator>();
-		}
+            services.AddScoped<IBorrowsRepository, BorrowsRepository>();
+            services.AddTransient<IValidator<Category>, CategoryValidator>();
+            services.AddTransient<IUserStore<User>, ApplicationUserStore>();
+        }
 
 		/// <summary>
 		/// Added google authentication method and identity to the project.
@@ -64,21 +65,17 @@ namespace Neighbors
 			});
 
 
-            services.AddMvc( config =>
-			{
-				var policy = new AuthorizationPolicyBuilder()
-							 .RequireAuthenticatedUser()
-							 .Build();
-				config.Filters.Add(new AuthorizeFilter(policy));
-			}).AddFluentValidation(fv =>
-				fv.RegisterValidatorsFromAssemblyContaining<CategoryValidator>())
-				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            services.AddMvc()
+                .AddFluentValidation(fv =>
+                    fv.RegisterValidatorsFromAssemblyContaining<CategoryValidator>())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
 				.AddRazorPagesOptions(options =>
 				{
 					options.AllowAreas = true;
 					options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
 					options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-				});
+				})
+               ;
             
             services.ConfigureApplicationCookie(options =>
 			{
@@ -122,14 +119,13 @@ namespace Neighbors
 
 			app.UseAuthentication();
 
-            app.UseMvc(routes =>
+			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
 
-            
 			await SeedDB(app);
 		}
 	}

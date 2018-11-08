@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h3>Product Details</h3>
 
 <div>
-    <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -20,13 +19,19 @@
             @Html.DisplayNameFor(model => model.CategoryId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Owner.City)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.OwnerId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OwnerId)
+            @Html.DisplayFor(model => model.Owner.FullName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.BorrowsDays)
@@ -43,6 +48,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Borrow</a> |
-    <a asp-action="Index">Back to List</a>
+    <form asp-controller="Borrows" asp-action="AddBorrow" asp-route-id="@Model.Id">
+        <input type="submit" value="Borrow" class="btn btn-primary btn-sm" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+
 </div>

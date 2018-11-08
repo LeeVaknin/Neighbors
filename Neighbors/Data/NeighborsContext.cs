@@ -25,14 +25,32 @@ namespace Neighbors.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+            modelBuilder.Entity<Product>()
+                .HasOne(a => a.Borrow)
+                .WithOne(b => b.Product)
+                .HasForeignKey<Borrow>(b => b.ProductId);
+
             modelBuilder.Entity<Category>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
+            modelBuilder.Entity<Borrow>()
+                .HasOne(l => l.Borrower)
+                .WithMany(o => o.MyBorrowed)
+                .HasForeignKey(k => k.BorrowerId);
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+            /*    modelBuilder.Entity<Borrow>()
+                    .HasOne(o => o.Borrower)
+                    .WithMany(i => i.BorrowedProductFromMe)
+                    .HasForeignKey(k => k.BorrowerId);
+                    //.OnDelete(DeleteBehavior.Cascade);
+    */
             base.OnModelCreating(modelBuilder);
-            //.HasOne<Category>(p => p.Category)
-            //.WithMany(c => c.CategoryProducts)
-            //.HasForeignKey(p => p.Id);
+
         }
     }
     

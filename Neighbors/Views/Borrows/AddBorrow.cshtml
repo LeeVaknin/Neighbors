@@ -1,0 +1,40 @@
+﻿@model Neighbors.Models.Borrow
+
+
+<h4>You borrowed the following product. Enjoy!</h4>
+
+<div>
+    <h6>Borrow details</h6>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           @Html.DisplayNameFor(model => model.Product)
+       </dt>
+       <dd>
+           @Html.DisplayFor(model => model.Product.Name)
+       </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fine)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fine)
+        </dd>
+    </dl>
+</div>
+<div>
+    <form asp-controller="Home" asp-action="Index">
+        <input type="submit" value="Home" class="btn btn-primary" />
+    </form>
+</div>

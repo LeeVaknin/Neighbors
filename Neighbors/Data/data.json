@@ -27,7 +27,6 @@
       "Last Name": "Miezels",
       "Address": "Menahem Begin 3 ",
       "City": "Tel-Aviv",
-      "Borrowed Product": [],
       "My Products": [],
       "My Borrowed": []
     },
@@ -36,7 +35,6 @@
       "Last Name": "Sadrina",
       "Address": "Shlomo The King 16 ",
       "City": "Azur",
-      "Borrowed Product": [],
       "My Products": [],
       "My Borrowed": []
     },
@@ -45,16 +43,14 @@
       "Last Name": "Vaknin",
       "Address": "Jabutinsky 5 ",
       "City": "Bazra",
-      "Borrowed Product": [],
       "My Products": [],
       "My Borrowed": []
     },
     {
-      "First Name": "\"Roy",
+      "First Name": "Roy",
       "Last Name": "Rashti",
       "Address": "Erez 23 ",
       "City": "Jerusalem",
-      "Borrowed Product": [],
       "My Products": [],
       "My Borrowed": []
     }
@@ -69,37 +65,41 @@
       "Avilable From": "2018-11-01",
       "Avilable Until": "2019-01-20",
       "Borrows Days": [],
-      "Price": "500"
+      "Price": "500",
+      "Borrow": []
     },
     {
       "Name": "Drill",
       "Category Id": "1",
       "Category": "Construction Tools",
-      "Owner Id": "2",
+      "Owner Id": "1",
       "Avilable From": "2018-10-03",
       "Avilable Until": "2018-10-10",
       "Borrows Days": [],
-      "Price": "3500"
+      "Price": "3500",
+      "Borrow": []
     },
     {
       "Name": "Lawn Mower",
       "Category Id": "2",
       "Category": "Garden Tools",
-      "Owner Id": "2",
+      "Owner Id": "3",
       "Avilable From": "2018-11-05",
       "Avilable Until": "2018-11-30",
       "Borrows Days": [],
-      "Price": "5600"
+      "Price": "5600",
+      "Borrow": []
     },
     {
       "Name": "Hoe",
       "Category Id": "2",
       "Category": "Garden Tools",
-      "Owner Id": "4",
+      "Owner Id": "3",
       "Avilable From": "2018-08-01",
       "Avilable Until": "2018-08-07",
       "Borrows Days": [],
-      "Price": "1000"
+      "Price": "1000",
+      "Borrow": []
     },
     {
       "Name": "Hair Drier",
@@ -109,17 +109,20 @@
       "Avilable From": "2018-09-10",
       "Avilable Until": "2018-09-12",
       "Borrows Days": [],
-      "Price": "520"
+      "Price": "520",
+      "Borrow": []
     },
     {
       "Name": "Vacuum Cleaner",
       "Category Id": "5",
       "Category": "Cleaning Tools",
-      "Owner Id": "3",
+      "Owner Id": "4",
       "Avilable From": "2018-12-05",
       "Avilable Until": "2019-01-05",
       "Borrows Days": [],
-      "Price": "3600"
+      "Price": "3600",
+      "Borrow": []
+
     }
   ],
 

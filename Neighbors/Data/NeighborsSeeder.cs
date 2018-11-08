@@ -11,66 +11,66 @@ using System.Threading.Tasks;
 
 namespace Neighbors.Data
 {
-	public class NeighborsSeeder
-	{
-		private readonly UserManager<User> _userManager;
-		private readonly RoleManager<Role> _roleManager;
+    public class NeighborsSeeder
+    {
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private NeighborsContext _context;
 
         public NeighborsSeeder(UserManager<User> userManager, RoleManager<Role> roleManager, NeighborsContext context)
         {
-			_userManager = userManager;
-			_roleManager = roleManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
             _context = context;
-		}
+        }
 
-		public async Task Seed()
-		{
-			await SeedRoles();
-			await SeedAdminUser();
+        public async Task Seed()
+        {
+            await SeedRoles();
+            await SeedAdminUser();
             SeedData();
-		}
+        }
 
-		private async Task SeedRoles()
-		{
-			var roles = Enum.GetValues(typeof(Roles));
-			foreach (var role in roles)
-				if (!_roleManager.Roles.Any(r => r.Name == role.ToString()))
-				{
-					await _roleManager.CreateAsync(new Role { Name = role.ToString() });
-				}
-			}
+        private async Task SeedRoles()
+        {
+            var roles = Enum.GetValues(typeof(Roles));
+            foreach (var role in roles)
+                if (!_roleManager.Roles.Any(r => r.Name == role.ToString()))
+                {
+                    await _roleManager.CreateAsync(new Role { Name = role.ToString() });
+                }
+        }
 
-		private	async Task SeedAdminUser()
-		{
-			var user = new User
-			{
-				UserName = "makaka@email.com",
-				FirstName = "Mrs.",
-				LastName = "Administrator",
-				Email = "makaka@email.com",
-				EmailConfirmed = true,
-				Address="Eli-Vizel",
-				City = "Rishon-Lezion",
-				LockoutEnabled = false,
-				SecurityStamp = Guid.NewGuid().ToString()
-			};
+        private async Task SeedAdminUser()
+        {
+            var user = new User
+            {
+                UserName = "makaka@email.com",
+                FirstName = "Mrs.",
+                LastName = "Administrator",
+                Email = "makaka@email.com",
+                EmailConfirmed = true,
+                Address = "Eli-Vizel",
+                City = "Rishon-Lezion",
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
 
 
-			if (!_roleManager.Roles.Any(r => r.Name == Roles.Administrator.ToString()))
-			{
-				await _roleManager.CreateAsync(new Role { Name = Roles.Administrator.ToString() });
-			}
+            if (!_roleManager.Roles.Any(r => r.Name == Roles.Administrator.ToString()))
+            {
+                await _roleManager.CreateAsync(new Role { Name = Roles.Administrator.ToString() });
+            }
 
-			if (!_userManager.Users.Any(u => u.UserName == user.UserName))
-			{
-				var password = new PasswordHasher<User>();
-				var hashed = password.HashPassword(user, "password");
-				user.PasswordHash = hashed;
-				await _userManager.CreateAsync(user);
-				await _userManager.AddToRoleAsync(user, Roles.Administrator.ToString());
-			}
-		}
+            if (!_userManager.Users.Any(u => u.UserName == user.UserName))
+            {
+                var password = new PasswordHasher<User>();
+                var hashed = password.HashPassword(user, "password");
+                user.PasswordHash = hashed;
+                await _userManager.CreateAsync(user);
+                await _userManager.AddToRoleAsync(user, Roles.Administrator.ToString());
+            }
+        }
         private void SeedData()
         {
             dynamic data = JsonConvert.DeserializeObject(File.ReadAllText("data/data.json"));
@@ -82,10 +82,8 @@ namespace Neighbors.Data
             SeedBranches(branches);
             dynamic users = data["Users"];
             SeedUsers(users);
-
-        
         }
-        
+
         private void SeedCategories(dynamic data)
         {
             for (int i = 0; i < data.Count; ++i)
@@ -99,10 +97,10 @@ namespace Neighbors.Data
                 }
             }
         }
-        
+
         private void SeedProducts(dynamic data)
         {
-            for(int i=0; i< data.Count; i++)
+            for (int i = 0; i < data.Count; i++)
             {
                 DateTime from = Convert.ToDateTime(data[i]["Avilable From"]);
                 DateTime until = Convert.ToDateTime(data[i]["Avilable Until"]);
@@ -111,7 +109,7 @@ namespace Neighbors.Data
                 int price = data[i]["Price"];
                 string categoryName = data[i]["Category"];
                 Category cat = _context.Categories.Where(m => m.Name == categoryName).First();
-                Product pro = new Product { Name = data[i]["Name"], Category = cat, CategoryId=cat.Id, OwnerId = ownerId, AvailableFrom = from, AvailableUntil = until, BorrowsDays = borrowDays, Price = price };
+                Product pro = new Product { Name = data[i]["Name"], Category = cat, CategoryId = cat.Id, OwnerId = ownerId, AvailableFrom = from, AvailableUntil = until, BorrowsDays = borrowDays, Price = price };
                 var exists = _context.Product.Where(m => m.Name == pro.Name && m.OwnerId == pro.OwnerId).Count();
                 if (exists == 0)
                 {
@@ -149,11 +147,11 @@ namespace Neighbors.Data
 
                 string username = data[i]["First Name"] + data[i]["Last Name"];
                 string email = username + "@email.com";
-                
-                User user = new User {Email = email, EmailConfirmed=true, LockoutEnabled = false, SecurityStamp = Guid.NewGuid().ToString(),  UserName = email, FirstName = data[i]["First Name"], LastName = data[i]["Last Name"], Address = data[i]["Address"], City = data[i]["City"], TwoFactorEnabled=false};
+
+                User user = new User { Email = email, EmailConfirmed = true, LockoutEnabled = false, SecurityStamp = Guid.NewGuid().ToString(), UserName = email, FirstName = data[i]["First Name"], LastName = data[i]["Last Name"], Address = data[i]["Address"], City = data[i]["City"], TwoFactorEnabled = false };
                 if (!_userManager.Users.Any(u => u.UserName == user.UserName))
                 {
-                    
+
                     var password = new PasswordHasher<User>();
                     var hashed = password.HashPassword(user, "password");
                     user.PasswordHash = hashed;
@@ -162,7 +160,7 @@ namespace Neighbors.Data
                         await _userManager.CreateAsync(user);
                         await _userManager.AddToRoleAsync(user, Roles.Consumer.ToString());
                     }
-                    catch (Exception )
+                    catch (Exception)
                     {
                     }
                 }

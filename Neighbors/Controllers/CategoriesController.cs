@@ -62,6 +62,10 @@ namespace Neighbors.Controllers
         {
 
             var category = await _categoriesRepo.GetCategoryById(id);
+            if(category == null)
+            {
+                return NotFound();
+            } 
             return View(category);
         }
 

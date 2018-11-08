@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Neighbors.Data;
 using Neighbors.Models;
 
 namespace Neighbors.Areas.Identity.Pages.Account.Manage
@@ -17,6 +20,7 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        
 
         public IndexModel(
             UserManager<User> userManager,
@@ -26,6 +30,32 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+        }
+
+        public async Task<ICollection<Product>> GetMyProducts()
+        {
+            var strUserId = _signInManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).MyProducts;
+            return response;
+        }
+
+        // Get all the products that people borrowed from me
+    /*    public async Task<ICollection<Borrow>> GetBorrowedProducts()
+        {
+            var strUserId = _signInManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).BorrowedProductFromMe;
+            return response;
+        }
+*/
+        // Get all the products that I borrowed from others
+        public async Task<ICollection<Borrow>> GetMyBorrowedProducts()
+        {
+            var strUserId = _signInManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).MyBorrowed;
+            return response;
         }
 
         public string Username { get; set; }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System;
+using Neighbors.ViewModels;
 
 namespace Neighbors.Services.DAL
 {
@@ -50,7 +51,10 @@ namespace Neighbors.Services.DAL
 				else return 0;
 
 			}
-			_context.Add(newProduct);
+            
+         //   newProduct.Owner = await _context.Users.FirstOrDefaultAsync(user => user.Id == newProduct.OwnerId);
+
+            _context.Add(newProduct);
 			return await _context.SaveChangesAsync();
 		}
 
@@ -71,15 +75,20 @@ namespace Neighbors.Services.DAL
 			return await _context.SaveChangesAsync();
 		}
 
-		#endregion
+        #endregion
 
-		#region Getters
+        #region Getters
 
-		public async Task<ICollection<Product>> GetAllProducts()
+        public async Task<ICollection<Product>> GetAllProducts()
 		{
-
-			return await _context.Product.ToListAsync();
-
+            var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var response = await (from pr in _context.Product
+                                  where pr.OwnerId.ToString() != strUserId
+                                  where pr.Borrow == null
+                                  select pr).Include(c => c.Category)
+                                  .Include(o => o.Owner)
+                                  .ToListAsync();
+            return response;
 		}
 
 		public async Task<ICollection<CountModel>> GetProductsGroupedByCategory() {
@@ -101,7 +110,11 @@ namespace Neighbors.Services.DAL
 
 		public async Task<Product> GetProductById(int id)
 		{
-			return (await _context.Product.FirstOrDefaultAsync(pr => pr.Id == id));
+			return (await _context.Product
+                .Include(c => c.Category)
+            //  .Include(b => b.Borrow)
+                .Include(u => u.Owner)
+                .FirstOrDefaultAsync(pr => pr.Id == id));
 		}
 
 		public async Task<ICollection<Product>> GetProductsByAddress(string address)
@@ -118,7 +131,11 @@ namespace Neighbors.Services.DAL
 		{
 			var response = await (from pr in _context.Product
 								  where pr.Category.Id == categoryId
-								  select pr).ToListAsync();
+								  select pr)
+                                  .Include(c => c.Category)
+                              //  .Include(b => b.Borrow)
+                                  .Include(u => u.Owner)
+                                  .ToListAsync();
 			return response;
 		}
 
@@ -128,19 +145,29 @@ namespace Neighbors.Services.DAL
 								  join cityUsr in
 									  (from usr in _context.Users where usr.City == city select usr.Id)
 								  on pr.OwnerId equals cityUsr
-								  select pr).ToListAsync();
+								  select pr)
+                                  .Include(c => c.Category)
+                                  //  .Include(b => b.Borrow)
+                                  .Include(u => u.Owner)
+                                  .ToListAsync();
 			return response;
 		} 
 
 		public async Task<ICollection<Product>> GetProductsByNameAsync(string name)
 		{
-			var response = await _context.Product.Where(pr => (pr.Name.Contains(name) || name.Contains(pr.Name) )).ToListAsync();
+			var response = await _context.Product.Where(pr => (pr.Name.Contains(name) || name.Contains(pr.Name)))
+                .Include(c => c.Category)
+                //  .Include(b => b.Borrow)
+                .Include(u => u.Owner)
+                .ToListAsync();
 			return response;
 		}
 
-		#endregion
+        #endregion
 
-		public async Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel)
+        #region Search
+
+        public async Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel)
 		{
 			var productSearch = searchModel as ProductSearch;
 
@@ -182,9 +209,11 @@ namespace Neighbors.Services.DAL
 			return new List<Product>();
 		}
 
-		#region Helper
+        #endregion
 
-		public bool ProductExists(int id)
+        #region Helper
+
+        public bool ProductExists(int id)
 		{
 			return _context.Product.Any(e => e.Id == id);
 		}

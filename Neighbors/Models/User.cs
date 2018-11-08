@@ -30,18 +30,16 @@ namespace Neighbors.Models
 		// Cheack if there is relevant attribute
 		[Required(ErrorMessage = "Please provide city")]
         public string City { get; set; }
-
+        
         //Condiser of having the following properties under model view ???
-
+        
         // Collection of all the products that people borrowed from me
-        [NotMapped]
-        public ICollection<Borrow> BorrowedProduct { get; set; }
-        [NotMapped]
-        public ICollection<Product> MyProducts { get; set; }
+       // public IList<Borrow> BorrowedProductFromMe { get; set; }
 
+        public IList<Product> MyProducts { get; set; }
+        
         // Collection of all the products that I borrowed from others
-        [NotMapped]
-        public ICollection<Borrow> MyBorrowed { get; set; }
+        public IList<Borrow> MyBorrowed { get; set; }
 
 	}
 }
