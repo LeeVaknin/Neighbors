@@ -40,7 +40,6 @@
                                     <p>Are you sure you want to return the @item.Product.Name ?</p>
                                     <div class="modal-footer">
                                         <form asp-controller="Borrows" asp-action="Delete" asp-route-id="@item.Id" method="delete">
-                                          
                                             <input type="submit" value="Yes" class="btn btn-primary btn-sm" />
                                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
                                         </form>

@@ -4,9 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h3>Edit @Model.Name</h3>
 
-<h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,35 +18,33 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="text-left">
-                    <label asp-for="CategoryId" class="control-label mr-2 text-left"></label>
-                </div>
-
-                <div class="center-items">
-                    @Html.DropDownListFor(m => m.CategoryId,
-                    Enumerable.Empty<SelectListItem>(),
-                    "Categories",
-                    new { id = "catList_1", @class = "form-control mr-2" })
-
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                    <button type="button" class="btn btn-info btn-sm m-5" data-toggle="collapse" data-target="#addCategory">
-                        Add Category
-                    </button>
-                </div>
-                <div id="addCategory" class="collapse">
-                    @{await Html.RenderPartialAsync("/Views/Categories/_CreateCatPartial.cshtml", new Category());}
-                </div>
-
-                <div id="success_placeholder"></div>
-
-                <!--    <label asp-for="CategoryId" class="control-label"></label>
-    <input asp-for="Category.Name" class="form-control" />
-    <span asp-validation-for="CategoryId" class="text-danger"></span> -->
+                <label asp-for="CategoryId" class="control-label"></label>
+                <input asp-for="Category.Name" class="form-control" disabled />
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BorrowsDays" class="control-label"></label>
-                <input asp-for="BorrowsDays" class="form-control" />
-                <span asp-validation-for="BorrowsDays" class="text-danger"></span>
+                <label asp-for="AvailableFrom" class="control-label"></label>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input asp-for="AvailableFrom" type="date" class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <span asp-validation-for="AvailableFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableUntil" class="control-label"></label>
+                <div class="form-group">
+                    <div class='input-group date'>
+                        <input asp-for="AvailableUntil" type="date" class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <span asp-validation-for="AvailableUntil" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
@@ -55,15 +52,13 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary btn-sm" /> |
+                <a asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

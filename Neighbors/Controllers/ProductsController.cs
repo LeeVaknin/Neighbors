@@ -133,7 +133,7 @@ namespace Neighbors.Controllers
 				await _productsRepo.UpdateProduct(id, product);
 				return RedirectToAction(nameof(Index));
 			}
-			return View(product);
+            return RedirectToAction("Index", "Identity/Account/Manage");
 		}
 
 		// POST: Products/Delete/5
