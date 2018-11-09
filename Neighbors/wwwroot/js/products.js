@@ -1,5 +1,7 @@
 ﻿
 
+$(document).ready(updateDatepickers)
+
 function getCities() {
 	// Create a seed for that shit
 	var result = [ "Afula", "Azor", "Ashdod", "Arad", "Ashkelon", "Bat-Yam", "BeerSheva", "Bazra", "Ashdod", "Holon", "Eilat", "Krayot"]
@@ -49,3 +51,7 @@ function getProducts() {
 	});
 }
 
+function updateDatepickers() {
+	document.getElementById("availableFrom").valueAsDate = new Date();
+	document.getElementById("availableUntil").valueAsDate = new Date();
+}
