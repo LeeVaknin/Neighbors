@@ -56,7 +56,32 @@ namespace Neighbors.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-        }
+			[Required]
+			[Display(Name = "First Name")]
+			[StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
+			public string FirstName { get; set; }
+
+			[Required]
+			[Display(Name = "Last Name")]
+			[StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
+			public string LastName { get; set; }
+
+			[Required]
+			[Display(Name = "Street Address")]
+			[StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
+			public string Address { get; set; }
+
+			[Required]
+			[Display(Name = "City")]
+			[StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
+			public string City { get; set; }
+
+			[Required]
+			[DataType(DataType.PhoneNumber)]
+			[Display(Name = "Phone Number")]
+			public string PhoneNumber { get; set; }
+
+		}
 
         public void OnGet(string returnUrl = null)
         {
@@ -68,7 +93,14 @@ namespace Neighbors.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User { UserName = Input.Email,
+					Email = Input.Email,
+					FirstName = Input.FirstName,
+					LastName = Input.LastName,
+					Address = Input.Address,
+					City = Input.City,
+					PhoneNumber = Input.PhoneNumber
+				};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -76,14 +108,14 @@ namespace Neighbors.Areas.Identity.Pages.Account
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 					await _signInManager.UserManager.AddToRoleAsync(user, Roles.Consumer.ToString() );
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: Request.Scheme);
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code = code },
+                    //    protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: true);
                     return LocalRedirect(returnUrl);
