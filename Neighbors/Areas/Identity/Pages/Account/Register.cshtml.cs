@@ -77,6 +77,7 @@ namespace Neighbors.Areas.Identity.Pages.Account
 			public string City { get; set; }
 
 			[Required]
+			[Phone]
 			[DataType(DataType.PhoneNumber)]
 			[Display(Name = "Phone Number")]
 			public string PhoneNumber { get; set; }
