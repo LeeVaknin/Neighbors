@@ -19,7 +19,7 @@ namespace Neighbors.Controllers
         public IActionResult InvalidAction(int errorId)
         {
             if (errorId == 401 || errorId == 403)
-                return View();
+                return View("Views/Error/InvalidAction.cshtml");
             return OurError();
         }
 
@@ -30,5 +30,10 @@ namespace Neighbors.Controllers
             return View("Views/Error/OurError.cshtml");
         }
 
+        [Route("/Error/InvalidAction")]
+        public IActionResult InvalidAction()
+        {
+            return View("Views/Error/InvalidAction.cshtml");
+        }
     }
 }

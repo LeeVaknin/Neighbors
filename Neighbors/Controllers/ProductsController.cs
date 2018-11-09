@@ -47,10 +47,11 @@ namespace Neighbors.Controllers
 		public async Task<IActionResult> Delete(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-            if (null == product)
+            if (null == product || (User.Identity.Name != product.Owner.UserName))
             {
                 return RedirectToAction("InvalidAction", "Error");
             }
+            
             return View(product);
 		}
 
@@ -58,7 +59,7 @@ namespace Neighbors.Controllers
 		public async Task<IActionResult> Edit(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-            if (null == product)
+            if (null == product || (User.Identity.Name != product.Owner.UserName))
             {
                 return RedirectToAction("InvalidAction", "Error");
             }
