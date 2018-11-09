@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Neighbors.Services.DAL;
 
 namespace Neighbors.Controllers
 {
+	[Authorize]
     public class BorrowsController : Controller
     {
         private readonly IBorrowsRepository _borrowRepo;
@@ -20,13 +22,15 @@ namespace Neighbors.Controllers
             _borrowRepo = borrowRepository;
         }
 
-        // GET: Borrows
-        public async Task<IActionResult> Index()
+		// GET: Borrows
+		[Authorize]
+		public async Task<IActionResult> Index()
         {
             return View(await _borrowRepo.GetAllBorrowsAsync());
         }
 
         // GET: Borrows/Details/5
+		[AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var borrow = await _borrowRepo.GetBorrowByIdAsync(id);
@@ -38,6 +42,7 @@ namespace Neighbors.Controllers
         }
 
         // GET: Borrows/Edit/5
+		[Authorize]
         [HttpGet("/Borrows/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -50,7 +55,8 @@ namespace Neighbors.Controllers
         }
 
         [HttpGet("/Borrows/Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+		[Authorize]
+		public async Task<IActionResult> Delete(int id)
         {
             var borrow = await _borrowRepo.GetBorrowByIdAsync(id);
             return View(borrow);
@@ -58,7 +64,8 @@ namespace Neighbors.Controllers
 
         [HttpPost("/Borrows/Delete/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+		[Authorize]
+		public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (ModelState.IsValid)
             {
@@ -69,13 +76,14 @@ namespace Neighbors.Controllers
         }
 
 
-        [HttpPost("/Borrows/AddBorrow/{productId}")]
-        public async Task<IActionResult> AddBorrow(int productId)
-        {
-            
-            Borrow newBorrow = new Borrow();
-            
-            await _borrowRepo.AddBorrow(newBorrow, productId);
+		[HttpPost("/Borrows/AddBorrow/{productId}")]
+		[Authorize]
+		public async Task<IActionResult> AddBorrow(int productId)
+		{
+
+			Borrow newBorrow = new Borrow();
+
+			var result = await _borrowRepo.AddBorrow(newBorrow, productId);
 
             return View(newBorrow);
         }
