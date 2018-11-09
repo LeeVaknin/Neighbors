@@ -81,6 +81,15 @@ namespace Neighbors.Controllers
 			return Json(categories);
 		}
 
+		[AllowAnonymous]
+		[HttpGet("/CategoriesShort")]
+		public async Task<IActionResult> GetCategoriesShort() //It will be fired from Jquery ajax call  
+		{
+			var categories = await _categoriesRepo.GetAllCategoriesShort();
+			return Json(categories);
+		}
+
+
 		[HttpPost("/Categories")]
 		public async Task<IActionResult> AddNewCategory([FromBody] Category category)
         {

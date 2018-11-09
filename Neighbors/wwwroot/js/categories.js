@@ -9,7 +9,7 @@
 
 function getCategories(selector) {
 	$.ajax({
-		url: "/Categories",
+		url: "/CategoriesShort",
 		type: "GET",
 		contentType: "application/json; charset=utf-8",
 		datatype: JSON,
