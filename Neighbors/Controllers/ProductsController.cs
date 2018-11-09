@@ -36,21 +36,34 @@ namespace Neighbors.Controllers
 		public async Task<IActionResult> Details(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-			return View(product);
+            if (null == product)
+            {
+                return RedirectToAction("InvalidAction", "Error");
+            }
+            return View(product);
 		}
 
 		[Authorize]
 		public async Task<IActionResult> Delete(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-			return View(product);
+            if (null == product || (User.Identity.Name != product.Owner.UserName))
+            {
+                return RedirectToAction("InvalidAction", "Error");
+            }
+            
+            return View(product);
 		}
 
 		[Authorize]
 		public async Task<IActionResult> Edit(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-			return View(product);
+            if (null == product || (User.Identity.Name != product.Owner.UserName))
+            {
+                return RedirectToAction("InvalidAction", "Error");
+            }
+            return View(product);
 		}
 
 		#endregion

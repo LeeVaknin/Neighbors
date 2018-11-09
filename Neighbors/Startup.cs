@@ -108,14 +108,11 @@ namespace Neighbors
             if (env.IsDevelopment())
 			{
 				app.UseBrowserLink();
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Home/Error");
-			}
-            
-			app.UseStaticFiles();
+            }
+			
+            app.UseExceptionHandler("/Home/Error");
+
+            app.UseStaticFiles();
 
 			app.UseAuthentication();
 
