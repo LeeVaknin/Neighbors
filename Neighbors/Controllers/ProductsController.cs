@@ -28,7 +28,7 @@ namespace Neighbors.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> Index(string SearchString)
 		{
-			return View(await _productsRepo.GetAllProducts());
+            return View(await _productsRepo.GetAllProducts());
 		}
 
 	
