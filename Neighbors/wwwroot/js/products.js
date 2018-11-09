@@ -43,7 +43,9 @@ function getProducts() {
 		contentType: "application/json; charset=utf-8",
 		success: function (result) {
 			$('#productBody').html(result);
+			$('#productBody').fadeIn('slow');
 		},
 		error: function (data) { }
 	});
 }
+

@@ -37,35 +37,22 @@
 				<th></th>
 			</tr>
 		</thead>
-		<tbody id="productBody">
+		<tbody id="productBody" style="display:none">
 		</tbody>
 	</table>
 </div>
 
-<div class="well">
-	<div class="row">
-		<center>
-			<div class="lds-ripple" id="charts-loader"><div></div><div></div></div>
-		</center>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<canvas id="products-by-city-chart" class="chartStyle"></canvas>
-		</div>
-		<div class="col-xs-6">
-			<canvas id="products-by-cat-pie" class="pieStyle"></canvas>
-		</div>
-	</div>
-</div>
+@{await Html.RenderPartialAsync("/Views/Products/_ProductsCharts.cshtml");}
 
+<script>
 
-	<script>
-		try {
-			getProducts();
-			getProductsBy("City");
-			getProductsBy("Category");
-		}
-		catch {
-		}
-	</script>
+	try {
+		getProducts();
+		getProductsBy("City");
+		getProductsBy("Category");
+	}
+	catch(err) {
+		console.log("Failed to load charts or products: " + err  );
+	}
+</script>
 
