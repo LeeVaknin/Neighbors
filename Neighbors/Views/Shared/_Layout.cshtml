@@ -91,7 +91,7 @@
 	</nav>
 	<div class="container body-content">
 		@RenderBody()
-		@if (SignInManager.IsSignedIn(User) && (await UserManager.FindByEmailAsync(User.Identity.Name)) == null)
+		@if (!SignInManager.IsSignedIn(User) || (await UserManager.FindByEmailAsync(User.Identity.Name)) == null)
 		{
 			<div id="login-modal" class="modal fade" role="dialog">
 				@{ await Html.RenderPartialAsync("/Views/_Login.cshtml", new Login()); }

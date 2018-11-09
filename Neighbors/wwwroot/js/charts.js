@@ -20,6 +20,14 @@ var borderScheme = [
 ];
 
 
+function tryRemoveLoader() {
+	try
+	{
+		$("#charts-loader").remove();
+	}
+	catch { }
+}
+
 function getProductsBy(groupType) {
 	$.ajax({
 		url: "/Products/GroupBy" + groupType,
@@ -79,6 +87,7 @@ function loadChart(result) {
 
 	}
 	);
+	tryRemoveLoader();
 }
 
 function loadPie(result) {
@@ -107,4 +116,7 @@ function loadPie(result) {
 			}
 		}
 	});
+	tryRemoveLoader();
+	
 }
+

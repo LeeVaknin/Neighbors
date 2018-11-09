@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Neighbors.Models.Product>
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (Model.Count() <= 0)
+{
+	<tr>
+		<td colspan="6" class="text-center">
+			<div class="row m-5">
+				<span class="glyphicon glyphicon-search"></span>
+				<strong> No products were found. </strong>
+			</div>
+		</td>
+	</tr>
+}
+else
+{
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Category.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Owner.FullName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.BorrowsDays)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Price)
+			</td>
+			<td>
+				<!-- <a asp-action="Edit" asp-route-id="item.Id">Edit</a> |-->
+				@{ var user = (await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+					var signed = SignInManager.IsSignedIn(User);
+					@if (signed && user != null)
+					{
+						if (!user.MyProducts.Contains(item))
+						{
+							<a asp-action="Details" asp-route-id="@item.Id">I want that !</a>
+						}
+						else if (user.MyProducts.Contains(item) || User.IsInRole("Administrator"))
+						{
+							<a asp-action="Delete" asp-route-id="@item.Id"> Delete</a>
+						}
+					}
+				}
+
+			</td>
+		</tr>
+	}
+
+}
+

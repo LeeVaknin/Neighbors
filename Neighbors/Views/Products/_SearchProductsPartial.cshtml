@@ -9,7 +9,7 @@
 				<div class="btn-transparent input-group-btn pr-2">
 					<div class="btn-group" role="group">
 						<div class="dropdown dropdown-lg">
-							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="search-menu-trigger"><span class="caret"></span></button>
 							<div class="dropdown-menu dropdown-menu-right p-5" role="menu">
 
 								<form id="search-form" asp-action="Search" asp-controller="Products" class="form-horizontal" data-ajax="true" data-ajax-method="get">
@@ -61,8 +61,10 @@
 </div>
 
 <script>
-	$(document).ready(function() {
+	try {
 		getCategories("#catList_2");
 		getCities();
-	});
+	}
+	catch { }
+
 </script>

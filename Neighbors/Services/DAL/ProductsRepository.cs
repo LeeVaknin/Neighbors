@@ -16,12 +16,6 @@ using Neighbors.ViewModels;
 namespace Neighbors.Services.DAL
 {
 
-	public class CountModel {
-
-		public string Name { get; set; }
-
-		public int Count { get; set; }
-	}
 
 	public class ProductsRepository : IProductsRepository
 	{
@@ -51,6 +45,7 @@ namespace Neighbors.Services.DAL
 				else return 0;
 
 			}
+			newProduct.BorrowsDays = (newProduct.AvailableUntil - newProduct.AvailableUntil).Days;
             
          //   newProduct.Owner = await _context.Users.FirstOrDefaultAsync(user => user.Id == newProduct.OwnerId);
 
@@ -83,7 +78,6 @@ namespace Neighbors.Services.DAL
 		{
             var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var response = await (from pr in _context.Product
-                                  where pr.OwnerId.ToString() != strUserId
                                   where pr.Borrow == null
                                   select pr).Include(c => c.Category)
                                   .Include(o => o.Owner)
@@ -177,7 +171,7 @@ namespace Neighbors.Services.DAL
 			var joinedDb = (from pr in _context.Product
 							join cityUsr in _context.Users
 							on pr.OwnerId equals cityUsr.Id
-							select new { product = pr, city = cityUsr.City, address = cityUsr.Address});
+							select new { product = pr, city = cityUsr.City, address = cityUsr.Address, owner = cityUsr.FullName});
 
 			// Check if the name was filled, if not, add the result to the list
 			try
@@ -199,7 +193,9 @@ namespace Neighbors.Services.DAL
 											productSearch.Location.StreetAddress.Contains(productJoin.address) ||
 											productJoin.address.Contains(productSearch.Location.StreetAddress))
 
-						.Select(productJoin => productJoin.product);
+						.Select(productJoin => productJoin.product)
+						.Include(pr => pr.Category)
+						.Include(pr => pr.Owner);
 				return await (result.Distinct()).ToListAsync();
 			}
 			catch (Exception ex)

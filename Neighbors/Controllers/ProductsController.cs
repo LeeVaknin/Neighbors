@@ -26,9 +26,9 @@ namespace Neighbors.Controllers
 		#region Client side getters
 
 		[AllowAnonymous]
-		public async Task<IActionResult> Index(string SearchString)
+		public IActionResult Index()
 		{
-			return View(await _productsRepo.GetAllProducts());
+			return View();
 		}
 
 	
@@ -36,21 +36,34 @@ namespace Neighbors.Controllers
 		public async Task<IActionResult> Details(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-			return View(product);
+            if (null == product)
+            {
+                return RedirectToAction("InvalidAction", "Error");
+            }
+            return View(product);
 		}
 
 		[Authorize]
 		public async Task<IActionResult> Delete(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-			return View(product);
+            if (null == product || (User.Identity.Name != product.Owner.UserName))
+            {
+                return RedirectToAction("InvalidAction", "Error");
+            }
+            
+            return View(product);
 		}
 
 		[Authorize]
 		public async Task<IActionResult> Edit(int id)
 		{
 			var product = await _productsRepo.GetProductById(id);
-			return View(product);
+            if (null == product || (User.Identity.Name != product.Owner.UserName))
+            {
+                return RedirectToAction("InvalidAction", "Error");
+            }
+            return View(product);
 		}
 
 		#endregion
@@ -58,11 +71,19 @@ namespace Neighbors.Controllers
 		#region Server side methods
 
 		[AllowAnonymous]
+		public async Task<IActionResult> GetJsonProducts()
+		{
+			var result = await _productsRepo.GetAllProducts();
+			return PartialView("/Views/Products/_ProductItem.cshtml",result);
+		}
+
+
+		[AllowAnonymous]
 		[HttpPost("/Products/Search")]
 		public async Task<IActionResult> Search([FromBody] ProductSearch filter)
 		{
 			var res = await _productsRepo.SearchForProduct(filter);
-			return Json(res);
+			return PartialView("/Views/Products/_ProductItem.cshtml", res);
 		}
 
 		[AllowAnonymous]
