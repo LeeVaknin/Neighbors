@@ -74,5 +74,11 @@
     "inputFiles": [
       "wwwroot/js/login.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/categories.min.js",
+    "inputFiles": [
+      "wwwroot/js/categories.js"
+    ]
   }
 ]
