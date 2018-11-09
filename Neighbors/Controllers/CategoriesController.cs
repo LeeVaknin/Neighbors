@@ -133,7 +133,7 @@ namespace Neighbors.Controllers
             if (ModelState.IsValid)
             {
                 await _categoriesRepo.DeleteCategory(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Identity/Account/Manage");
             }
             return View();
 

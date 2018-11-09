@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Neighbors.Data;
 using Neighbors.Models;
+using Neighbors.Services.DAL;
 
 namespace Neighbors.Areas.Identity.Pages.Account.Manage
 {
@@ -20,16 +21,20 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-        
+        private readonly ICategoriesRepository _catRepo;
+
+
 
         public IndexModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ICategoriesRepository categoriesRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _catRepo = categoriesRepository;
         }
 
         public async Task<ICollection<Product>> GetMyProducts()
@@ -40,15 +45,6 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
             return response;
         }
 
-        // Get all the products that people borrowed from me
-    /*    public async Task<ICollection<Borrow>> GetBorrowedProducts()
-        {
-            var strUserId = _signInManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).BorrowedProductFromMe;
-            return response;
-        }
-*/
         // Get all the products that I borrowed from others
         public async Task<ICollection<Borrow>> GetMyBorrowedProducts()
         {
@@ -56,6 +52,11 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
 
             var response = (await _signInManager.UserManager.FindByIdAsync(strUserId)).MyBorrowed;
             return response;
+        }
+
+        public async Task<ICollection<Category>> GetAllCategories()
+        {
+            return await _catRepo.GetAllCategories();
         }
 
         public string Username { get; set; }
