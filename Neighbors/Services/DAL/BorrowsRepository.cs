@@ -75,7 +75,8 @@ namespace Neighbors.Services.DAL
         #region Getters
         public async Task<ICollection<Borrow>> GetAllBorrowsAsync()
         {
-            return await _context.Borrows.Include(b => b.Borrower)
+            return await _context.Borrows
+                .Include(b => b.Borrower)
                 .Include(b => b.Product)
                 .ToListAsync();
         }

@@ -40,8 +40,13 @@ namespace Neighbors.Controllers
 		public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoriesRepo.GetCategoryById(id);
-
+            /*  if (null == category)
+              {
+                  return RedirectToAction("InvalidAction", "Error");
+              }
+              return View(category); */
             return View(category ?? new Category());
+
         }
 
 		[Authorize(Roles = "Administrator")]
