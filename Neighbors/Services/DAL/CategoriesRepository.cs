@@ -51,8 +51,7 @@ namespace Neighbors.Services.DAL
         #region Getters
         public async Task<ICollection<Category>> GetAllCategories()
         {
-            //return await _context.Categories.Include(p => p.Products).ToListAsync();
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories.Include(p => p.Products).ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
