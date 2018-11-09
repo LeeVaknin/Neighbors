@@ -13,32 +13,36 @@
     <li class=""><a href="#edit-profile" data-toggle="tab" aria-expanded="true">Home</a></li>
     <li class=""><a href="#my-product" data-toggle="tab" aria-expanded="false">My products</a></li>
     <li class=""><a href="#my-borrowed" data-toggle="tab" aria-expanded="false">My borrowed</a></li>
-	@if (User.IsInRole("Administrator"))
-	{
-		<li class=""><a href="#categories" data-toggle="tab" aria-expanded="false">Categories</a></li>
-	}
-    
+    @if (User.IsInRole("Administrator"))
+    {
+        <li class=""><a href="#categories" data-toggle="tab" aria-expanded="false">Categories</a></li>
+        <li class=""><a href="#borrows" data-toggle="tab" aria-expanded="false">Borrows</a></li>
+    }
+
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="row">
         <div class="col-md-8">
-			<div id="myTabContent" class="tab-content">
-				<div class="mt-5 tab-pane fade active in" id="edit-profile">
-					@{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_editUser.cshtml", this.Model);}
-				</div>
-				<div class="mt-5 tab-pane fade" id="my-product">
-					@{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_ShowUserProducts.cshtml", (await Model.GetMyProducts()));}
-				</div>
-				<div class="mt-5 tab-pane fade" id="my-borrowed">
-					@{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_ShowMyBorrowedProducts.cshtml", (await Model.GetMyBorrowedProducts()));}
-				</div>
-				@if (User.IsInRole("Administrator"))
-				{
-					<div class="mt-5 tab-pane fade" id="categories">
-						@{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_Categories.cshtml", (await Model.GetAllCategories()));}
-					</div>
-				}
-			</div>
+            <div id="myTabContent" class="tab-content">
+                <div class="mt-5 tab-pane fade active in" id="edit-profile">
+                    @{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_editUser.cshtml", this.Model);}
+                </div>
+                <div class="mt-5 tab-pane fade" id="my-product">
+                    @{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_ShowUserProducts.cshtml", (await Model.GetMyProducts()));}
+                </div>
+                <div class="mt-5 tab-pane fade" id="my-borrowed">
+                    @{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_ShowMyBorrowedProducts.cshtml", (await Model.GetMyBorrowedProducts()));}
+                </div>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <div class="mt-5 tab-pane fade" id="categories">
+                        @{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_Categories.cshtml", (await Model.GetAllCategories()));}
+                    </div>
+                    <div class="mt-5 tab-pane fade" id="borrows">
+                        @{await Html.RenderPartialAsync("/Areas/Identity/Pages/Account/Manage/UserPages/_Borrows.cshtml", (await Model.GetAllBorrows()));}
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>

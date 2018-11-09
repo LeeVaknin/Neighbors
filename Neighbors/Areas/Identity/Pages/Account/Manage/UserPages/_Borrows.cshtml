@@ -1,0 +1,40 @@
+﻿@model ICollection<Neighbors.Models.Borrow>
+
+<table class="table table-striped table-hover "> 
+    <thead>
+        <tr class="info">
+            <th>Borrower Name</th>
+            <th>Product Name</th>
+            <th>Product Owner</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Borrower.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Owner.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fine)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

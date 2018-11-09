@@ -22,16 +22,19 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ICategoriesRepository _catRepo;
+        private readonly IBorrowsRepository _borrowRepo;
         public IndexModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
-            ICategoriesRepository categoriesRepository)
+            ICategoriesRepository categoriesRepository,
+            IBorrowsRepository borrowsRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _catRepo = categoriesRepository;
+            _borrowRepo = borrowsRepository;
         }
 
         public async Task<ICollection<Product>> GetMyProducts()
@@ -54,6 +57,11 @@ namespace Neighbors.Areas.Identity.Pages.Account.Manage
         public async Task<ICollection<Category>> GetAllCategories()
         {
             return await _catRepo.GetAllCategories();
+        }
+
+        public async Task<ICollection<Borrow>> GetAllBorrows()
+        {
+            return await _borrowRepo.GetAllBorrowsAsync();
         }
 
         public string Username { get; set; }
