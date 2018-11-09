@@ -43,12 +43,6 @@ namespace Neighbors.Data
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            /*    modelBuilder.Entity<Borrow>()
-                    .HasOne(o => o.Borrower)
-                    .WithMany(i => i.BorrowedProductFromMe)
-                    .HasForeignKey(k => k.BorrowerId);
-                    //.OnDelete(DeleteBehavior.Cascade);
-    */
             base.OnModelCreating(modelBuilder);
 
         }

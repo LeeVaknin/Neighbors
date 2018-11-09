@@ -67,7 +67,6 @@ namespace Neighbors.Services.DAL
             {
                 _context.Borrows.Remove(borrow);
             }
-
             return await _context.SaveChangesAsync();
         }
 

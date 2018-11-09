@@ -33,7 +33,7 @@ namespace Neighbors.Services.DAL
 
         #endregion
 
-        //   IEnumerable<object> GetAllCategories();
+   
 
 
     }

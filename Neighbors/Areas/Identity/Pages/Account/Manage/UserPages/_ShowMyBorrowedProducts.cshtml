@@ -1,6 +1,6 @@
 ﻿@model ICollection<Neighbors.Models.Borrow>
 
-<table class="table table-striped table-hover "> 
+<table class="table table-striped table-hover ">
     <thead>
         <tr class="info">
             <th>Product Name</th>
@@ -14,26 +14,43 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Owner.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                <a asp-controller="Borrows" asp-action="Delete" asp-route-id="@item.Id">Return Product</a>           
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Owner.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    <button type="button" class="btn-info btn-xs" data-toggle="modal" data-target="#myModalConfirmation">Return Product</button>
+
+                    <div id="myModalConfirmation" class="modal">
+                        <div class="modal-dialog p-5">
+                            <div class="modal-content p-5">
+                                <div class="modal-body">
+                                    <p>Are you sure you want to return the @item.Product.Name ?</p>
+                                    <div class="modal-footer">
+                                        <form asp-controller="Borrows" asp-action="Delete" asp-route-id="@item.Id" method="delete">
+                                          
+                                            <input type="submit" value="Yes" class="btn btn-primary btn-sm" />
+                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
