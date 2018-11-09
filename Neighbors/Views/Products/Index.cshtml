@@ -4,18 +4,22 @@
 	ViewData["Title"] = "Products";
 }
 
-<h2>Products To Borrow</h2>
+<div class="fadeIn" id="indexHeading">
+	<h2>Products To Borrow</h2>
+</div>
 
-<div class="row">
+<div class="row fadeIn" id="productAdd">
 	<button type="button" id="modal-trigger" class="btn-transparent" data-toggle="modal">
 		Offer Your Product
 	</button> 
 	<span class="glyphicon glyphicon-plus"></span>
 </div>
 
-@{await Html.RenderPartialAsync("_SearchProductsPartial", new ProductSearch());}
+<div class="fadeIn" id="search">
+	@{await Html.RenderPartialAsync("_SearchProductsPartial", new ProductSearch());}
+</div>
 
-<div class="table-responsive">
+<div id="indexTable" class="table-responsive fadeIn">
 	<table class="table table-striped table-hover " id="productsMainTable">
 		<thead>
 			<tr>
@@ -42,9 +46,16 @@
 	</table>
 </div>
 
-@{await Html.RenderPartialAsync("/Views/Products/_ProductsCharts.cshtml");}
+<div class="fadeIn" id="charts">
+	@{await Html.RenderPartialAsync("/Views/Products/_ProductsCharts.cshtml");}
+</div>
 
 <script>
+	$('#indexHeading').fadeIn(1000);
+	$('#productAdd').fadeIn(2000);
+	$('#search').fadeIn(2000);
+	$('#indexTable').fadeIn(3000);
+	$('#charts').fadeIn(4000);
 
 	try {
 		getProducts();

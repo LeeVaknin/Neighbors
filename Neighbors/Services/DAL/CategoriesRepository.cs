@@ -54,7 +54,12 @@ namespace Neighbors.Services.DAL
             return await _context.Categories.Include(p => p.Products).ToListAsync();
         }
 
-        public async Task<Category> GetCategoryById(int id)
+		public async Task<ICollection<Category>> GetAllCategoriesShort()
+		{
+			return await _context.Categories.ToListAsync();
+		}
+
+		public async Task<Category> GetCategoryById(int id)
         {
             return (await _context.Categories.Include(p => p.Products).FirstOrDefaultAsync(c => c.Id == id)); 
         }

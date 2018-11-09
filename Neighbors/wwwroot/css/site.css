@@ -112,3 +112,9 @@
 		opacity: 0;
 	}
 }
+
+/*Fadeid Effect home Page*/
+
+.fadeIn {
+	display:none;
+}
