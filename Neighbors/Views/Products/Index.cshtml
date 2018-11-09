@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Neighbors.Models.Product>
+﻿@model Neighbors.Models.Product
 
 @{
 	ViewData["Title"] = "Products";
@@ -15,72 +15,57 @@
 
 @{await Html.RenderPartialAsync("_SearchProductsPartial", new ProductSearch());}
 
-
-<table class="table table-striped table-hover ">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Name)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Category)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.OwnerId)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.BorrowsDays)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Price)
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
+<div class="table-responsive">
+	<table class="table table-striped table-hover " id="productsMainTable">
+		<thead>
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Name)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Category.Name)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Owner.FullName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.BorrowsDays)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Price)
-				</td>
-				<td>
-					<!-- <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |-->
-					<a asp-action="Details" asp-route-id="@item.Id">I want that !</a> |
-					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-				</td>
+				<th>
+					@Html.DisplayNameFor(model => model.Name)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Category)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OwnerId)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.BorrowsDays)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Price)
+				</th>
+				<th></th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody id="productBody">
+		</tbody>
+	</table>
+</div>
 
-<div class="row well">
-	<div class="col-xs-6">
-		<canvas id="products-by-city-chart" class="chartStyle"></canvas>
+<div class="well">
+	<div class="row">
+		<center>
+			<div class="lds-ripple" id="charts-loader"><div></div><div></div></div>
+		</center>
 	</div>
-	<div class="col-xs-6">
-		<canvas id="products-by-cat-pie" class="pieStyle"></canvas>
+	<div class="row">
+		<div class="col-xs-6">
+			<canvas id="products-by-city-chart" class="chartStyle"></canvas>
+		</div>
+		<div class="col-xs-6">
+			<canvas id="products-by-cat-pie" class="pieStyle"></canvas>
+		</div>
 	</div>
-
 </div>
 
 
-<script>
-	$(document).ready(function () {
-		getProductsBy("City");
-		getProductsBy("Category");
-	});
-</script>
+	<script>
+		try {
+			getProducts();
+			getProductsBy("City");
+			getProductsBy("Category");
+		}
+		catch {
+		}
+	</script>
 
