@@ -24,8 +24,26 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <button type="button" class="btn-info btn-xs" data-toggle="modal" data-target="#myProductModal">Return</button>
+                <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="text-info">Edit</a>
+                <div id="myProductModal" class="modal">
+                    <div class="modal-dialog p-5">
+                        <div class="modal-content p-5">
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete @item.Name ?</p>
+                                <div class="modal-footer">
+                                    <form asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id" method="delete">
+                                        <input type="submit" value="Yes" class="btn btn-primary btn-sm" />
+                                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+    <a asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id">Delete</a> -->
             </td>
         </tr>
         }
