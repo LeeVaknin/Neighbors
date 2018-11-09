@@ -37,27 +37,43 @@
 	}
 }
 
+/*Borders*/
+
 .left-border {
 	border-left: 1px solid #80808052;
 }
+
+.bottom-border {
+	border-bottom: 1px solid #80808052;
+}
+
+/*Alerts*/
 
 .alert-sm {
 	width: 40%
 }
 
+
+/*Charts styles*/
+
 .chartStyle {
-	width: 490px !important;
-	height: 250px !important;
+	width: 450px !important;
+	height: 200px !important;
 }
 
 .pieStyle {
-	width: 600px !important;
-	height: 300px !important;
+	width: 500px !important;
+	height: 250px !important;
 }
+
+
+/* Cursor of disabled button */ 
 
 .btn-default[disabled] {
 	cursor: default !important;
 }
+
+/*Loading Icon Wheel*/
 
 .lds-ripple {
 	display: inline-block;
