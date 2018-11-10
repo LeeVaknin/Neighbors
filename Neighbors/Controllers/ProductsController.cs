@@ -129,8 +129,7 @@ namespace Neighbors.Controllers
 				if (id != product.Id || !_productsRepo.ProductExists(id))
 				{
 					return NotFound();
-				}
-                
+				} 
 				await _productsRepo.UpdateProduct(id, product);
                 return RedirectToAction("Index", "Identity/Account/Manage");
             }
