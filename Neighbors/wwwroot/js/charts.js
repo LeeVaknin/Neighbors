@@ -7,7 +7,14 @@ var colorScheme = [
     "rgba(255, 206, 86, 0.2)",
     "rgba(75, 192, 192, 0.2)",
     "rgba(153, 102, 255, 0.2)",
-    "rgba(255, 159, 64, 0.2)"
+	"rgba(255, 159, 64, 0.2)",
+	"rgba(180, 120, 50, 0.2)",
+	"rgba(75, 192, 192, 0.2)",
+	"rgba(255, 206, 86, 0.2)",
+	"rgba(75, 192, 192, 0.2)",
+	"rgba(153, 102, 255, 0.2)",
+	"rgba(250, 150, 192, 0.2)"
+
 ];
 
 var borderScheme = [
@@ -59,7 +66,6 @@ function loadChart(result) {
         responsive: true,
         labels: result.labels,
         datasets: [{
-            label: "# of products per city",
             data: result.count,
             backgroundColor: colorScheme,
             borderColor: borderScheme,
