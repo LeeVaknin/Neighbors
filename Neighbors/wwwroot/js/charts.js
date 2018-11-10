@@ -65,7 +65,8 @@ function loadChart(result) {
     var barData = {
         responsive: true,
         labels: result.labels,
-        datasets: [{
+		datasets: [{
+			label: "# of products per city",
             data: result.count,
             backgroundColor: colorScheme,
             borderColor: borderScheme,
