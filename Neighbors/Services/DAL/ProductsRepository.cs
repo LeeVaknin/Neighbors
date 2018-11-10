@@ -45,11 +45,10 @@ namespace Neighbors.Services.DAL
 				else return 0;
 
 			}
-			newProduct.BorrowsDays = (newProduct.AvailableUntil.Date - newProduct.AvailableUntil.Date).Days;
-            
-         //   newProduct.Owner = await _context.Users.FirstOrDefaultAsync(user => user.Id == newProduct.OwnerId);
 
+			newProduct.BorrowsDays = (int)(newProduct.AvailableUntil - newProduct.AvailableFrom).TotalDays;
             _context.Add(newProduct);
+
 			return await _context.SaveChangesAsync();
 		}
 
