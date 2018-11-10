@@ -119,9 +119,10 @@ namespace Neighbors.Controllers
 		}
 
 		// POST: Products/Edit/5
-		[HttpPut("/Products/{id}")]
-		[Authorize]
-		public async Task<IActionResult> EditProduct(int id, Product product)
+		[HttpPost("/Products/{id}")]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+		public async Task<IActionResult> UpdateProduct(int id, Product product)
 		{
 			if (ModelState.IsValid)
 			{
@@ -129,11 +130,11 @@ namespace Neighbors.Controllers
 				{
 					return NotFound();
 				}
-
+                
 				await _productsRepo.UpdateProduct(id, product);
-				return RedirectToAction(nameof(Index));
-			}
-            return RedirectToAction("Index", "Identity/Account/Manage");
+                return RedirectToAction("Index", "Identity/Account/Manage");
+            }
+            return View(product);
 		}
 
 		// POST: Products/Delete/5
@@ -144,7 +145,10 @@ namespace Neighbors.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				await _productsRepo.DeleteProduct(id);
+				if(await _productsRepo.DeleteProduct(id) == -1)
+                {
+                    return RedirectToAction("InvalidAction", "Error");
+                }
 				return RedirectToAction("Index", "Identity/Account/Manage");
             }
 			return View();

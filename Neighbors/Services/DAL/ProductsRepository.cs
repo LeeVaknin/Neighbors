@@ -45,7 +45,7 @@ namespace Neighbors.Services.DAL
 				else return 0;
 
 			}
-			newProduct.BorrowsDays = (newProduct.AvailableUntil - newProduct.AvailableUntil).Days;
+			newProduct.BorrowsDays = (newProduct.AvailableUntil.Date - newProduct.AvailableUntil.Date).Days;
             
          //   newProduct.Owner = await _context.Users.FirstOrDefaultAsync(user => user.Id == newProduct.OwnerId);
 
@@ -55,10 +55,14 @@ namespace Neighbors.Services.DAL
 
 		public async Task<int> DeleteProduct(int productId)
 		{
-			var product = await _context.Product.FindAsync(productId);
+			var product = await GetProductById(productId);
 			if (product != null)
 			{
-				_context.Product.Remove(product);
+                if (product.Borrow == null)
+                {
+                    _context.Product.Remove(product);
+                }
+                else return -1;
 			}
 
 			return await _context.SaveChangesAsync();
@@ -106,7 +110,7 @@ namespace Neighbors.Services.DAL
 		{
 			return (await _context.Product
                 .Include(c => c.Category)
-            //  .Include(b => b.Borrow)
+                .Include(b => b.Borrow)
                 .Include(u => u.Owner)
                 .FirstOrDefaultAsync(pr => pr.Id == id));
 		}
