@@ -28,7 +28,7 @@ namespace Neighbors.Data
         {
             await SeedRoles();
             await SeedAdminUser();
-            SeedData();
+            await SeedData();
         }
 
         private async Task SeedRoles()
@@ -71,13 +71,13 @@ namespace Neighbors.Data
                 await _userManager.AddToRoleAsync(user, Roles.Administrator.ToString());
             }
         }
-        private void SeedData()
+        private async Task SeedData()
         {
             dynamic data = JsonConvert.DeserializeObject(File.ReadAllText("data/data.json"));
             dynamic categories = data["Categories"];
             SeedCategories(categories);
             dynamic products = data["Products"];
-            SeedProducts(products);
+            await SeedProducts(products);
             dynamic branches = data["Branch"];
             SeedBranches(branches);
             dynamic users = data["Users"];
@@ -98,7 +98,7 @@ namespace Neighbors.Data
             }
         }
 
-        private void SeedProducts(dynamic data)
+        private async Task SeedProducts(dynamic data)
         {
             for (int i = 0; i < data.Count; i++)
             {
@@ -108,6 +108,10 @@ namespace Neighbors.Data
                 int ownerId = data[i]["Owner Id"];
                 int price = data[i]["Price"];
                 string categoryName = data[i]["Category"];
+				if (await _userManager.FindByIdAsync(ownerId.ToString()) == null)
+				{
+					ownerId = _userManager.Users.LastOrDefault().Id;
+				}
                 Category cat = _context.Categories.Where(m => m.Name == categoryName).First();
                 Product pro = new Product { Name = data[i]["Name"], Category = cat, CategoryId = cat.Id, OwnerId = ownerId, AvailableFrom = from, AvailableUntil = until, BorrowsDays = borrowDays, Price = price };
                 var exists = _context.Product.Where(m => m.Name == pro.Name && m.OwnerId == pro.OwnerId).Count();
