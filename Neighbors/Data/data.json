@@ -1,61 +1,75 @@
 {
   "Categories": [
-    {
-      "Name": "Construction Tools",
-      "Products": []
-    },
-    {
-      "Name": "Garden Tools",
-      "Products": []
-    },
-    {
-      "Name": "Gaming",
-      "Products": []
-    },
-    {
-      "Name": "Hair Dressing",
-      "Products": []
-    },
-    {
-      "Name": "Cleaning Tools",
-      "Products": []
-    },
-    {
-      "Name": "Women Clothes",
-      "Products": []
-    },
-    {
-      "Name": "Men Clothes",
-      "Products": []
-    },
-    {
-      "Name": "Toys",
-      "Products": []
-    },
-    {
-      "Name": "Kitchen",
-      "Products": []
-    },
-    {
-      "Name": "Furniture",
-      "Products": []
-    },
-    {
-      "Name": "Beauty",
-      "Products": []
-    },
-    {
-      "Name": "Travel Equipment",
-      "Products": []
-    },
-    {
-      "Name": "Bags",
-      "Products": []
-    },
-    {
-      "Name": "Others",
-      "Products": []
-    }
+			{
+				"Id": 1,
+				"Name": "Construction Tools",
+				"Products": []
+			},
+			{
+				"Id": 2,
+				"Name": "Garden Tools",
+				"Products": []
+			},
+			{
+				"Id": 3,
+				"Name": "Gaming",
+				"Products": []
+			},
+			{
+				"Id": 4,
+				"Name": "Hair Dressing",
+				"Products": []
+			},
+			{
+				"Id": 5,
+				"Name": "Cleaning Tools",
+				"Products": []
+			},
+			{
+				"Id": 6,
+				"Name": "Women Clothes",
+				"Products": []
+			},
+			{
+				"Id": 7,
+				"Name": "Men Clothes",
+				"Products": []
+			},
+			{
+				"Id": 8,
+				"Name": "Toys",
+				"Products": []
+			},
+			{
+				"Id": 9,
+				"Name": "Kitchen",
+				"Products": []
+			},
+			{
+				"Id": 10,
+				"Name": "Furniture",
+				"Products": []
+			},
+			{
+				"Id": 11,
+				"Name": "Beauty",
+				"Products": []
+			},
+			{
+				"Id": 12,
+				"Name": "Travel Equipment",
+				"Products": []
+			},
+			{
+				"Id": 13,
+				"Name": "Bags",
+				"Products": []
+			},
+			{
+				"Id": 14,
+				"Name": "Others",
+				"Products": []
+			}
 
   ],
   "Users": [
@@ -93,297 +107,387 @@
     }
 
   ],
-  "Products": [
-    {
-      "Name": "Hammer",
-      "Category Id": "1",
-      "Category": "Construction Tools",
-      "Owner Id": "1",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2019-01-20",
-      "Borrows Days": [],
-      "Price": "500",
-      "Borrow": []
-    },
-    {
-      "Name": "Drill",
-      "Category Id": "1",
-      "Category": "Construction Tools",
-      "Owner Id": "1",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-10-10",
-      "Borrows Days": [],
-      "Price": "3500",
-      "Borrow": []
-    },
-    {
-      "Name": "Lawn Mower",
-      "Category Id": "2",
-      "Category": "Garden Tools",
-      "Owner Id": "1",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-30",
-      "Borrows Days": [],
-      "Price": "5600",
-      "Borrow": []
-    },
-    {
-      "Name": "Hoe",
-      "Category Id": "2",
-      "Category": "Garden Tools",
-      "Owner Id": "1",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-08-07",
-      "Borrows Days": [],
-      "Price": "1000",
-      "Borrow": []
-    },
-    {
-      "Name": "Hair Drier",
-      "Category Id": "4",
-      "Category": "Hair Dressing",
-      "Owner Id": "1",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-09-12",
-      "Borrows Days": [],
-      "Price": "520",
-      "Borrow": []
-    },
-    {
-      "Name": "Suitcase",
-      "Category Id": "13",
-      "Category": "Bags",
-      "Owner Id": "4",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-20",
-      "Borrows Days": [],
-      "Price": "5000",
-      "Borrow": []
+	"Products": [
+		{
+			"Name": "Hammer",
+			"Category Id": "1",
+			"Category": "Construction Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2019-01-20",
+			"Borrows Days": [],
+			"Price": "50",
+			"Borrow": []
+		},
+		{
 
-    },
-    {
-      "Name": "Vacuum Cleaner",
-      "Category Id": "5",
-      "Category": "Cleaning Tools",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2019-01-05",
-      "Borrows Days": [],
-      "Price": "3600",
-      "Borrow": []
+			"Name": "Drill",
+			"Category Id": "1",
+			"Category": "Construction Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-10-10",
+			"Borrows Days": [],
+			"Price": "100",
+			"Borrow": []
+		},
+		{
 
-    },
-    {
-      "Name": "University",
-      "Category Id": "8",
-      "Category": "Toys",
-      "Owner Id": "3",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-12-20",
-      "Borrows Days": [],
-      "Price": "350",
-      "Borrow": []
+			"Name": "Screwdriver",
+			"Category Id": "1",
+			"Category": "Construction Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-10-10",
+			"Borrows Days": [],
+			"Price": "15",
+			"Borrow": []
+		},
+		{
+			"Name": "ElectricScrewdriver",
+			"Category Id": "1",
+			"Category": "Construction Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-10-10",
+			"Borrows Days": [],
+			"Price": "130",
+			"Borrow": []
+		},
+		{
+			"Name": "Electric disc",
+			"Category Id": "1",
+			"Category": "Construction Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-10-10",
+			"Borrows Days": [],
+			"Price": "100",
+			"Borrow": []
+		},
+		{
+			"Name": "Lawn Mower",
+			"Category Id": "2",
+			"Category": "Garden Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-30",
+			"Borrows Days": [],
+			"Price": "400",
+			"Borrow": []
+		},
+		{
+			"Name": "Hoe",
+			"Category Id": "2",
+			"Category": "Garden Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-08-07",
+			"Borrows Days": [],
+			"Price": "30",
+			"Borrow": []
+		},
+		{
+			"Name": "Axe",
+			"Category Id": "2",
+			"Category": "Garden Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-08-07",
+			"Borrows Days": [],
+			"Price": "20",
+			"Borrow": []
+		},
+		{
+			"Name": "String Trimmer",
+			"Category Id": "2",
+			"Category": "Garden Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-08-05",
+			"Avilable Until": "2018-09-07",
+			"Borrows Days": [],
+			"Price": "100",
+			"Borrow": []
+		},
+		{
+			"Name": "Leaf sweepers",
+			"Category Id": "2",
+			"Category": "Garden Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-06-05",
+			"Avilable Until": "2018-11-07",
+			"Borrows Days": [],
+			"Price": "300",
+			"Borrow": []
+		},
+		{
+			"Name": "Leaf blowers",
+			"Category Id": "2",
+			"Category": "Garden Tools",
+			"Owner Id": "1",
+			"Avilable From": "2018-07-05",
+			"Avilable Until": "2018-12-07",
+			"Borrows Days": [],
+			"Price": "130",
+			"Borrow": []
+		},
+			{
+				"Name": "Chainsaws",
+				"Category Id": "2",
+				"Category": "Garden Tools",
+				"Owner Id": "1",
+				"Avilable From": "2018-10-05",
+				"Avilable Until": "2019-08-07",
+				"Borrows Days": [],
+				"Price": "400",
+				"Borrow": []
+			},
+		{
+			"Name": "Hair Drier",
+			"Category Id": "4",
+			"Category": "Hair Dressing",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-09-12",
+			"Borrows Days": [],
+			"Price": "520",
+			"Borrow": []
+		},
+		{
+			"Name": "Lew Vuitton Suitcase",
+			"Category Id": "13",
+			"Category": "Bags",
+			"Owner Id": "4",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-20",
+			"Borrows Days": [],
+			"Price": "500",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Travel Pants for man",
-      "Category Id": "12",
-      "Category": "Travel equipment",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-19",
-      "Borrows Days": [],
-      "Price": "500",
-      "Borrow": []
+		},
+		{
+			"Name": "Vacuum Cleaner",
+			"Category Id": "5",
+			"Category": "Cleaning Tools",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2019-01-05",
+			"Borrows Days": [],
+			"Price": "3600",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Travel Pants for Woman",
-      "Category Id": "12",
-      "Category": "Travel equipment",
-      "Owner Id": "3",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-19",
-      "Borrows Days": [],
-      "Price": "500",
-      "Borrow": []
+		},
+		{
+			"Name": "University",
+			"Category Id": "8",
+			"Category": "Toys",
+			"Owner Id": "3",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-12-20",
+			"Borrows Days": [],
+			"Price": "350",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Bed for a dog",
-      "Category Id": "14",
-      "Category": "Others",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-12-25",
-      "Borrows Days": [],
-      "Price": "200",
-      "Borrow": []
+		},
+		{
+			"Name": "Travel Pants for man",
+			"Category Id": "12",
+			"Category": "Travel equipment",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-19",
+			"Borrows Days": [],
+			"Price": "500",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Red Polish",
-      "Category Id": "11",
-      "Category": "Beauty",
-      "Owner Id": "1",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-21",
-      "Borrows Days": [],
-      "Price": "40",
-      "Borrow": []
+		},
+		{
+			"Name": "Travel Pants for Woman",
+			"Category Id": "12",
+			"Category": "Travel equipment",
+			"Owner Id": "3",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-19",
+			"Borrows Days": [],
+			"Price": "500",
+			"Borrow": []
 
-    },
-    {
-      "Name": "12 Plastic Chairs",
-      "Category Id": "10",
-      "Category": "Furniture",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-29",
-      "Borrows Days": [],
-      "Price": "1000",
-      "Borrow": []
+		},
+		{
+			"Name": "Bed for a dog",
+			"Category Id": "14",
+			"Category": "Others",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-12-25",
+			"Borrows Days": [],
+			"Price": "200",
+			"Borrow": []
 
-    },
-    {
-      "Name": "3 Serving bowls",
-      "Category Id": "9",
-      "Category": "Kitchen",
-      "Owner Id": "5",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-17",
-      "Borrows Days": [],
-      "Price": "400",
-      "Borrow": []
+		},
+		{
+			"Name": "Red Polish",
+			"Category Id": "11",
+			"Category": "Beauty",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-21",
+			"Borrows Days": [],
+			"Price": "40",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Silverware",
-      "Category Id": "9",
-      "Category": "Kitchen",
-      "Owner Id": "5",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2019-02-14",
-      "Borrows Days": [],
-      "Price": "650",
-      "Borrow": []
+		},
+		{
+			"Name": "12 Plastic Chairs",
+			"Category Id": "10",
+			"Category": "Furniture",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-29",
+			"Borrows Days": [],
+			"Price": "1000",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Ski Equipment",
-      "Category Id": "14",
-      "Category": "Others",
-      "Owner Id": "5",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2019-01-29",
-      "Borrows Days": [],
-      "Price": "10000",
-      "Borrow": []
+		},
+		{
+			"Name": "3 Serving bowls",
+			"Category Id": "9",
+			"Category": "Kitchen",
+			"Owner Id": "5",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-17",
+			"Borrows Days": [],
+			"Price": "400",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Birthday decorations",
-      "Category Id": "14",
-      "Category": "Others",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2019-10-01",
-      "Borrows Days": [],
-      "Price": "300",
-      "Borrow": []
+		},
+		{
+			"Name": "Silverware",
+			"Category Id": "9",
+			"Category": "Kitchen",
+			"Owner Id": "5",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2019-02-14",
+			"Borrows Days": [],
+			"Price": "650",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Superman- Game for Sony 4",
-      "Category Id": "3",
-      "Category": "Gaming",
-      "Owner Id": "2",
-      "Avilable From": "2018-08-08",
-      "Avilable Until": "2018-12-01",
-      "Borrows Days": [],
-      "Price": "400",
-      "Borrow": []
+		},
+		{
+			"Name": "Ski Equipment",
+			"Category Id": "14",
+			"Category": "Others",
+			"Owner Id": "5",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2019-01-29",
+			"Borrows Days": [],
+			"Price": "10000",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Umbrella",
-      "Category Id": "14",
-      "Category": "Others",
-      "Owner Id": "2",
-      "Avilable From": "2018-08-08",
-      "Avilable Until": "2018-11-14",
-      "Borrows Days": [],
-      "Price": "100",
-      "Borrow": []
+		},
+		{
+			"Name": "Birthday decorations",
+			"Category Id": "14",
+			"Category": "Others",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2019-10-01",
+			"Borrows Days": [],
+			"Price": "300",
+			"Borrow": []
 
-    },
-    {
-      "Name": "Bottle",
-      "Category Id": "14",
-      "Category": "Others",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-14",
-      "Borrows Days": [],
-      "Price": "100",
-      "Borrow": []
-    },
-    {
-      "Name": "Knive",
-      "Category Id": "9",
-      "Category": "Kitchen",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-14",
-      "Borrows Days": [],
-      "Price": "100",
-      "Borrow": []
-    },
-    {
-      "Name": "Fork",
-      "Category Id": "9",
-      "Category": "Kitchen",
-      "Owner Id": "2",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-14",
-      "Borrows Days": [],
-      "Price": "10",
-      "Borrow": []
-    },
-    {
-      "Name": "Spoon",
-      "Category Id": "9",
-      "Category": "Kitchen",
-      "Owner Id": "4",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-14",
-      "Borrows Days": [],
-      "Price": "5",
-      "Borrow": []
-    },
-    {
-      "Name": "Pot",
-      "Category Id": "9",
-      "Category": "Kitchen",
-      "Owner Id": "1",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-14",
-      "Borrows Days": [],
-      "Price": "150",
-      "Borrow": []
-    },
-    {
-      "Name": "Over",
-      "Category Id": "9",
-      "Category": "Kitchen",
-      "Owner Id": "3",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-14",
-      "Borrows Days": [],
-      "Price": "100",
-      "Borrow": []
-    }
-  ],
+		},
+		{
+			"Name": "Superman- Game for Sony 4",
+			"Category Id": "3",
+			"Category": "Gaming",
+			"Owner Id": "2",
+			"Avilable From": "2018-08-08",
+			"Avilable Until": "2018-12-01",
+			"Borrows Days": [],
+			"Price": "400",
+			"Borrow": []
+
+		},
+		{
+			"Name": "Umbrella",
+			"Category Id": "14",
+			"Category": "Others",
+			"Owner Id": "2",
+			"Avilable From": "2018-08-08",
+			"Avilable Until": "2018-11-14",
+			"Borrows Days": [],
+			"Price": "100",
+			"Borrow": []
+
+		},
+		{
+			"Name": "Bottle",
+			"Category Id": "14",
+			"Category": "Others",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-14",
+			"Borrows Days": [],
+			"Price": "100",
+			"Borrow": []
+		},
+		{
+			"Name": "Knive",
+			"Category Id": "9",
+			"Category": "Kitchen",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-14",
+			"Borrows Days": [],
+			"Price": "100",
+			"Borrow": []
+		},
+		{
+			"Name": "Fork",
+			"Category Id": "9",
+			"Category": "Kitchen",
+			"Owner Id": "2",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-14",
+			"Borrows Days": [],
+			"Price": "10",
+			"Borrow": []
+		},
+		{
+			"Name": "Spoon",
+			"Category Id": "9",
+			"Category": "Kitchen",
+			"Owner Id": "4",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-14",
+			"Borrows Days": [],
+			"Price": "5",
+			"Borrow": []
+		},
+		{
+			"Name": "Pot",
+			"Category Id": "9",
+			"Category": "Kitchen",
+			"Owner Id": "1",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-14",
+			"Borrows Days": [],
+			"Price": "150",
+			"Borrow": []
+		},
+		{
+			"Name": "Over",
+			"Category Id": "9",
+			"Category": "Kitchen",
+			"Owner Id": "3",
+			"Avilable From": "2018-05-05",
+			"Avilable Until": "2018-11-14",
+			"Borrows Days": [],
+			"Price": "100",
+			"Borrow": []
+		}
+	],
 
   "Branch": [
     {
