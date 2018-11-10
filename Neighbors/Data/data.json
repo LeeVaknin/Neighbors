@@ -165,7 +165,7 @@
       "Name": "Vacuum Cleaner",
       "Category Id": "5",
       "Category": "Cleaning Tools",
-      "Owner Id": "1",
+      "Owner Id": "2",
       "Avilable From": "2018-12-05",
       "Avilable Until": "2019-01-05",
       "Borrows Days": [],
@@ -189,7 +189,7 @@
       "Name": "Travel Pants for man",
       "Category Id": "12",
       "Category": "Travel equipment",
-      "Owner Id": "4",
+      "Owner Id": "2",
       "Avilable From": "2018-11-11",
       "Avilable Until": "2018-11-19",
       "Borrows Days": [],
@@ -237,7 +237,7 @@
       "Name": "12 Plastic Chairs",
       "Category Id": "10",
       "Category": "Furniture",
-      "Owner Id": "1",
+      "Owner Id": "2",
       "Avilable From": "2018-11-01",
       "Avilable Until": "2018-11-29",
       "Borrows Days": [],
@@ -285,7 +285,7 @@
       "Name": "Birthday decorations",
       "Category Id": "14",
       "Category": "Others",
-      "Owner Id": "4",
+      "Owner Id": "2",
       "Avilable From": "2018-11-01",
       "Avilable Until": "2019-10-01",
       "Borrows Days": [],
@@ -309,7 +309,7 @@
       "Name": "Umbrella",
       "Category Id": "14",
       "Category": "Others",
-      "Owner Id": "4",
+      "Owner Id": "2",
       "Avilable From": "2018-11-11",
       "Avilable Until": "2018-11-14",
       "Borrows Days": [],
@@ -338,6 +338,43 @@
       "Altitude": "32.79269",
       "Longitude": "35.0008278",
       "Description": "Support center"
+    }
+  ],
+  "Borrow": [
+    {
+      "StartDate": "2018-11-01",
+      "EndDate": "2018-11-20",
+      "Fine": "200"
+    },
+    {
+      "StartDate": "2018-11-01",
+      "EndDate": "2018-11-20",
+      "Fine": "200"
+    },
+    {
+      "StartDate": "2018-11-01",
+      "EndDate": "2018-11-20",
+      "Fine": "200"
+    },
+    {
+      "StartDate": "2018-11-01",
+      "EndDate": "2018-11-20",
+      "Fine": "200"
+    },
+    {
+      "StartDate": "2018-11-01",
+      "EndDate": "2018-11-20",
+      "Fine": "200"
+    },
+    {
+      "StartDate": "2018-11-01",
+      "EndDate": "2018-11-20",
+      "Fine": "200"
+    },
+    {
+      "StartDate": "2018-11-01",
+      "EndDate": "2018-11-20",
+      "Fine": "200"
     }
   ]
 }
