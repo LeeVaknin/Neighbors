@@ -113,8 +113,36 @@
 	}
 }
 
-/*Fadeid Effect home Page*/
+/*Fadein Effect home Page*/
 
 .fadeIn {
 	display:none;
 }
+
+/* roboto-regular - latin */
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../fonts/roboto-v18-latin-regular.eot'); /* IE9 Compat Modes */
+	src: local('Roboto'), local('Roboto-Regular'), url('../fonts/roboto-v18-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/roboto-v18-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+	url('../fonts/roboto-v18-latin-regular.woff') format('woff'), /* Modern Browsers */
+	url('../fonts/roboto-v18-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+	url('../fonts/roboto-v18-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/*aside bar styling*/
+
+/*aside {
+	width: 40%;
+	padding-left: .5rem;
+	margin-left: .5rem;
+	float: right;
+	box-shadow: inset 5px 0 5px -5px #29627e;
+}
+
+	aside > div.jumbotron {
+		margin: .2rem;
+	}*/
