@@ -264,6 +264,7 @@
 
   <ItemGroup>
 	<Folder Include="Areas\Identity\Services\" />
+	<Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

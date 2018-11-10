@@ -56,12 +56,12 @@ namespace Neighbors.Services.DAL
        
         public async Task<int> DeleteBorrow(int borrowId)
         {
-			// Check if the user is the owner of this products
+			// Check if the user realy borrow this products
 			var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 			var user = await _userManager.FindByIdAsync(strUserId);
 			var borrow = await _context.Borrows.FindAsync(borrowId);
 
-			if (user.MyBorrowed.Contains(borrow)) { return 0; }
+			if (!user.MyBorrowed.Contains(borrow)) { return 0; }
 
             if (borrow != null)
             {
