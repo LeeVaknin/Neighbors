@@ -159,7 +159,10 @@ namespace Neighbors.Data
                     var users = _context.Users.ToArray();
                     var rand = new Random();
                     User user = users[rand.Next(users.Count())];
-                    var products = _context.Product.Where(p => p.OwnerId != user.Id && p.AvailableFrom > startDate).ToArray();
+                    var BorrowedProducts = from borrow in _context.Borrows select borrow.ProductId;
+                    var products = _context.Product.Where(p => !BorrowedProducts.Contains(p.Id) && p.OwnerId != user.Id && p.AvailableFrom > startDate).ToArray();
+                   
+                              
                     if (products.Count() > 0)
                     {
                         Product product = products[rand.Next(products.Count())];
@@ -180,11 +183,6 @@ namespace Neighbors.Data
                             _context.SaveChanges();
                         }
                     }
-                    else
-                    {
-                        --i;
-                    }
-                    
                 }
                 catch(Exception e)
                 {
