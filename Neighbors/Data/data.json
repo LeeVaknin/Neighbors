@@ -19,7 +19,44 @@
     {
       "Name": "Cleaning Tools",
       "Products": []
+    },
+    {
+      "Name": "Women Clothes",
+      "Products": []
+    },
+    {
+      "Name": "Men Clothes",
+      "Products": []
+    },
+    {
+      "Name": "Toys",
+      "Products": []
+    },
+    {
+      "Name": "Kitchen",
+      "Products": []
+    },
+    {
+      "Name": "Furniture",
+      "Products": []
+    },
+    {
+      "Name": "Beauty",
+      "Products": []
+    },
+    {
+      "Name": "Travel Equipment",
+      "Products": []
+    },
+    {
+      "Name": "Bags",
+      "Products": []
+    },
+    {
+      "Name": "Others",
+      "Products": []
     }
+
   ],
   "Users": [
     {
@@ -113,6 +150,18 @@
       "Borrow": []
     },
     {
+      "Name": "Suitcase",
+      "Category Id": "13",
+      "Category": "Bags",
+      "Owner Id": "4",
+      "Avilable From": "2018-11-05",
+      "Avilable Until": "2018-11-20",
+      "Borrows Days": [],
+      "Price": "5000",
+      "Borrow": []
+
+    },
+    {
       "Name": "Vacuum Cleaner",
       "Category Id": "5",
       "Category": "Cleaning Tools",
@@ -123,7 +172,152 @@
       "Price": "3600",
       "Borrow": []
 
+    },
+    {
+      "Name": "University",
+      "Category Id": "8",
+      "Category": "Toys",
+      "Owner Id": "3",
+      "Avilable From": "2018-12-05",
+      "Avilable Until": "2018-12-20",
+      "Borrows Days": [],
+      "Price": "350",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Travel Pants for man",
+      "Category Id": "12",
+      "Category": "Travel equipment",
+      "Owner Id": "4",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-19",
+      "Borrows Days": [],
+      "Price": "500",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Travel Pants for Woman",
+      "Category Id": "12",
+      "Category": "Travel equipment",
+      "Owner Id": "3",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-19",
+      "Borrows Days": [],
+      "Price": "500",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Bed for a dog",
+      "Category Id": "14",
+      "Category": "Others",
+      "Owner Id": "2",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-12-25",
+      "Borrows Days": [],
+      "Price": "200",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Red Polish",
+      "Category Id": "11",
+      "Category": "Beauty",
+      "Owner Id": "1",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-21",
+      "Borrows Days": [],
+      "Price": "40",
+      "Borrow": []
+
+    },
+    {
+      "Name": "12 Plastic Chairs",
+      "Category Id": "10",
+      "Category": "Furniture",
+      "Owner Id": "1",
+      "Avilable From": "2018-11-01",
+      "Avilable Until": "2018-11-29",
+      "Borrows Days": [],
+      "Price": "1000",
+      "Borrow": []
+
+    },
+    {
+      "Name": "3 Serving bowls",
+      "Category Id": "9",
+      "Category": "Kitchen",
+      "Owner Id": "5",
+      "Avilable From": "2018-11-01",
+      "Avilable Until": "2018-11-17",
+      "Borrows Days": [],
+      "Price": "400",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Silverware",
+      "Category Id": "9",
+      "Category": "Kitchen",
+      "Owner Id": "5",
+      "Avilable From": "2018-11-01",
+      "Avilable Until": "2019-02-14",
+      "Borrows Days": [],
+      "Price": "650",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Ski Equipment",
+      "Category Id": "14",
+      "Category": "Others",
+      "Owner Id": "5",
+      "Avilable From": "2018-11-01",
+      "Avilable Until": "2019-01-29",
+      "Borrows Days": [],
+      "Price": "10000",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Birthday decorations",
+      "Category Id": "14",
+      "Category": "Others",
+      "Owner Id": "4",
+      "Avilable From": "2018-11-01",
+      "Avilable Until": "2019-10-01",
+      "Borrows Days": [],
+      "Price": "300",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Superman- Game for Sony 4",
+      "Category Id": "3",
+      "Category": "Gaming",
+      "Owner Id": "2",
+      "Avilable From": "2018-11-01",
+      "Avilable Until": "2018-12-01",
+      "Borrows Days": [],
+      "Price": "400",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Umbrella",
+      "Category Id": "14",
+      "Category": "Others",
+      "Owner Id": "4",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-14",
+      "Borrows Days": [],
+      "Price": "100",
+      "Borrow": []
+
     }
+
   ],
 
   "Branch": [
