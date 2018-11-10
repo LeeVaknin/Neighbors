@@ -43,7 +43,7 @@ else
                     {
                         if (!user.MyProducts.Contains(item))
                         {
-                            <a asp-action="Details" asp-route-id="@item.Id">I want that !</a>
+                            <a asp-action="Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-shopping-cart"></span></a>
                         }
                         <!--	else if (user.MyProducts.Contains(item) || User.IsInRole("Administrator"))
                 {
