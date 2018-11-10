@@ -31,15 +31,15 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    <button type="button" class="btn-info btn-xs" data-toggle="modal" data-target="#myModalConfirmation">Return Product</button>
+                    <button type="button" class="btn-info btn-xs" data-toggle="modal" data-target="#myModalConfirmation-@item.Id">Return Product</button>
 
-                    <div id="myModalConfirmation" class="modal">
+                    <div id="myModalConfirmation-@item.Id" class="modal">
                         <div class="modal-dialog p-5">
                             <div class="modal-content p-5">
                                 <div class="modal-body">
                                     <p>Are you sure you want to return the @item.Product.Name ?</p>
                                     <div class="modal-footer">
-                                        <form asp-controller="Borrows" asp-action="Delete" asp-route-id="@item.Id" method="delete">
+                                        <form id="deleteBorrowModalForm" asp-controller="Borrows" asp-action="Delete" asp-route-id="@item.Id">
                                             <input type="submit" value="Yes" class="btn btn-primary btn-sm" />
                                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
                                         </form>

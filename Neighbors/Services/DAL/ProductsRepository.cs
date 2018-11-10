@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System;
-using Neighbors.ViewModels;
+
 
 namespace Neighbors.Services.DAL
 {
