@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\Neighbors\**" />
+    <Compile Remove="ViewModels\**" />
     <Content Remove="Migrations\Neighbors\**" />
+    <Content Remove="ViewModels\**" />
     <EmbeddedResource Remove="Migrations\Neighbors\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Migrations\Neighbors\**" />
+    <None Remove="ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -264,7 +268,6 @@
 
   <ItemGroup>
 	<Folder Include="Areas\Identity\Services\" />
-	<Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
