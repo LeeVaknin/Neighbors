@@ -4,13 +4,22 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <StartupObject></StartupObject>
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <UserSecretsId>26629827-95ba-4e34-9310-022d29ea7eba</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Migrations\Neighbors\**" />
+    <Compile Remove="ViewModels\**" />
     <Content Remove="Migrations\Neighbors\**" />
+    <Content Remove="ViewModels\**" />
     <EmbeddedResource Remove="Migrations\Neighbors\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Migrations\Neighbors\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -246,6 +255,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.ML" Version="0.7.0" />
+    <PackageReference Include="Microsoft.ML.Probabilistic.Compiler" Version="0.3.1810.501" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
 	<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1" />
@@ -257,10 +268,10 @@
 
   <ItemGroup>
 	<Folder Include="Areas\Identity\Services\" />
-	<Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="Views\Error\OurError.cshtml" />
     <None Include="wwwroot\css\custom-forms.css" />
     <None Include="wwwroot\css\custom-forms.min.css" />

@@ -133,6 +133,10 @@
 	url('../fonts/roboto-v18-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 
+.productsTable {
+	max-height: 310px;
+}
+
 /*aside bar styling*/
 
 /*aside {

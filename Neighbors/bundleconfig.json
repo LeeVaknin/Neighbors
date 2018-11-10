@@ -46,22 +46,30 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/cotrollers/categories.min.js",
+    "outputFileName": "wwwroot/js/categories.min.js",
     "inputFiles": [
-      "wwwroot/js/cotrollers/categories.js"
+      "wwwroot/js/categories.js"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/cotrollers/products.min.js",
+    "outputFileName": "wwwroot/js/products.min.js",
     "inputFiles": [
-      "wwwroot/js/cotrollers/products.js"
-    ]
+      "wwwroot/js/products.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
   },
   {
-    "outputFileName": "wwwroot/js/cotrollers/login.min.js",
+    "outputFileName": "wwwroot/js/login.min.js",
     "inputFiles": [
-      "wwwroot/js/cotrollers/login.js"
-    ]
+      "wwwroot/js/login.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
   },
   {
     "outputFileName": "wwwroot/css/search-form.min.css",
@@ -73,12 +81,30 @@
     "outputFileName": "wwwroot/js/login.min.js",
     "inputFiles": [
       "wwwroot/js/login.js"
-    ]
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
   },
   {
     "outputFileName": "wwwroot/js/categories.min.js",
     "inputFiles": [
       "wwwroot/js/categories.js"
-    ]
-  }
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+	{
+		"outputFileName": "wwwroot/js/charts.min.js",
+		"inputFiles": [
+			"wwwroot/js/charts.js"
+		],
+		"minify": {
+			"enabled": true,
+			"renameLocals": true
+		}
+	}
 ]
