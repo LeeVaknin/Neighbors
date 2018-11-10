@@ -35,24 +35,24 @@ else
 			<td>
 				@Html.DisplayFor(modelItem => item.Price)
 			</td>
-			<td>
-				<!-- <a asp-action="Edit" asp-route-id="item.Id">Edit</a> |-->
-				@{ var user = (await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-					var signed = SignInManager.IsSignedIn(User);
-					@if (signed && user != null)
-					{
-						if (!user.MyProducts.Contains(item))
-						{
-							<a asp-action="Details" asp-route-id="@item.Id">I want that !</a>
-						}
-						else if (user.MyProducts.Contains(item) || User.IsInRole("Administrator"))
-						{
-							<a asp-action="Delete" asp-route-id="@item.Id"> Delete</a>
-						}
-					}
-				}
+            <td>
+                <!-- <a asp-action="Edit" asp-route-id="item.Id">Edit</a> |-->
+                @{ var user = (await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+                    var signed = SignInManager.IsSignedIn(User);
+                    @if (signed && user != null)
+                    {
+                        if (!user.MyProducts.Contains(item))
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id">I want that !</a>
+                        }
+                        <!--	else if (user.MyProducts.Contains(item) || User.IsInRole("Administrator"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Id"> Delete</a>
+                } -->
+                    }
+                }
 
-			</td>
+            </td>
 		</tr>
 	}
 
