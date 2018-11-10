@@ -30,14 +30,17 @@ namespace Neighbors.Services.DAL
 
         public async Task<int> DeleteCategory(int categoryId)
         {
-            var category = await _context.Categories.FindAsync(categoryId);
+            var category = await GetCategoryById(categoryId);
             if (category != null)
             {
-                _context.Categories.Remove(category);
+                if (category.Products.Count == 0)
+                {
+                    _context.Categories.Remove(category);
+                } else {
+                    return -1;
+                }
             }
-
-            return await _context.SaveChangesAsync();
-           
+            return await _context.SaveChangesAsync(); 
         }
 
         public async Task<int> UpdateCategory(int categoryId, Category category)

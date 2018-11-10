@@ -23,15 +23,16 @@
                     @Html.DisplayFor(modelItem => item.Products.Count)
                 </td>
                 <td>
-                    <button type="button" class="btn-info btn-xs" data-toggle="modal" data-target="#myCategoryModal">Delete</button>
-                    <a asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id" class="text-info">Edit</a>
-                    <div id="myCategoryModal" class="modal">
+                    <button id="@item.Id" type="button" class="delete-cat glyphicon glyphicon-trash btn-transparent" data-toggle="modal" data-target="#myCategoryModal-@item.Id"></button>
+                    <a asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id" class="glyphicon glyphicon-pencil"></a>
+
+                    <div id="myCategoryModal-@item.Id" class="modal">
                         <div class="modal-dialog p-5">
                             <div class="modal-content p-5">
                                 <div class="modal-body">
                                     <p>Are you sure you want to delete @item.Name category ?</p>
                                     <div class="modal-footer">
-                                        <form asp-controller="Categories" asp-action="Delete" asp-route-id="@item.Id" method="delete">
+                                        <form id="deleteCategoryModalForm" asp-controller="Categories" asp-action="Delete" asp-route-id="@item.Id">
                                             <input type="submit" value="Yes" class="btn btn-primary btn-sm" />
                                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
                                         </form>
@@ -46,9 +47,4 @@
     </tbody>
 </table>
 
-<!--
- <a asp-controller="Categories" asp-action="Edit" asp-route-id="item.Id">Edit</a> |
-                <a asp-controller="Categories" asp-action="Details" asp-route-id="item.Id">Details</a> |
-                <a asp-controller="Categories" asp-action="Delete" asp-route-id="item.Id">Delete</a>
 
--->

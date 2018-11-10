@@ -82,6 +82,8 @@ namespace Neighbors.Data
             SeedBranches(branches);
             dynamic users = data["Users"];
             SeedUsers(users);
+            dynamic borrow = data["Borrow"];
+            SeedBorrow(borrow);
         }
 
         private void SeedCategories(dynamic data)
@@ -102,24 +104,29 @@ namespace Neighbors.Data
         {
             for (int i = 0; i < data.Count; i++)
             {
-                DateTime from = Convert.ToDateTime(data[i]["Avilable From"]);
-                DateTime until = Convert.ToDateTime(data[i]["Avilable Until"]);
-                int borrowDays = Convert.ToInt32((until - from).TotalDays);
-                int ownerId = data[i]["Owner Id"];
-                int price = data[i]["Price"];
-                string categoryName = data[i]["Category"];
-				if (await _userManager.FindByIdAsync(ownerId.ToString()) == null)
-				{
-					ownerId = _userManager.Users.LastOrDefault().Id;
-				}
-                Category cat = _context.Categories.Where(m => m.Name == categoryName).First();
-                Product pro = new Product { Name = data[i]["Name"], Category = cat, CategoryId = cat.Id, OwnerId = ownerId, AvailableFrom = from, AvailableUntil = until, BorrowsDays = borrowDays, Price = price };
-                var exists = _context.Product.Where(m => m.Name == pro.Name && m.OwnerId == pro.OwnerId).Count();
-                if (exists == 0)
+                try
                 {
-                    _context.Add(pro);
-                    _context.SaveChanges();
+                    DateTime from = Convert.ToDateTime(data[i]["Avilable From"]);
+                    DateTime until = Convert.ToDateTime(data[i]["Avilable Until"]);
+                    int borrowDays = Convert.ToInt32((until - from).TotalDays);
+                    int ownerId = data[i]["Owner Id"];
+                    int price = data[i]["Price"];
+                    string categoryName = data[i]["Category"];
+                    if (await _userManager.FindByIdAsync(ownerId.ToString()) == null)
+                    {
+                        ownerId = _userManager.Users.LastOrDefault().Id;
+                    }
+                    Category cat = _context.Categories.Where(m => m.Name == categoryName).First();
+                    Product pro = new Product { Name = data[i]["Name"], Category = cat, CategoryId = cat.Id, OwnerId = ownerId, AvailableFrom = from, AvailableUntil = until, BorrowsDays = borrowDays, Price = price };
+                    var exists = _context.Product.Where(m => m.Name == pro.Name && m.OwnerId == pro.OwnerId).Count();
+                    if (exists == 0)
+                    {
+                        _context.Add(pro);
+                        _context.SaveChanges();
+                    }
                 }
+                catch(Exception e)
+                { }
             }
         }
 
@@ -137,6 +144,51 @@ namespace Neighbors.Data
                     _context.Add(branch);
                     _context.SaveChanges();
                 }
+            }
+        }
+
+        async Task SeedBorrow(dynamic data)
+        {
+            for (int i = 0; i < data.Count; i++)
+            {
+                try
+                {
+                    DateTime startDate = Convert.ToDateTime(data[i]["StartDate"]);
+                    DateTime endDate = Convert.ToDateTime(data[i]["EndDate"]);
+                    int price = data[i]["Fine"];
+                    var users = _context.Users.ToArray();
+                    var rand = new Random();
+                    User user = users[rand.Next(users.Count())];
+                    var BorrowedProducts = from borrow in _context.Borrows select borrow.ProductId;
+                    var products = _context.Product.Where(p => !BorrowedProducts.Contains(p.Id) && p.OwnerId != user.Id && p.AvailableFrom > startDate).ToArray();
+                   
+                              
+                    if (products.Count() > 0)
+                    {
+                        Product product = products[rand.Next(products.Count())];
+                        Borrow borrow = new Borrow
+                        {
+                            StartDate = startDate,
+                            EndDate = endDate,
+                            Fine = product.Price,
+                            Borrower = user,
+                            BorrowerId = user.Id,
+                            Product = product,
+                            ProductId = product.Id
+                        };
+                        var exists = _context.Borrows.Where(b => b.StartDate == borrow.StartDate && b.Id == borrow.Id && b.ProductId == borrow.ProductId).Count();
+                        if (exists == 0)
+                        {
+                            _context.Add(borrow);
+                            _context.SaveChanges();
+                        }
+                    }
+                }
+                catch(Exception e)
+                {
+                    int a = 5;
+                }
+                
             }
         }
 

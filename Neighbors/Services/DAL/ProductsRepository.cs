@@ -45,20 +45,23 @@ namespace Neighbors.Services.DAL
 				else return 0;
 
 			}
-			newProduct.BorrowsDays = (newProduct.AvailableUntil - newProduct.AvailableUntil).Days;
-            
-         //   newProduct.Owner = await _context.Users.FirstOrDefaultAsync(user => user.Id == newProduct.OwnerId);
 
+			newProduct.BorrowsDays = (int)(newProduct.AvailableUntil - newProduct.AvailableFrom).TotalDays;
             _context.Add(newProduct);
+
 			return await _context.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteProduct(int productId)
 		{
-			var product = await _context.Product.FindAsync(productId);
+			var product = await GetProductById(productId);
 			if (product != null)
 			{
-				_context.Product.Remove(product);
+                if (product.Borrow == null)
+                {
+                    _context.Product.Remove(product);
+                }
+                else return -1;
 			}
 
 			return await _context.SaveChangesAsync();
@@ -106,7 +109,7 @@ namespace Neighbors.Services.DAL
 		{
 			return (await _context.Product
                 .Include(c => c.Category)
-            //  .Include(b => b.Borrow)
+                .Include(b => b.Borrow)
                 .Include(u => u.Owner)
                 .FirstOrDefaultAsync(pr => pr.Id == id));
 		}
