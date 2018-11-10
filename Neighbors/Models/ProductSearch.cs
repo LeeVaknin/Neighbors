@@ -16,6 +16,12 @@ namespace Neighbors.Models
 
 		public string Name { get; set; }
 
+		[DisplayName("Minimum Price")]
+		public int MinPrice { get; set; }
+
+		[DisplayName("Maximum Price")]
+		public int MaxPrice { get; set; }
+
 		public int Id { get; set; }
 	}
 }

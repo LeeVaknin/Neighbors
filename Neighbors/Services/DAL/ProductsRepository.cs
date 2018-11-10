@@ -192,6 +192,11 @@ namespace Neighbors.Services.DAL
 											productSearch.Location.StreetAddress == null ||
 											productSearch.Location.StreetAddress.Contains(productJoin.address) ||
 											productJoin.address.Contains(productSearch.Location.StreetAddress))
+						// Check if the price range is filled, if not add to result
+						.Where(productJoin => productSearch.MinPrice == 0 ||
+											productJoin.product.Price >= productSearch.MinPrice)
+						.Where(productJoin => productSearch.MaxPrice == 0 ||
+											productJoin.product.Price <= productSearch.MaxPrice)
 
 						.Select(productJoin => productJoin.product)
 						.Include(pr => pr.Category)
