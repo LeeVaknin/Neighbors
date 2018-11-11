@@ -83,9 +83,13 @@ namespace Neighbors.Controllers
 
 		[AllowAnonymous]
 		[HttpPost("/Products/Search")]
-		public async Task<IActionResult> Search([FromBody] ProductSearch filter)
+		public async Task<IActionResult> Search([FromBody]ProductSearch filter)
 		{
-			var res = await _productsRepo.SearchForProduct(filter);
+			ICollection<Product> res;
+			try {
+				res = await _productsRepo.SearchForProduct(filter);
+			}
+			catch { res = new List<Product>(); }
 			return PartialView("/Views/Products/_ProductItem.cshtml", res);
 		}
 

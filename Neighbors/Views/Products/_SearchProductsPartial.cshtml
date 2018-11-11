@@ -56,11 +56,11 @@
 
 												@* Cities Filter *@
 												<div class="form-group col-xs-4">
-													<label asp-for="Location.City" id="search-city" class="control-label"></label>
+													<label asp-for="Location.City" class="control-label"></label>
 													@Html.DropDownListFor(m => m.Location.City,
 															Enumerable.Empty<SelectListItem>(),
 															"Cities",
-															new { id = "citiesList", @class = "form-control m-2" })
+															new { id = "search-city", @class = "form-control m-2" })
 												</div>
 												@* StreetAddress Filter *@
 												<div class="col-xs-7 form-group">

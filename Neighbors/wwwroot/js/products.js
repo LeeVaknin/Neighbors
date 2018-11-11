@@ -14,7 +14,7 @@ function getCities() {
     var result = ["Afula", "Azor", "Ashdod", "Arad", "Ashkelon", "Bat-Yam", "BeerSheva", "Bazra", "Ashdod", "Holon", "Eilat", "Krayot"];
     $(result).each(function (i, city) {
         var value = $("<option></option>").val(city).html(city);
-        $("#citiesList").append(value);
+		$("#search-city").append(value);
     });
 }
 
@@ -25,13 +25,13 @@ function searchProducts() {
         type: "POST",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({
-            Name: $("#search-name").val(),
-			CategoryId: $("#catList_2").children("option:selected").val(),
-            MinPrice: $("#min-price").val(),
-            MaxPrice: $("#max-price").val(),
-            Location: {
-                City: $("#search-city").val(),
-                StreetAddress: $("#search-address").val()
+            name: $("#search-name").val(),
+			categoryId: ( parseInt($("#catList_2").children("option:selected").val(), 10) || 0 ),
+			minPrice: parseInt($("#min-price").val(), 10),
+			maxPrice: parseInt($("#max-price").val(),10),
+            location: {
+				city: $("#search-city").children("option:selected").val(),
+                streetAddress: $("#search-address").val()
             }
         }),
         datatype: JSON,
