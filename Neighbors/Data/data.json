@@ -318,7 +318,7 @@
       "Name": "iRobot",
       "Category": "Cleaning Tools",
       "Owner": "LeeVak",
-      "Avilable From": "2019-12-01",
+      "Avilable From": "2018-12-01",
       "Avilable Until": "2019-02-01",
       "Price": "1000",
       "Borrow": []
@@ -433,7 +433,6 @@
       "Price": "3000",
       "Borrow": []
 
-    },
     },
     {
       "Name": "Travel Pants for man",
