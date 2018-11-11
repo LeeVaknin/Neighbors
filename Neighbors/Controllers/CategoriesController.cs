@@ -40,8 +40,12 @@ namespace Neighbors.Controllers
 		public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoriesRepo.GetCategoryById(id);
-
-            return View(category ?? new Category());
+            if (category == null)
+            {
+                return RedirectToAction("InvalidAction", "Error");
+            }
+            return View(category);
+            //   return View(category ?? new Category());
         }
 
 		[Authorize(Roles = "Administrator")]
@@ -81,6 +85,15 @@ namespace Neighbors.Controllers
 			return Json(categories);
 		}
 
+		[AllowAnonymous]
+		[HttpGet("/CategoriesShort")]
+		public async Task<IActionResult> GetCategoriesShort() //It will be fired from Jquery ajax call  
+		{
+			var categories = await _categoriesRepo.GetAllCategoriesShort();
+			return Json(categories);
+		}
+
+
 		[HttpPost("/Categories")]
 		public async Task<IActionResult> AddNewCategory([FromBody] Category category)
         {
@@ -106,8 +119,9 @@ namespace Neighbors.Controllers
         // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPut("/Categories/{id}")]
-		[Authorize(Roles = "Administrator")]
+        [HttpPost("/Categories/{id}")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
 		public async Task<IActionResult> UpdateCategory(int id, Category category)
         {
 
@@ -119,21 +133,25 @@ namespace Neighbors.Controllers
                 }
 
                 await _categoriesRepo.UpdateCategory(id, category);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Identity/Account/Manage");
             }
             return View(category);
 
         }
 
         // POST: Categories/Delete/5
-        [HttpDelete("/Categories/{id}")]
-		[Authorize(Roles = "Administrator")]
+        [HttpPost("/Categories/Delete/{id}")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (ModelState.IsValid)
             {
-                await _categoriesRepo.DeleteCategory(id);
-                return RedirectToAction(nameof(Index));
+                if(await _categoriesRepo.DeleteCategory(id) == -1)
+                {
+                    return RedirectToAction("InvalidAction", "Error");
+                }
+                return RedirectToAction("Index", "Identity/Account/Manage");
             }
             return View();
 

@@ -25,16 +25,15 @@ namespace Neighbors.Services.DAL
 
         Task<ICollection<Category>> GetAllCategories();
 
+		Task<ICollection<Category>> GetAllCategoriesShort();
+
+		#endregion
+
+		#region Helpers
+
+		bool CategoryExists(int id);
+
         #endregion
-
-        #region Helpers
-
-        bool CategoryExists(int id);
-
-        #endregion
-
-        //   IEnumerable<object> GetAllCategories();
-
 
     }
 }

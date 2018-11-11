@@ -36,8 +36,9 @@
 		<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="~/js/site.js" asp-append-version="true"></script>
 		<script language="JavaScript" type="text/javascript" src="~/js/login.js"></script>
-		<script async language="JavaScript" type="text/javascript" src="~/js/categories.js"></script>
-		<script async language="JavaScript" type="text/javascript" src="~/js/products.js"></script>
+		<script language="JavaScript" type="text/javascript" src="~/js/categories.js"></script>
+		<script language="JavaScript" type="text/javascript" src="~/js/products.js"></script>
+		<script language="JavaScript" type="text/javascript" src="~/js/charts.js"></script>
 		<script src="~/node_modules/chart.js/dist/Chart.js"></script>
 	</environment>
 
@@ -55,15 +56,18 @@
 				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
 		</script>
 		<script src="~/js/site.min.js" asp-append-version="true"></script>
-		<script async language="JavaScript" type="text/javascript" src="~/js/categories.min.js"></script>
-		<script async language="JavaScript" type="text/javascript" src="~/js/products.min.js"></script>
 		<script src="~/node_modules/chart.js/dist/Chart.js"></script>
+		<script language="JavaScript" type="text/javascript" src="~/js/login.min.js"></script>
+		<script language="JavaScript" type="text/javascript" src="~/js/categories.min.js"></script>
+		<script language="JavaScript" type="text/javascript" src="~/js/products.min.js"></script>
+		<script language="JavaScript" type="text/javascript" src="~/js/charts.min.js"></script>
 	</environment>
 </head>
 
 @*  ----------- Body -----------  *@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -89,7 +93,7 @@
 	</nav>
 	<div class="container body-content">
 		@RenderBody()
-		@if (!SignInManager.IsSignedIn(User))
+		@if (!SignInManager.IsSignedIn(User) || (await UserManager.FindByEmailAsync(User.Identity.Name)) == null)
 		{
 			<div id="login-modal" class="modal fade" role="dialog">
 				@{ await Html.RenderPartialAsync("/Views/_Login.cshtml", new Login()); }

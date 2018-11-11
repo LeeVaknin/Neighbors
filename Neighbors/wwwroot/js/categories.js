@@ -9,7 +9,7 @@
 
 function getCategories(selector) {
 	$.ajax({
-		url: "/Categories",
+		url: "/CategoriesShort",
 		type: "GET",
 		contentType: "application/json; charset=utf-8",
 		datatype: JSON,
@@ -37,7 +37,7 @@ function addCategory(selector) {
 			if (result.isValid == true) {
 				var value = $("<option></option>").val(result.model.id).html(result.model.name);
 				$(selector).append(value);
-				updateAnimation(value);
+				updateAnimation(selector);
 			} else {
 				raiseError(result.error);
 			}
@@ -48,16 +48,17 @@ function addCategory(selector) {
 
 // visual behaviors
 
-function updateAnimation(valueToSelect) {
+function updateAnimation(selector) {
 	var message = "The category was added successfully.";
 	closeModal();
 	raiseSuccess(message);
-	updateSelection();
-	$("#catList").fadeOut(300).fadeIn(300);
+	updateSelection(selector);
+	$(selector).fadeOut(300).fadeIn(300);
 };
 
-function updateSelection() {
-	var element = document.getElementById("catList");
+function updateSelection(selector) {
+	selector = selector.substring(1);
+	var element = document.getElementById(selector);
 	element.selectedIndex = element.length - 1;
 }
 

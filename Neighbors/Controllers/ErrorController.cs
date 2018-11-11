@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace Neighbors.Controllers
 {
     [Route("Error")]
+	[AllowAnonymous]
     public class ErrorController : Controller
     {
 
@@ -17,7 +19,7 @@ namespace Neighbors.Controllers
         public IActionResult InvalidAction(int errorId)
         {
             if (errorId == 401 || errorId == 403)
-                return View();
+                return View("Views/Error/InvalidAction.cshtml");
             return OurError();
         }
 
@@ -28,5 +30,10 @@ namespace Neighbors.Controllers
             return View("Views/Error/OurError.cshtml");
         }
 
+        [Route("/Error/InvalidAction")]
+        public IActionResult InvalidAction()
+        {
+            return View("Views/Error/InvalidAction.cshtml");
+        }
     }
 }

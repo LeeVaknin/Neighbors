@@ -1,13 +1,14 @@
 ﻿@model ICollection<Neighbors.Models.Product>
 
 
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
-        <tr>
-            <th>
-               My Products
-            </th> 
-            <th></th>
+        <tr class="info">
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -15,7 +16,36 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <button id="@item.Id" type="button" data-toggle="modal" class="delete-pro glyphicon glyphicon-trash btn-transparent" data-target="#myProductModal-@item.Id"></button>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="glyphicon glyphicon-pencil"></a>
+
+                    <div id="myProductModal-@item.Id" class="modal">
+                        <div class="modal-dialog p-5">
+                            <div class="modal-content p-5">
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete @item.Name ?</p>
+                                    <div class="modal-footer">
+                                        <form id="deleteModalForm" asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id">
+                                            <input type="submit" value="Yes" class="btn btn-primary btn-sm" />
+                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         }
@@ -23,4 +53,11 @@
 </table>
 
 
+<script>
 
+     $(".delete-pro").click(function () {
+         console.log(event.target.id)
+         $("#deleteModalForm").attr("asp-route-id", event.target.id);
+        });
+
+</script>

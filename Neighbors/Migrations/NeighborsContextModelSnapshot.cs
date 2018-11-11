@@ -174,6 +174,8 @@ namespace Neighbors.Migrations
 
                     b.Property<DateTime>("AvailableUntil");
 
+                    b.Property<int>("BorrowId");
+
                     b.Property<int>("BorrowsDays");
 
                     b.Property<int>("CategoryId");

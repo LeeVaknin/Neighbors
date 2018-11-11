@@ -16,14 +16,16 @@ namespace Neighbors.Services.DAL
         #region C-TOR and Data members
 
         private readonly NeighborsContext _context;
-        private readonly SignInManager<User> _signinManager;
+		private readonly UserManager<User> _userManager;
+		private readonly SignInManager<User> _signinManager;
         private readonly IProductsRepository _proRepo;
 
-        public BorrowsRepository(NeighborsContext neighborsContext, IProductsRepository proRepo, SignInManager<User> signinManager)
+        public BorrowsRepository(NeighborsContext neighborsContext, IProductsRepository proRepo, SignInManager<User> signinManager, UserManager<User> userManager)
         {
             _context = neighborsContext;
+			_userManager = userManager;
             _proRepo = proRepo;
-            this._signinManager = signinManager;
+            _signinManager = signinManager;
         }
 
         #endregion
@@ -32,7 +34,10 @@ namespace Neighbors.Services.DAL
         public async Task<int> AddBorrow(Borrow newBorrow, int productId)
         {
             var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var product = await _context.Product.FirstOrDefaultAsync(pro => pro.Id == productId);
+			var product = await _context.Product.FirstOrDefaultAsync(pro => pro.Id == productId);
+			// Check if the user is the owner of this products
+			var user = await _userManager.FindByIdAsync(strUserId);
+			if (user.MyProducts.Contains(product)) { return 0; }
 
             newBorrow.ProductId = productId;
             newBorrow.BorrowerId = product.OwnerId;
@@ -51,12 +56,17 @@ namespace Neighbors.Services.DAL
        
         public async Task<int> DeleteBorrow(int borrowId)
         {
-            var borrow = await _context.Borrows.FindAsync(borrowId);
+			// Check if the user realy borrow this products
+			var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+			var user = await _userManager.FindByIdAsync(strUserId);
+			var borrow = await _context.Borrows.FindAsync(borrowId);
+
+			if (!user.MyBorrowed.Contains(borrow)) { return 0; }
+
             if (borrow != null)
             {
                 _context.Borrows.Remove(borrow);
             }
-
             return await _context.SaveChangesAsync();
         }
 
@@ -65,7 +75,8 @@ namespace Neighbors.Services.DAL
         #region Getters
         public async Task<ICollection<Borrow>> GetAllBorrowsAsync()
         {
-            return await _context.Borrows.Include(b => b.Borrower)
+            return await _context.Borrows
+                .Include(b => b.Borrower)
                 .Include(b => b.Product)
                 .ToListAsync();
         }
@@ -75,6 +86,7 @@ namespace Neighbors.Services.DAL
             var borrow = await _context.Borrows
                 .Include(b => b.Borrower)
                 .Include(b => b.Product)
+                .ThenInclude(o => o.Owner)
                 .FirstOrDefaultAsync(m => m.Id == id);
             return borrow;
         }

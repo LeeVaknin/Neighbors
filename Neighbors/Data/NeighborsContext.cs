@@ -40,15 +40,9 @@ namespace Neighbors.Data
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+                relationship.DeleteBehavior = DeleteBehavior.Cascade;
             }
 
-            /*    modelBuilder.Entity<Borrow>()
-                    .HasOne(o => o.Borrower)
-                    .WithMany(i => i.BorrowedProductFromMe)
-                    .HasForeignKey(k => k.BorrowerId);
-                    //.OnDelete(DeleteBehavior.Cascade);
-    */
             base.OnModelCreating(modelBuilder);
 
         }

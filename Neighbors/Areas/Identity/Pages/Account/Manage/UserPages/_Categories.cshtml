@@ -1,13 +1,11 @@
-﻿@model ICollection<Neighbors.Models.Borrow>
+﻿@model ICollection<Neighbors.Models.Category>
 
 <table class="table table-striped table-hover ">
     <thead>
         <tr class="info">
-            <th>Product Name</th>
-            <th>Product owner Name</th>
-            <th>Fine</th>
-            <th>Start date</th>
-            <th>End date</th>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Number of products</th>
             <th></th>
         </tr>
     </thead>
@@ -16,30 +14,25 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.Name)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.Owner.FullName)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Fine)
+                    @Html.DisplayFor(modelItem => item.Products.Count)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    <button type="button" class="btn-info btn-xs" data-toggle="modal" data-target="#myModalConfirmation-@item.Id">Return Product</button>
+                    <button id="@item.Id" type="button" class="delete-cat glyphicon glyphicon-trash btn-transparent" data-toggle="modal" data-target="#myCategoryModal-@item.Id"></button>
+                    <a asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id" class="glyphicon glyphicon-pencil"></a>
 
-                    <div id="myModalConfirmation-@item.Id" class="modal">
+                    <div id="myCategoryModal-@item.Id" class="modal">
                         <div class="modal-dialog p-5">
                             <div class="modal-content p-5">
                                 <div class="modal-body">
-                                    <p>Are you sure you want to return the @item.Product.Name ?</p>
+                                    <p>Are you sure you want to delete @item.Name category ?</p>
                                     <div class="modal-footer">
-                                        <form id="deleteBorrowModalForm" asp-controller="Borrows" asp-action="Delete" asp-route-id="@item.Id">
+                                        <form id="deleteCategoryModalForm" asp-controller="Categories" asp-action="Delete" asp-route-id="@item.Id">
                                             <input type="submit" value="Yes" class="btn btn-primary btn-sm" />
                                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
                                         </form>
@@ -53,4 +46,5 @@
         }
     </tbody>
 </table>
+
 

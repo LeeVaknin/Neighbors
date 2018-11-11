@@ -33,11 +33,11 @@ namespace Neighbors.Services.DAL
 
 		Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel);
 
-		Task<ICollection<IGrouping<Category, Product>>> GetProductsGroupedByCategory();
+		Task<ICollection<CountModel>> GetProductsGroupedByCategory();
 
 		Task<ICollection<Product>> GetProductsByAddress(string address);
 
-		Task<ICollection<IGrouping<string, Product>>> GetProductsGroupedByCity();
+		Task<ICollection<CountModel>> GetProductsGroupedByCity();
 
 		#endregion
 

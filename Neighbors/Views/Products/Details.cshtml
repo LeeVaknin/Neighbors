@@ -1,57 +1,73 @@
 ﻿@model Neighbors.Models.Product
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h3>Product Details</h3>
 
 <div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner.City)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Owner.City)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Owner.FirstName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BorrowsDays)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BorrowsDays)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.CategoryId)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Category.Name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Owner.City)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Owner.City)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.OwnerId)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Owner.FullName)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.BorrowsDays)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.BorrowsDays)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Price)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Price)
+		</dd>
+	</dl>
 </div>
-<div>
-    <form asp-controller="Borrows" asp-action="AddBorrow" asp-route-id="@Model.Id">
-        <input type="submit" value="Borrow" class="btn btn-group-sm" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="row ">
+		@{	var user = (await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+			var signed = SignInManager.IsSignedIn(User);
+			@if (signed && user != null && !user.MyProducts.Contains(Model))
+			{
+				<form asp-controller="Borrows" asp-action="AddBorrow" asp-route-id="@Model.Id">
+					<input type="submit" value="Borrow" class="btn btn-primary btn-sm" />
+				</form>
+			}
+			else if (!signed || user == null)
+			{
+				<button type="button" class="btn btn-default disabled" disabled data-toggle="tooltip" data-placement="bottom" data-original-title="For product borrow, you must be logged in!">Borrow</button>
+			}
+		}
+
+	
+	<a asp-action="Index"> | Back to List</a>
 
 </div>

@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.Borrower)
             </th>
             <th>
-                Borrower
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Product)
             </th>
             <th>
@@ -37,11 +34,8 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Borrower.FirstName)
+                @Html.DisplayFor(modelItem => item.Borrower.FullName)
             </td>
-                  <td>
-               @Html.DisplayFor(modelItem => item.Product.Owner.FirstName)
-           </td>
            <td>
                @Html.DisplayFor(modelItem => item.Product.Name)
            </td> 

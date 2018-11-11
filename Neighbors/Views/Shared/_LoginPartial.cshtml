@@ -3,7 +3,8 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-@if (SignInManager.IsSignedIn(User))
+
+@if (SignInManager.IsSignedIn(User) && (await UserManager.FindByEmailAsync(User.Identity.Name)) != null )
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">

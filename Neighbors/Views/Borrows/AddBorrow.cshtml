@@ -8,11 +8,17 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-           @Html.DisplayNameFor(model => model.Product)
-       </dt>
-       <dd>
-           @Html.DisplayFor(model => model.Product.Name)
-       </dd>
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Owner)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Owner.FullName)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
@@ -34,7 +40,7 @@
     </dl>
 </div>
 <div>
-    <form asp-controller="Products" asp-action="Index">
-        <input type="submit" value="Home" class="btn btn-group-sm" />
+    <form asp-controller="Home" asp-action="Index">
+        <input type="submit" value="Home" class="btn btn-primary" />
     </form>
 </div>

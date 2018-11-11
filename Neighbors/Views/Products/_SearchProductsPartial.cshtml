@@ -9,17 +9,39 @@
 				<div class="btn-transparent input-group-btn pr-2">
 					<div class="btn-group" role="group">
 						<div class="dropdown dropdown-lg">
-							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="search-menu-trigger"><span class="caret"></span></button>
 							<div class="dropdown-menu dropdown-menu-right p-5" role="menu">
 
 								<form id="search-form" asp-action="Search" asp-controller="Products" class="form-horizontal" data-ajax="true" data-ajax-method="get">
 										
 									<div class="row flex-container">
 										<div class="col-xs-11">
-											<div class="form-group">
-												<label asp-for="Name" class="control-label"></label>
-												<input asp-for="Name" placeholder="What are you looking for?" type="text" id="search-name" class="form-control m-2" />
+											<div class="row">
+												<div class="col-xs-6">
+													<label asp-for="Name" class="control-label"></label>
+													<input asp-for="Name" placeholder="What are you looking for?" type="text" id="search-name" class="form-control m-2" />
+												</div>
+												@* Price Range Filter *@
+												<div class="col-xs-3 form-group">
+													<label asp-for="MinPrice" class="control-label"></label>
+													<div class="input-group m-2">
+														<input asp-for="MinPrice" id="min-price" type="number" min="0" class="form-control" placeholder="00.00" />
+														<div class="input-group-addon">
+															<span class="input-group-text">₪</span>
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-3 form-group">
+													<label asp-for="MaxPrice" class="control-label"></label>
+													<div class="input-group m-2">
+														<input asp-for="MaxPrice" id="max-price" type="number" min="0" class="form-control" placeholder="00.00" />
+														<div class="input-group-addon">
+															<span class="input-group-text">₪</span>
+														</div>
+													</div>
+												</div>
 											</div>
+											
 											@* Categories Filter *@
 											<div class="form-group">
 												<label asp-for="CategoryId" id="search-category" class="control-label"></label>
@@ -43,7 +65,7 @@
 												@* StreetAddress Filter *@
 												<div class="col-xs-7 form-group">
 													<label asp-for="Location.StreetAddress" class="control-label"></label>
-													<input asp-for="Location.StreetAddress"  id="search-address" placeholder="Maybe there is somebody near your block?" type="text" for="contain" class="form-control m-2" />
+													<input asp-for="Location.StreetAddress" id="search-address" placeholder="Maybe there is somebody near your block?" type="text" for="contain" class="form-control m-2" />
 												</div>
 											</div>
 										</div>
@@ -61,6 +83,10 @@
 </div>
 
 <script>
-	getCategories(catList_2);
-	getCities();
+	try {
+		getCategories("#catList_2");
+		getCities();
+	}
+	catch { }
+
 </script>
