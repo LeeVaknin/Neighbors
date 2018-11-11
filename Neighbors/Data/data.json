@@ -21,14 +21,6 @@
 				"Products": []
 			},
 			{
-				"Name": "Women Clothes",
-				"Products": []
-			},
-			{
-				"Name": "Men Clothes",
-				"Products": []
-			},
-			{
 				"Name": "Toys",
 				"Products": []
 			},
@@ -319,9 +311,9 @@
       "Name": "University",
       "Category": "Toys",
       "Owner": "RoyRashti",
-      "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-12-20",
-      "Price": "350",
+      "Avilable From": "2018-09-05",
+      "Avilable Until": "2018-10-05",
+      "Price": "150",
       "Borrow": []
 
     },
@@ -340,7 +332,7 @@
       "Category": "Toys",
       "Owner": "InbalM",
       "Avilable From": "2018-11-05",
-      "Avilable Until": "2019-05-13",
+      "Avilable Until": "2019-01-05",
       "Price": "500",
       "Borrow": []
 
@@ -361,7 +353,7 @@
       "Owner": "KseniaSad",
       "Avilable From": "2018-11-11",
       "Avilable Until": "2018-11-18",
-      "Price": "3000",
+      "Price": "300",
       "Borrow": []
 
     },
@@ -484,7 +476,7 @@
       "Owner": "RoyRashti",
       "Avilable From": "2018-11-11",
       "Avilable Until": "2018-12-18",
-      "Price": "1000",
+      "Price": "200",
       "Borrow": []
 
     },
@@ -494,7 +486,7 @@
       "Owner": "InbalM",
       "Avilable From": "2018-11-11",
       "Avilable Until": "2018-11-15",
-      "Price": "500",
+      "Price": "100",
       "Borrow": []
 
     },
