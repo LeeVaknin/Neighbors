@@ -56,7 +56,6 @@ namespace Neighbors.Data
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 
-
             if (!_roleManager.Roles.Any(r => r.Name == Roles.Administrator.ToString()))
             {
                 await _roleManager.CreateAsync(new Role { Name = Roles.Administrator.ToString() });
@@ -71,17 +70,18 @@ namespace Neighbors.Data
                 await _userManager.AddToRoleAsync(user, Roles.Administrator.ToString());
             }
         }
-        private async Task SeedData()
+
+		private async Task SeedData()
         {
             dynamic data = JsonConvert.DeserializeObject(File.ReadAllText("data/data.json"));
             dynamic categories = data["Categories"];
             SeedCategories(categories);
+            dynamic users = data["Users"];
+            await SeedUsers(users);
             dynamic products = data["Products"];
-            await SeedProducts(products);
+            SeedProducts(products);
             dynamic branches = data["Branch"];
             SeedBranches(branches);
-            dynamic users = data["Users"];
-            SeedUsers(users);
             dynamic borrow = data["Borrow"];
             SeedBorrow(borrow);
         }
@@ -100,7 +100,7 @@ namespace Neighbors.Data
             }
         }
 
-        private async Task SeedProducts(dynamic data)
+        private void SeedProducts(dynamic data)
         {
             for (int i = 0; i < data.Count; i++)
             {
@@ -109,15 +109,16 @@ namespace Neighbors.Data
                     DateTime from = Convert.ToDateTime(data[i]["Avilable From"]);
                     DateTime until = Convert.ToDateTime(data[i]["Avilable Until"]);
                     int borrowDays = Convert.ToInt32((until - from).TotalDays);
-                    int ownerId = data[i]["Owner Id"];
+                    string ownerName = data[i]["Owner"];
                     int price = data[i]["Price"];
                     string categoryName = data[i]["Category"];
-                    if (await _userManager.FindByIdAsync(ownerId.ToString()) == null)
+					int ownerId = _userManager.Users.FirstOrDefault(usr => usr.Email.StartsWith(ownerName) == true).Id;
+					if (ownerId == 0)
                     {
                         ownerId = _userManager.Users.LastOrDefault().Id;
                     }
-                    Category cat = _context.Categories.Where(m => m.Name == categoryName).First();
-                    Product pro = new Product { Name = data[i]["Name"], Category = cat, CategoryId = cat.Id, OwnerId = ownerId, AvailableFrom = from, AvailableUntil = until, BorrowsDays = borrowDays, Price = price };
+                    var cat = _context.Categories.Where(m => m.Name == categoryName).First();
+                    var pro = new Product { Name = data[i]["Name"], Category = cat, CategoryId = cat.Id, OwnerId = ownerId, AvailableFrom = from, AvailableUntil = until, BorrowsDays = borrowDays, Price = price };
                     var exists = _context.Product.Where(m => m.Name == pro.Name && m.OwnerId == pro.OwnerId).Count();
                     if (exists == 0)
                     {
@@ -126,7 +127,9 @@ namespace Neighbors.Data
                     }
                 }
                 catch(Exception e)
-                { }
+                {
+					Console.WriteLine($"Error occurred during seed of {data[i]} (index {i}):" + e);
+				}
             }
         }
 
@@ -147,7 +150,7 @@ namespace Neighbors.Data
             }
         }
 
-        async Task SeedBorrow(dynamic data)
+        private void SeedBorrow(dynamic data)
         {
             for (int i = 0; i < data.Count; i++)
             {
@@ -186,13 +189,13 @@ namespace Neighbors.Data
                 }
                 catch(Exception e)
                 {
-                    int a = 5;
-                }
+					Console.WriteLine($"Error occurred during seed of {data[i]} (index {i}):" + e);
+				}
                 
             }
         }
 
-        async Task SeedUsers(dynamic data)
+        private async Task SeedUsers(dynamic data)
         {
             for (int i = 0; i < data.Count; i++)
             {
@@ -216,9 +219,10 @@ namespace Neighbors.Data
                         await _userManager.CreateAsync(user);
                         await _userManager.AddToRoleAsync(user, Roles.Consumer.ToString());
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                    }
+						Console.WriteLine($"Error occurred during seed of {data[i]} (index {i}):" + e);
+					}
                 }
             }
         }
