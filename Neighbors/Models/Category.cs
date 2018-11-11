@@ -49,13 +49,5 @@ namespace Neighbors.Models
 			return result >= 0 ? _mappedCat.Keys.ToArray()[result] : "Others";
 		}
 
-		public static int AddCategory(string catName)
-		{
-			if (_mappedCat.TryGetValue(catName, out int id)) { return id; }
-			var length = _mappedCat.Keys.Count + 1;
-			_mappedCat.Add(catName, length);
-			return length;
-
-		}
 	}
 }

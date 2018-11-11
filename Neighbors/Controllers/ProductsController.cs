@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Neighbors.Data;
 using Neighbors.Models;
+using Neighbors.Services;
 using Neighbors.Services.DAL;
 
 namespace Neighbors.Controllers
@@ -15,12 +16,14 @@ namespace Neighbors.Controllers
 	public class ProductsController : Controller
 	{
 		private readonly IProductsRepository _productsRepo;
+		private readonly OffersEngine _offersEngine;
 
+		public object ProductsOfferEngine { get; private set; }
 
-
-		public ProductsController(IProductsRepository productsRepository)
+		public ProductsController(IProductsRepository productsRepository, OffersEngine MLOffersEngine)
 		{
 			_productsRepo = productsRepository;
+			_offersEngine = MLOffersEngine;
 		}
 
 		#region Client side getters
@@ -151,6 +154,15 @@ namespace Neighbors.Controllers
 				return RedirectToAction("Index", "Identity/Account/Manage");
             }
 			return View();
+		}
+
+		[HttpPost("/Products/Offers")]
+		[ValidateAntiForgeryToken]
+		[Authorize]
+		public async Task<IActionResult> Offers()
+		{
+			var res = await _offersEngine.OfferProductsForUser();
+			return PartialView("/Views/Products/_ProductItem.cshtml", res);
 		}
 
 		#endregion
