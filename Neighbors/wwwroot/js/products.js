@@ -26,7 +26,7 @@ function searchProducts() {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({
             Name: $("#search-name").val(),
-            Category: $("#search-category").val(),
+			CategoryId: $("#catList_2").children("option:selected").val(),
             MinPrice: $("#min-price").val(),
             MaxPrice: $("#max-price").val(),
             Location: {
