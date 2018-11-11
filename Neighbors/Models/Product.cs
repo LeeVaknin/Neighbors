@@ -36,7 +36,8 @@ namespace Neighbors.Models
 		[Display(Name = "Borrows days")]
 		public int BorrowsDays { get; set; }
 
-		public double Price { get; set; }
+        [Display(Name = "Fine")]
+        public double Price { get; set; }
 
 		public Borrow Borrow { get; set; }
 

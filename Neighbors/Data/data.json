@@ -109,7 +109,7 @@
 
       "Name": "Screwdriver",
       "Category": "Construction Tools",
-      "Owner": "RoyRashti",
+      "Owner": "LeeVak",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-10-10",
       "Price": "15",
@@ -118,7 +118,7 @@
     {
       "Name": "ElectricScrewdriver",
       "Category": "Construction Tools",
-      "Owner": "RoyRashti",
+      "Owner": "LeeVak",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-10-10",
       "Price": "130",
@@ -128,11 +128,11 @@
       "Name": "Electric disc",
       "Category Id": "1",
       "Category": "Construction Tools",
-      "Owner": "RoyRashti",
-      "Avilable From": "2018-11-05",
-      "Avilable Until": "2018-11-10",
+      "Owner": "KseniaSad",
+      "Avilable From": "2018-05-05",
+      "Avilable Until": "2018-10-10",
       "Borrows Days": [],
-      "Price": "5000",
+      "Price": "100",
       "Borrow": []
     },
     {
@@ -140,9 +140,9 @@
       "Category Id": "2",
       "Category": "Garden Tools",
       "Owner": "RoyRashti",
-      "Avilable From": "2018-11-05",
-      "Avilable Until": "2018-11-06",
-      "Price": "1000",
+      "Avilable From": "2018-05-05",
+      "Avilable Until": "2018-11-30",
+      "Price": "400",
       "Borrow": []
     },
     {
@@ -150,8 +150,8 @@
       "Category Id": "2",
       "Category": "Garden Tools",
       "Owner": "RoyRashti",
-      "Avilable From": "2018-11-05",
-      "Avilable Until": "2018-11-30",
+      "Avilable From": "2018-05-05",
+      "Avilable Until": "2018-08-07",
       "Price": "30",
       "Borrow": []
     },
@@ -211,30 +211,39 @@
       "Borrow": []
     },
     {
-      "Name": "Hair Drier",
+      "Name": "Hair Brush",
       "Category": "Hair Dressing",
-      "Owner": "InbalM",
-      "Avilable From": "2018-11-11",
-      "Avilable Until": "2018-11-18",
-      "Price": "780",
+      "Owner": "KseniaSad",
+      "Avilable From": "2018-05-05",
+      "Avilable Until": "2018-05-15",
+      "Price": "20",
       "Borrow": []
     },
     {
-      "Name": "Hairspray",
+      "Name": "Hairpin",
       "Category": "Hair Dressing",
-      "Owner": "LeeVak",
-      "Avilable From": "2018-11-11",
-      "Avilable Until": "2018-11-29",
-      "Price": "200",
+      "Owner": "KseniaSad",
+      "Avilable From": "2018-05-05",
+      "Avilable Until": "2018-06-05",
+      "Price": "20",
       "Borrow": []
     },
     {
       "Name": "Hair straightener",
       "Category": "Hair Dressing",
-      "Owner": "InbalM",
-      "Avilable From": "2018-11-11",
-      "Avilable Until": "2018-12-29",
-      "Price": "350",
+      "Owner": "LeeVak",
+      "Avilable From": "2018-12-05",
+      "Avilable Until": "2018-12-15",
+      "Price": "150",
+      "Borrow": []
+    },
+    {
+      "Name": "Hair rubber band",
+      "Category": "Hair Dressing",
+      "Owner": "KseniaSad",
+      "Avilable From": "2018-11-19",
+      "Avilable Until": "2018-12-19",
+      "Price": "5",
       "Borrow": []
     },
     {
@@ -248,12 +257,72 @@
 
     },
     {
+      "Name": "Michael Kors hand bag",
+      "Category": "Bags",
+      "Owner": "LeeVak",
+      "Avilable From": "2018-09-05",
+      "Avilable Until": "2018-10-05",
+      "Price": "1000",
+      "Borrow": []
+
+    },
+    {
       "Name": "Vacuum Cleaner",
       "Category": "Cleaning Tools",
       "Owner": "KseniaSad",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2019-01-05",
-      "Price": "3600",
+      "Price": "1600",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Mop",
+      "Category": "Cleaning Tools",
+      "Owner": "KseniaSad",
+      "Avilable From": "2019-02-01",
+      "Avilable Until": "2019-02-07",
+      "Price": "15",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Cleaning Lady",
+      "Category": "Cleaning Tools",
+      "Owner": "KseniaSad",
+      "Avilable From": "2019-02-01",
+      "Avilable Until": "2019-02-01",
+      "Price": "700",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Bleach",
+      "Category": "Cleaning Tools",
+      "Owner": "LeeVak",
+      "Avilable From": "2019-01-01",
+      "Avilable Until": "2019-01-03",
+      "Price": "10",
+      "Borrow": []
+
+    },
+    {
+      "Name": "iRobot",
+      "Category": "Cleaning Tools",
+      "Owner": "LeeVak",
+      "Avilable From": "2018-12-01",
+      "Avilable Until": "2019-02-01",
+      "Price": "1000",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Broom",
+      "Category": "Cleaning Tools",
+      "Owner": "LeeVak",
+      "Avilable From": "2019-01-01",
+      "Avilable Until": "2019-01-07",
+      "Price": "15",
       "Borrow": []
 
     },
@@ -363,17 +432,17 @@
       "Owner": "InbalM",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-11-19",
-      "Price": "500",
+      "Price": "200",
       "Borrow": []
 
     },
     {
       "Name": "Travel Pants for Woman",
       "Category": "Travel equipment",
-      "Owner": "RoyRashti",
+      "Owner": "KseniaSad",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-11-19",
-      "Price": "500",
+      "Price": "200",
       "Borrow": []
 
     },
@@ -394,7 +463,7 @@
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-11-21",
       "Borrows Days": [],
-      "Price": "40",
+      "Price": "0",
       "Borrow": []
 
     },
@@ -403,8 +472,8 @@
       "Category": "Furniture",
       "Owner": "InbalM",
       "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-29",
-      "Price": "1000",
+      "Avilable Until": "2018-05-12",
+      "Price": "0",
       "Borrow": []
 
     },
@@ -432,7 +501,7 @@
     },
     {
       "Name": "Ski Equipment",
-      "Category": "Others",
+      "Category": "Travel",
       "Owner": "LeeVak",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2019-01-29",
@@ -461,27 +530,47 @@
 
     },
     {
-      "Name": "Spiderman- Game for Sony 4",
+      "Name": "Fort knight",
       "Category": "Gaming",
-      "Owner": "RoyRashti",
-      "Avilable From": "2018-11-08",
-      "Avilable Until": "2018-11-18",
-      "Price": "400",
+      "Owner": "InbalM",
+      "Avilable From": "2018-08-08",
+      "Avilable Until": "2018-09-01",
+      "Price": "100",
       "Borrow": []
 
     },
     {
-      "Name": "4 PS4 controller",
+      "Name": "Batman- Game for Sony 4",
       "Category": "Gaming",
-      "Owner": "RoyRashti",
-      "Avilable From": "2018-11-11",
-      "Avilable Until": "2018-12-18",
-      "Price": "200",
+      "Owner": "KseniaSad",
+      "Avilable From": "2018-08-01",
+      "Avilable Until": "2018-12-01",
+      "Price": "350",
       "Borrow": []
 
     },
     {
-      "Name": "2 PS4 controller",
+      "Name": "GTA",
+      "Category": "Gaming",
+      "Owner": "KseniaSad",
+      "Avilable From": "2018-12-01",
+      "Avilable Until": "2019-02-01",
+      "Price": "250",
+      "Borrow": []
+
+    },
+			{
+				"Name": "Sims",
+				"Category": "Gaming",
+				"Owner": "RoyRashti",
+				"Avilable From": "2018-11-11",
+				"Avilable Until": "2018-12-18",
+				"Price": "200",
+				"Borrow": []
+
+			},
+    {
+      "Name": "Doom",
       "Category": "Gaming",
       "Owner": "InbalM",
       "Avilable From": "2018-11-11",
@@ -506,16 +595,16 @@
       "Owner": "InbalM",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-11-14",
-      "Price": "100",
+      "Price": "30",
       "Borrow": []
     },
     {
       "Name": "Knife",
       "Category": "Kitchen",
       "Owner": "InbalM",
-      "Avilable From": "2018-11-11",
-      "Avilable Until": "2018-11-12",
-      "Price": "4500",
+      "Avilable From": "2018-11-17",
+      "Avilable Until": "2018-11-14",
+      "Price": "10",
       "Borrow": []
     },
     {
@@ -523,7 +612,7 @@
       "Category": "Kitchen",
       "Owner": "InbalM",
       "Avilable From": "2018-11-05",
-      "Avilable Until": "2020-11-05",
+      "Avilable Until": "2018-11-09",
       "Price": "10",
       "Borrow": []
     },
@@ -531,9 +620,9 @@
       "Name": "Spoon",
       "Category": "Kitchen",
       "Owner": "LeeVak",
-      "Avilable From": "2018-11-05",
-      "Avilable Until": "2021-11-14",
-      "Price": "5",
+      "Avilable From": "2018-05-05",
+      "Avilable Until": "2018-05-12",
+      "Price": "15",
       "Borrow": []
     },
     {
@@ -541,16 +630,16 @@
       "Category": "Kitchen",
       "Owner": "KseniaSad",
       "Avilable From": "2018-05-05",
-      "Avilable Until": "2018-11-14",
-      "Price": "150",
+      "Avilable Until": "2018-05-06",
+      "Price": "20",
       "Borrow": []
     },
     {
       "Name": "Over",
       "Category": "Kitchen",
-      "Owner": "RoyRashti",
-      "Avilable From": "2018-11-11",
-      "Avilable Until": "2018-11-18",
+      "Owner": "LeeVak",
+      "Avilable From": "2018-05-05",
+      "Avilable Until": "2018-11-14",
       "Price": "100",
       "Borrow": []
     }
