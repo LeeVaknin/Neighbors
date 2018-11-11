@@ -33,17 +33,27 @@
 				<th></th>
 			</tr>
 		</thead>
-		<tbody id="offersBody">
+		<tbody id="offersBody" class="fadeIn">
 			@if (!SignInManager.IsSignedIn(User) || (await UserManager.FindByEmailAsync(User.Identity.Name)) == null)
 			{
-			<tr>
-				<td colspan="6" class="text-center">
-					<div class="row m-5 text-primary">
-						<span class="glyphicon glyphicon-sunglasses"></span>
-						<strong> Only logged in users get cool offer lists. </strong>
-					</div>
-				</td>
-			</tr>
+				<tr id="not-logged">
+					<td colspan="6" class="text-center">
+						<div class="row m-5 text-primary">
+							<span class="glyphicon glyphicon-sunglasses"></span>
+							<strong> Only logged in users get cool offer lists. </strong>
+						</div>
+					</td>
+				</tr>
+			}
+			else
+			{
+				<tr id="charts-loader">
+					<td colspan="6" class="text-center">
+						<div class="row m-5 text-primary">
+							<div class="lds-ripple" ><div></div><div></div></div>
+						</div>
+					</td>
+				</tr>
 			}
 		</tbody>
 	</table>
@@ -51,6 +61,15 @@
 
 <script>
 	$(document).ready( function() {
-		
+		try {
+			var logged = document.getElementById("not-logged");
+			if (logged == null) {
+				getOffers();
+			} else {
+				$("#offersBody").fadeIn("slow");
+			}
+		} catch (err) {
+			console.log(err);
+		}
 	});
 </script>

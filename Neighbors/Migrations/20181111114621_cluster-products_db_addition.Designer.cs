@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Neighbors.Data;
 
 namespace Neighbors.Migrations
 {
     [DbContext(typeof(NeighborsContext))]
-    partial class NeighborsContextModelSnapshot : ModelSnapshot
+    [Migration("20181111114621_cluster-products_db_addition")]
+    partial class clusterproducts_db_addition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

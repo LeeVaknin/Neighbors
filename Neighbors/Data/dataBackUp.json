@@ -1,0 +1,151 @@
+{
+  "Categories": [
+    {
+      "Name": "Construction Tools",
+      "Products": []
+    },
+    {
+      "Name": "Garden Tools",
+      "Products": []
+    },
+    {
+      "Name": "Gaming",
+      "Products": []
+    },
+    {
+      "Name": "Hair Dressing",
+      "Products": []
+    },
+    {
+      "Name": "Cleaning Tools",
+      "Products": []
+    }
+  ],
+  "Users": [
+    {
+      "FirstName": "Inbal",
+      "LastName": "Miezels",
+      "Address": "Menahem Begin 3 ",
+      "City": "Tel-Aviv",
+      "MyProducts": [],
+      "MyBorrowed": []
+    },
+    {
+      "FirstName": "Ksenia",
+      "LastName": "Sadrina",
+      "Address": "Shlomo The King 16 ",
+      "City": "Azur",
+      "MyProducts": [],
+      "MyBorrowed": []
+    },
+    {
+      "FirstName": "Lee",
+      "LastName": "Vaknin",
+      "Address": "Jabutinsky 5 ",
+      "City": "Bazra",
+      "MyProducts": [],
+      "MyBorrowed": []
+    },
+    {
+      "FirstName": "Roy",
+      "LastName": "Rashti",
+      "Address": "Erez 23 ",
+      "City": "Jerusalem",
+      "MyProducts": [],
+      "MyBorrowed": []
+    }
+
+  ],
+  "Products": [
+    {
+      "Name": "Hammer",
+      "Category Id": "1",
+      "OwnerId": "1",
+      "AvailableFrom": "2018-11-01",
+      "AvailableUntil": "2019-01-20",
+      "BorrowsDays": [],
+      "Price": "500",
+      "Borrow": []
+    },
+    {
+      "Name": "Drill",
+      "Category Id": "1",
+      "OwnerId": "1",
+      "AvailableFrom": "2018-10-03",
+      "AvailableUntil": "2018-10-10",
+      "BorrowsDays": [],
+      "Price": "3500",
+      "Borrow": []
+    },
+    {
+      "Name": "Lawn Mower",
+      "Category Id": "2",
+      "Category": "Garden Tools",
+      "OwnerId": "3",
+      "AvailableFrom": "2018-11-05",
+      "AvailableUntil": "2018-11-30",
+      "BorrowsDays": [],
+      "Price": "5600",
+      "Borrow": []
+    },
+    {
+      "Name": "Hoe",
+      "Category Id": "2",
+      "OwnerId": "3",
+      "AvailableFrom": "2018-08-01",
+      "AvailableUntil": "2018-08-07",
+      "BorrowsDays": [],
+      "Price": "1000",
+      "Borrow": []
+    },
+    {
+      "Name": "Hair Drier",
+      "Category Id": "4",
+      "OwnerId": "4",
+      "AvailableFrom": "2018-09-10",
+      "AvailableUntil": "2018-09-12",
+      "BorrowsDays": [],
+      "Price": "520",
+      "Borrow": []
+    },
+    {
+      "Name": "Vacuum Cleaner",
+      "Category Id": "5",
+      "OwnerId": "4",
+      "AvailableFrom": "2018-12-05",
+      "AvailableUntil": "2019-01-05",
+      "BorrowsDays": [],
+      "Price": "3600",
+      "Borrow": []
+
+    }
+  ],
+	"Branch": [
+		{
+			"Address": "Eli Vizel 2 Rishon Lezion",
+			"Altitude": "31.9689922",
+			"Longitude": "34.77067",
+			"Description": "Main headquarters"
+		},
+		{
+			"Address": "Azrieli Center",
+			"Altitude": "32.0732231",
+			"Longitude": "34.79225",
+			"Description": "RnD Center"
+		},
+		{
+			"Address": "Rupin rd 15 Haifa",
+			"Altitude": "32.79269",
+			"Longitude": "35.0008278",
+			"Description": "Support center"
+		}
+	],
+	"SeedExecutedFully": 
+	{
+			"Categories": false,
+			"Users": false,
+			"Products": false,
+			"Branches": false
+	}
+
+}

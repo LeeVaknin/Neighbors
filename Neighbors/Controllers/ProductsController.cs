@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Neighbors.Data;
 using Neighbors.Models;
+using Neighbors.Services;
 using Neighbors.Services.DAL;
 
 namespace Neighbors.Controllers
@@ -15,12 +16,14 @@ namespace Neighbors.Controllers
 	public class ProductsController : Controller
 	{
 		private readonly IProductsRepository _productsRepo;
+		private readonly OffersEngine _offersEngine;
 
+		public object ProductsOfferEngine { get; private set; }
 
-
-		public ProductsController(IProductsRepository productsRepository)
+		public ProductsController(IProductsRepository productsRepository, OffersEngine MLOffersEngine)
 		{
 			_productsRepo = productsRepository;
+			_offersEngine = MLOffersEngine;
 		}
 
 		#region Client side getters
@@ -80,9 +83,13 @@ namespace Neighbors.Controllers
 
 		[AllowAnonymous]
 		[HttpPost("/Products/Search")]
-		public async Task<IActionResult> Search([FromBody] ProductSearch filter)
+		public async Task<IActionResult> Search([FromBody]ProductSearch filter)
 		{
-			var res = await _productsRepo.SearchForProduct(filter);
+			ICollection<Product> res;
+			try {
+				res = await _productsRepo.SearchForProduct(filter);
+			}
+			catch { res = new List<Product>(); }
 			return PartialView("/Views/Products/_ProductItem.cshtml", res);
 		}
 
@@ -151,6 +158,14 @@ namespace Neighbors.Controllers
 				return RedirectToAction("Index", "Identity/Account/Manage");
             }
 			return View();
+		}
+
+		[HttpGet("/Products/Offers")]
+		[Authorize]
+		public async Task<IActionResult> Offers()
+		{
+			var res = await _offersEngine.OfferProductsForUser();
+			return PartialView("/Views/Products/_ProductItem.cshtml", res);
 		}
 
 		#endregion
