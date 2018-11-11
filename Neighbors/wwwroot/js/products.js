@@ -2,6 +2,13 @@
 
 $(document).ready(updateDatepickers);
 
+
+function tryRemoveLoader() {
+	try {
+		$("#offers-loader").remove();
+	} catch (err) { }
+}
+
 function getCities() {
     // Create a seed for that shit
     var result = ["Afula", "Azor", "Ashdod", "Arad", "Ashkelon", "Bat-Yam", "BeerSheva", "Bazra", "Ashdod", "Holon", "Eilat", "Krayot"];
@@ -57,4 +64,18 @@ function updateDatepickers() {
         document.getElementById("availableFrom").valueAsDate = new Date();
         document.getElementById("availableUntil").valueAsDate = new Date();
     } catch (err) { }
+}
+
+function getOffers() {
+
+	$.ajax({
+		url: "/Products/Offers",
+		type: "GET",
+		contentType: "application/json; charset=utf-8",
+		success: function (result) {
+			tryRemoveLoader();
+			$("#offersBody").html(result);
+			$("#offersBody").fadeIn("slow");
+		}
+	});
 }

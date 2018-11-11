@@ -43,9 +43,11 @@ namespace Neighbors
 			services.AddScoped<IProductsRepository, ProductsRepository>();
 			services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IBorrowsRepository, BorrowsRepository>();
+			services.AddScoped<IMLEngine,ClusterEngine>();
             services.AddTransient<IValidator<Category>, CategoryValidator>();
             services.AddTransient<IUserStore<User>, ApplicationUserStore>();
-        }
+			services.AddTransient<OffersEngine>();
+		}
 
 		/// <summary>
 		/// Added google authentication method and identity to the project.
@@ -95,7 +97,8 @@ namespace Neighbors
 				var userManager = services.GetRequiredService<UserManager<User>>();
 				var roleManager = services.GetRequiredService<RoleManager<Role>>();
                 var ctx = services.GetRequiredService<NeighborsContext>();
-                var seeder = new NeighborsSeeder(userManager, roleManager, ctx);
+				var ml = services.GetRequiredService<IMLEngine>();
+				var seeder = new NeighborsSeeder(userManager, roleManager, ctx, ml);
 				await seeder.Seed();
                 Thread.Sleep(2000);
 			}

@@ -19,23 +19,14 @@ namespace Neighbors.Services.DAL
         #endregion
 
         #region Getters
-   //     Task<IActionResult> ProductOwner();
 
         Task<Product> GetProductById(int id);
-
-		Task<ICollection<Product>> GetProductsByNameAsync(string name);
-
-		Task<ICollection<Product>> GetProductsByCategory(int categoryId);
-
-		Task<ICollection<Product>> GetProductsByCity(string City);
 
 		Task<ICollection<Product>> GetAllProducts();
 
 		Task<ICollection<Product>> SearchForProduct(ISearchModel searchModel);
 
 		Task<ICollection<CountModel>> GetProductsGroupedByCategory();
-
-		Task<ICollection<Product>> GetProductsByAddress(string address);
 
 		Task<ICollection<CountModel>> GetProductsGroupedByCity();
 

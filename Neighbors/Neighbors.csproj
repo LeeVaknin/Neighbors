@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181111114048_cluster-products_db_addition.cs" />
+    <Compile Remove="Migrations\20181111114048_cluster-products_db_addition.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="bundleconfig.json" />
   </ItemGroup>
 

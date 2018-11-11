@@ -335,9 +335,59 @@
 
     },
     {
+      "Name": "mop",
+      "Category": "Cleaning Tools",
+      "Owner": "InbalM",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-25",
+      "Price": "150",
+      "Borrow": []
+
+    },
+    {
+      "Name": "dustpan",
+      "Category": "Cleaning Tools",
+      "Owner": "InbalM",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-08-25",
+      "Price": "30",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Vacuum Cleaner",
+      "Category": "Cleaning Tools",
+      "Owner": "RoyRashti",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-12",
+      "Price": "5900",
+      "Borrow": []
+
+    },
+    {
+      "Name": "broom",
+      "Category": "Cleaning Tools",
+      "Owner": "RoyRashti",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-28",
+      "Price": "300",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Floor Cloth",
+      "Category": "Cleaning Tools",
+      "Owner": "LeeVak",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-12-28",
+      "Price": "50",
+      "Borrow": []
+
+    },
+    {
       "Name": "University",
       "Category": "Toys",
-      "Owner": "KseniaSad",
+      "Owner": "RoyRashti",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-12-20",
       "Price": "350",
@@ -345,12 +395,53 @@
 
     },
     {
+      "Name": "Barbie Doll",
+      "Category": "Toys",
+      "Owner": "InbalM",
+      "Avilable From": "2018-11-05",
+      "Avilable Until": "2019-11-20",
+      "Price": "150",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Big bear doll",
+      "Category": "Toys",
+      "Owner": "InbalM",
+      "Avilable From": "2018-11-05",
+      "Avilable Until": "2019-05-13",
+      "Price": "500",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Automatic car",
+      "Category": "Toys",
+      "Owner": "LeeVak",
+      "Avilable From": "2018-11-05",
+      "Avilable Until": "2018-12-13",
+      "Price": "500",
+      "Borrow": []
+
+    },
+    {
+      "Name": "Dollhouse",
+      "Category": "Toys",
+      "Owner": "KseniaSad",
+      "Avilable From": "2018-11-11",
+      "Avilable Until": "2018-11-18",
+      "Price": "3000",
+      "Borrow": []
+
+    },
+    },
+    {
       "Name": "Travel Pants for man",
       "Category": "Travel equipment",
       "Owner": "InbalM",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-11-19",
-      "Price": "500",
+      "Price": "200",
       "Borrow": []
 
     },
@@ -360,7 +451,7 @@
       "Owner": "KseniaSad",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-11-19",
-      "Price": "500",
+      "Price": "200",
       "Borrow": []
 
     },
@@ -513,7 +604,7 @@
       "Owner": "InbalM",
       "Avilable From": "2018-05-05",
       "Avilable Until": "2018-11-14",
-      "Price": "100",
+      "Price": "30",
       "Borrow": []
     },
     {

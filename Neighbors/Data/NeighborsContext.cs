@@ -20,10 +20,12 @@ namespace Neighbors.Data
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Neighbors.Models.Branch> Branch { get; set; }
+        public DbSet<Branch> Branch { get; set; }
+
+		public DbSet<ClusterResult> ClusterResults { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
                 .HasOne(a => a.Borrow)
@@ -40,9 +42,9 @@ namespace Neighbors.Data
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                relationship.DeleteBehavior = DeleteBehavior.Cascade;
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
+			
             base.OnModelCreating(modelBuilder);
 
         }
