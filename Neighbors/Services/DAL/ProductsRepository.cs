@@ -79,7 +79,6 @@ namespace Neighbors.Services.DAL
 
         public async Task<ICollection<Product>> GetAllProducts()
 		{
-            var strUserId = _signinManager.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var response = await (from pr in _context.Product
                                   where pr.Borrow == null
                                   select pr).Include(c => c.Category)
