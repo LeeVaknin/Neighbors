@@ -53,10 +53,10 @@ namespace Neighbors.Services.DAL
 			_context.Add(newProduct);
 
 			var result = await _context.SaveChangesAsync();
-			//if (result > 0)
-			//{
-			//	await _ml.PredictById(newProduct.Id);
-			//}
+			if (result > 0)
+			{
+				await _ml.PredictById(newProduct.Id);
+			}
 			return result;
 		}
 

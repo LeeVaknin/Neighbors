@@ -10,7 +10,7 @@ namespace Neighbors.Models
 	public class ProductPredict
 	{
 		[ColumnName("PredictedLabel")]
-		public int PredictedClusterId;
+		public uint PredictedClusterId;
 
 		[ColumnName("Score")]
 		public float[] Distances;

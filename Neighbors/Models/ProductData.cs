@@ -11,12 +11,12 @@ namespace Neighbors.Models
 	public class ProductData
 	{
 		[Column("0")]
-		public int Category;
+		public float Category;
 
 		[Column("1")]
-		public double Price;
+		public float Price;
 
 		[Column("2")]
-		public int BorrowDays;
+		public float BorrowDays;
 	}
 }

@@ -29,7 +29,7 @@ namespace Neighbors.Data
 			await SeedRoles();
 			await SeedAdminUser();
 			await SeedData();
-			//await ClusterAllProducts();
+			await ClusterAllProducts();
 		}
 
 		private async Task SeedRoles()

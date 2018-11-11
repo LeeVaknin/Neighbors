@@ -156,8 +156,7 @@ namespace Neighbors.Controllers
 			return View();
 		}
 
-		[HttpPost("/Products/Offers")]
-		[ValidateAntiForgeryToken]
+		[HttpGet("/Products/Offers")]
 		[Authorize]
 		public async Task<IActionResult> Offers()
 		{

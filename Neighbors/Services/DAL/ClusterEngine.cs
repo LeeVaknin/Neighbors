@@ -31,7 +31,8 @@ namespace Neighbors.Services.DAL
 		{
 			// Check if this product was already clustered, if it was, return the result. 
 			var clustered = _context.ClusterResults.FirstOrDefault(cluster => cluster.ProductId == id);
-			if (clustered != null) {
+			if (clustered != null)
+			{
 				return clustered;
 			}
 
@@ -39,7 +40,7 @@ namespace Neighbors.Services.DAL
 			var productToCluster = _context.Product.Where(pr => pr.Id == id).Include(pr => pr.Category).FirstOrDefault();
 			var prodData = new ProductData()
 			{
-				Price = productToCluster.Price,
+				Price = (float)productToCluster.Price,
 				BorrowDays = productToCluster.BorrowsDays,
 				Category = Category.ConvertFromString(productToCluster.Category.Name)
 			};
@@ -78,9 +79,7 @@ namespace Neighbors.Services.DAL
 			var data = ExtractTrainingData();
 			var pipeline = new LearningPipeline();
 
-			var collection = CollectionDataSource.Create(data);
-
-			pipeline.Add(collection);
+			pipeline.Add(new TextLoader(_dataPath).CreateFrom<ProductData>(separator: ','));
 			pipeline.Add(new ColumnConcatenator(
 				"Features",
 				"Category",
@@ -89,7 +88,15 @@ namespace Neighbors.Services.DAL
 			));
 
 			pipeline.Add(new KMeansPlusPlusClusterer() { K = 5 });
-			var model = pipeline.Train<ProductData, ProductPredict>();
+			PredictionModel<ProductData, ProductPredict> model = null;
+			try
+			{
+				model = pipeline.Train<ProductData, ProductPredict>();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
 
 			return model;
 		}
@@ -118,11 +125,20 @@ namespace Neighbors.Services.DAL
 
 		private static async Task<PredictionModel<ProductData, ProductPredict>> LoadModel()
 		{
-			var model = await PredictionModel.ReadAsync<ProductData, ProductPredict>(_modelPath);
-			if (model == null)
+			PredictionModel<ProductData, ProductPredict> model;
+			try
 			{
-				model = await PreProcessMLEngine();
+				model = await PredictionModel.ReadAsync<ProductData, ProductPredict>(_modelPath);
 			}
+			catch
+			{
+				Console.WriteLine("Failed loading ML model.");
+				model = null;
+			}
+			//if (model == null)
+			//{
+			//	model = await PreProcessMLEngine();
+			//}
 			return model;
 		}
 
@@ -136,7 +152,7 @@ namespace Neighbors.Services.DAL
 			var prediction = model.Predict(productData);
 
 			// Save prediction into the database
-			var result = new ClusterResult() { ProductId = productId, ClusterId = prediction.PredictedClusterId };
+			var result = new ClusterResult() { ProductId = productId, ClusterId = (int)prediction.PredictedClusterId };
 			_context.ClusterResults.Add(result);
 			await _context.SaveChangesAsync();
 
